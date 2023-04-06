@@ -12,25 +12,13 @@
 <section>
 		<div id="map"></div>
 		<div class="map-container">
-			<div class="box">
-				<div class="box-inner">
-					<i class="fa-solid fa-phone-volume fa-4x" ></i>
-					<div class="box-contents">
-					<p>010-1234-1234</p>
-					<br>
-					<p>경기도 김포시 통진읍 현대아파트</p>
-				</div>
+			<div class="address">
+			<p>경기도 김포시 통진읍 현대아파트</p>
 			</div>
-			</div>
-			<div class="box">
-				<div class="box-inner">
-					<i class="fa-solid fa-phone-volume fa-4x" ></i>
-					<div class="box-contents">
-					<h2>예배 시간</h2>
-					<br>
-					<p>여러시 여러분 여러초</p>
-					</div>
-				</div>
+			<div class="tel">
+				<i class="fa-solid fa-phone-volume fa-4x" ></i>
+				<p></p>
+				<p>010-1234-1234</p>
 			</div>
 		</div>
 </section>
