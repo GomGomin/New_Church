@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	
+
+	<security:http use-expressions="true">
+		<security:intercept-url pattern="/cars/add/**" access="hasAuthority('USER_MANAGER')" />
+		<security:intercept-url pattern="/**" access="permitAll" />
+			
+		         <security:form-login login-page="/login" 
+                    default-target-url="/main"  
+                    authentication-failure-url="/loginfailed"  
+                    username-parameter="username"  
+                    password-parameter="password"/>  
+        <security:csrf />
+        <security:logout logout-success-url="/logout"/>
+        
+      	</security:http>	
+
+	
+<bean id="bcryptpasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
+	
+	
+	<security:authentication-manager alias="authenticationManager">
+		<security:authentication-provider>
+		<security:password-encoder hash="bcrypt"/>
+		 <security:jdbc-user-service data-source-ref="dataSource"
+		 users-by-username-query="SELECT username, password, enabled FROM glorymember WHERE username=?" 
+		 authorities-by-username-query="SELECT username, authority FROM glorymember WHERE username=?"
+		 /> 
+    		<security:password-encoder ref="passwordEncoder"></security:password-encoder>
+		</security:authentication-provider>
+	</security:authentication-manager>
+	
+
+
+</beans>
