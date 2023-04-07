@@ -7,6 +7,7 @@ package com.church.service;
 
 import java.util.List;
 
+import com.church.domain.Notice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +20,9 @@ public class UsersServiceImpl implements UsersService {
 	@Autowired
 	UsersMapper usersMapper;
 
-	public List<Users> listUser() {
-		return usersMapper.listUser();
+	@Override
+	public List<Users> listUser(int displayPost, int postNum){
+		return usersMapper.listUser(displayPost, postNum);
 	}
 
 	@Override
@@ -34,8 +36,8 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
-	public void delete(String username) {
-		usersMapper.delete(username);
+	public void deleteUser(String username) {
+		usersMapper.deleteUser(username);
 	}
 
 	@Override
@@ -49,12 +51,17 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
-	public void updateUsers(String name, String tel, String email, String username) {
-		usersMapper.updateUsers(name, tel, email, username);
+	public void updateUsers(String name, String email, String tel, String username) {
+		usersMapper.updateUsers(name, email, tel, username);
 	}
 
 	@Override
 	public void updatePasswordUsers(String password, String username) {
 		usersMapper.updatePasswordUsers(password, username);
+	}
+
+	@Override
+	public int totalCount() {
+		return usersMapper.totalCount();
 	}
 }

@@ -5,6 +5,7 @@
 
 package com.church.controller;
 
+import com.church.domain.Paging;
 import com.church.domain.Users;
 import com.church.service.MailService;
 import com.church.service.UsersService;
@@ -15,6 +16,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class UsersController {
@@ -61,7 +64,6 @@ public class UsersController {
 		}
 	}
 
-
 	@RequestMapping("/login")
 	public String Login(HttpServletRequest request, Model model) {
 		// 로그인 실패 시 에러 메시지가 request에 담겨있는 경우 모델에 추가
@@ -73,23 +75,61 @@ public class UsersController {
 		return "users/login";
 	}
 
-
-	//TODO 관리자 페이지
 	@GetMapping("/listUsers") //유저 목록 페이지 출력
-	public String ListUsers(Model model) {
+	public String ListUsers(@RequestParam(value = "num",required = false, defaultValue = "1") int num, Model model) {
+		Paging page = new Paging();
+
+		page.setNum(num);
+		page.setCount(usersService.totalCount());
+
+		List<Users> listUsers = null;
+		listUsers = usersService.listUser(page.getDisplayPost(), page.getPostNum());
+
+		model.addAttribute("listUsers", listUsers);
+		model.addAttribute("page", page);
+		model.addAttribute("select", num);
+
 		return "users/listUsers";
 	}
 
-	//TODO 유저 정보 수정 페이지
+
 	@GetMapping("/updateUser") //유저 정보 수정 페이지 (이름, 이메일, 전화번호)
-	public String UpdateUser(Model model) {
+	public String UpdateUser(@RequestParam(value="username", required = false) String username, @ModelAttribute("UpdateUser") Users user, Principal principal, Model model) {
+		String loginUsername = principal.getName(); //로그인한 유저 ID 받아오기
+		Users loginUser = usersService.detailUser(loginUsername); //로그인한 유저의 정보 받아오기
+		String authority = loginUser.getAuthority(); //유저의 권한 받아오기
+
+		//Parameter가 있고 로그인한 계정이 admin 일 때
+		if(username != null && authority.equals("ROLE_ADMIN")) {
+			Users userDetail = usersService.detailUser(username);
+			model.addAttribute("user", userDetail);
+		} else { //유저 개인별 Detail
+			model.addAttribute("user", loginUser);
+		}
+
 		return "users/updateUser";
 	}
 
-	//TODO 유저 정보 수정
+
 	@PostMapping("/updateUser") //유저 정보 수정 페이지 제출 후 처리
-	public String SubmitUpdateUser(Model model) {
-		return "users/updateUser";
+	public String SubmitUpdateUser(@ModelAttribute("UpdateUser") Users user, Principal principal, Model model) {
+		String username = user.getUsername();
+		String name = user.getName();
+		String email = user.getEmail();
+		String tel = user.getTel();
+
+		String loginUsername = principal.getName(); //로그인한 유저 ID 받아오기
+		Users loginUser = usersService.detailUser(loginUsername); //로그인한 유저의 정보 받아오기
+		String authority = loginUser.getAuthority(); //유저의 권한 받아오기
+
+		usersService.updateUsers(name, email, tel, username);
+
+		//로그인한 계정이 admin 이고 admin 계정을 수정하는게 아닐 때
+		if(!username.equals(loginUsername) && authority.equals("ROLE_ADMIN")) {
+			return "redirect:/listUsers";
+		} else {
+			return "redirect:/main";
+		}
 	}
 
 	//TODO 비밀번호 변경 페이지
@@ -97,24 +137,71 @@ public class UsersController {
 	public String UpdatePw(Model model) {
 		return "users/updatePw";
 	}
-	
-	//TODO 회원 탈퇴
-	
+
 	@ResponseBody
 	@PostMapping("/updatePw") //비밀번호 변경 페이지 제출 후 처리
-	public void SubmitUpdatePw(@RequestParam String password, @RequestParam String username,Model model) {
-		//form에서 받아온 비밀번호 암호화
-		String encodedPassword = bcryptPasswordEncoder.encode(password);
+	public boolean SubmitUpdatePw(@RequestParam String password, @RequestParam String currentPassword, Principal principal,Model model) {
+		String username = principal.getName(); //로그인한 유저 ID 받아오기
+		Users user = usersService.detailUser(username); //로그인한 유저의 정보 받아오기
+		String realPassword = user.getPassword(); //로그인한 유저의 PW 받아오기
 
-		usersService.updatePasswordUsers(encodedPassword,username);
+		//입력받은 현재 비밀번호와 실제 로그인한 유저의 비밀번호 비교
+		boolean matches = bcryptPasswordEncoder.matches(currentPassword, realPassword);
+
+		if (matches) { //두 비밀번호가 같으면
+			//form에서 받아온 비밀번호 암호화
+			String encodedPassword = bcryptPasswordEncoder.encode(password);
+
+			usersService.updatePasswordUsers(encodedPassword, username);
+
+			return true; //true 반환
+		} else { //두 비밀번호가 다르면
+			return false; //false 반환
+		}
+
 	}
 
-	//TODO 유저 상세 페이지
-	@GetMapping("/detailUser") //유저 상세 페이지
-	public String DetailUser(Model model) {
+	@ResponseBody
+	@PostMapping("/deleteUser")
+	public String deleteUser(@RequestParam(value="username", required = false) String username ,Principal principal, Model model) {
+		String loginUsername = principal.getName(); //로그인한 유저 ID 받아오기
+		Users loginUser = usersService.detailUser(loginUsername); //로그인한 유저의 정보 받아오기
+		String authority = loginUser.getAuthority(); //유저의 권한 받아오기
+
+		//Parameter가 있고 로그인한 계정이 admin 일 때
+		if(username != null && authority.equals("ROLE_ADMIN")) {
+			if (username.equals(loginUsername)){ // ADMIN 계정 삭제시 logout 처리
+				usersService.deleteUser(username);
+				return "/logout";
+			} else { //ADMIN이 아닌 그 외 유저 삭제 시 다시 list로 이동
+				usersService.deleteUser(username);
+				return "/listUsers";
+			}
+		} else { //유저 개인별 삭제 (로그인한 계정 삭제)
+			usersService.deleteUser(loginUsername);
+		}
+
+		return "/logout";
+	}
+
+
+	@GetMapping("/detailUser") //유저 상세 페이지 개인이 볼 때 Get으로 본다.
+	public String DetailUser(@RequestParam(value="username", required = false) String username, Principal principal, Model model) {
+		String loginUsername = principal.getName(); //로그인한 유저 ID 받아오기
+		Users loginUser = usersService.detailUser(loginUsername); //로그인한 유저의 정보 받아오기
+		String authority = loginUser.getAuthority(); //유저의 권한 받아오기
+
+		//Parameter가 있고 로그인한 계정이 admin 일 때
+		if(username != null && authority.equals("ROLE_ADMIN")) {
+			Users user = usersService.detailUser(username);
+			model.addAttribute("user", user);
+		} else { //유저 개인별 Detail
+			model.addAttribute("user", loginUser);
+		}
+
 		return "users/detailUser";
 	}
-	
+
 	@GetMapping("/findId") //아이디 찾기 페이지
 	public String FindId(Model model) {
 		return "users/findId";
