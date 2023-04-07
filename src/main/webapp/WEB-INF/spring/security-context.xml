@@ -1,42 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
 	xmlns:security="http://www.springframework.org/schema/security"
-	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
-	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security.xsd">
 
-
-	
 
 	<security:http use-expressions="true">
-		<security:intercept-url pattern="/cars/add/**" access="hasAuthority('USER_MANAGER')" />
 		<security:intercept-url pattern="/**" access="permitAll" />
-			
-		         <security:form-login login-page="/login" 
-                    default-target-url="/main"  
-                    authentication-failure-url="/loginfailed"  
-                    username-parameter="username"  
-                    password-parameter="password"/>  
-        <security:csrf />
-        <security:logout logout-success-url="/logout"/>
-        
-      	</security:http>	
+		<security:form-login login-page="/login"
+				default-target-url="/main"
+				authentication-failure-handler-ref="loginFailureHandler"
+				username-parameter="username"
+				password-parameter="password"/>
+		<security:session-management>
+			<security:concurrency-control max-sessions="1" expired-url="/main"/>
+		</security:session-management>
+		<security:csrf/>
+		<security:logout logout-success-url="/main"/>
+	</security:http>
 
-	
-<bean id="bcryptpasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
-	
-	
+	<bean id="loginFailureHandler" class="com.church.handler.LoginFailureHandler" />
+
+	<!-- 암호화를 위한 passwordEncoder -->
+	<bean id="bcryptpasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
+	<!-- DB연동은 data-source만 지정해주면 된다 -->
+	<!-- 로그인시 입력한 아이디(username), 암호(password)의 일치 여부를 따로 클래스로 만들어 구현하는 방법도 있으나 -->
+	<!-- 아래와 같이 비교 인증 절차를 Spring Security 에 일임하는 것이 편하다. -->
 	<security:authentication-manager alias="authenticationManager">
 		<security:authentication-provider>
 		<security:password-encoder hash="bcrypt"/>
-		 <security:jdbc-user-service data-source-ref="dataSource"
-		 users-by-username-query="SELECT username, password, enabled FROM glorymember WHERE username=?" 
-		 authorities-by-username-query="SELECT username, authority FROM glorymember WHERE username=?"
-		 /> 
-    		<security:password-encoder ref="passwordEncoder"></security:password-encoder>
+		<security:jdbc-user-service data-source-ref="dataSource"
+			users-by-username-query="SELECT username, password, enabled FROM users WHERE username=?"
+			authorities-by-username-query="SELECT username, authority FROM users WHERE username=?"
+		/>
 		</security:authentication-provider>
 	</security:authentication-manager>
-	
-
-
 </beans>

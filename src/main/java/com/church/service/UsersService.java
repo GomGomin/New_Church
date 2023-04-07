@@ -10,17 +10,26 @@ import java.util.List;
 import com.church.domain.Users;
 
 public interface UsersService {
-	List<Users> listUser();
+
+	List<Users> listUser(int displayPost, int postNum);
+
 
 	void joinUser(Users user);
 
 	Users detailUser(String username);
 
-	void delete(String username);
+
+	void deleteUser(String username);
 
 	String findIdUser(String name, String tel);
 
-	void updateUsers(String name, String tel, String email, String username);
+	String findPw(String name, String tel, String username);
+
+	void updateUsers(String name, String email, String tel, String username);
 
 	void updatePasswordUsers(String password, String username);
+
+	int totalCount();
+
+
 }
