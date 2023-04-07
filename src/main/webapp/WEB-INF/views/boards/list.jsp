@@ -6,13 +6,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%> 
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 </head>
+<style>
+body{font-family: 'Noto Sans KR', sans-serif}
+</style>
 <body>
 <sec:authentication property="principal" var="user" />
 	<!-- 메인 -->
@@ -21,10 +26,10 @@
 		<table class="table">
 			<thead class="table-light">
 				<tr>
-					<th align="center">번호</th>
-					<th align="center">제목</th>
-					<th align="center">작성일</th>
-					<th align="center">조회수</th>
+					<th class="col">번호</th>
+					<th class="col-9">제목</th>
+					<th class="col">작성일</th>
+					<th class="col">조회수</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -32,7 +37,7 @@
 				<tr>
 					<td>${board.bno }</td>
 					<td><a href="/boards/detail?bno=${board.bno }&username=${user.username}">${board.btitle }</a></td>
-					<td>${board.date }</td>
+					<td>${fn:split(board.date,' ')[0] }</td>
 					<td>${board.bview }</td>
 				</tr>
 				</c:forEach>
@@ -47,10 +52,10 @@
 		<c:forEach begin="${page.startPageNum}" end="${page.endPageNum}" var="num">
 			<span> 
 				<c:if test="${select != num}">
-					<a href="/boards/list?num=${num}${page.searchTypeKeyword}">&nbsp;${num}&nbsp;</a>
+					&nbsp;<a href="/boards/list?num=${num}${page.searchTypeKeyword}">${num}</a>&nbsp;
 				</c:if> 
 				<c:if test="${select == num}">
-					<b>&nbsp;${num}&nbsp;</b>
+					&nbsp;<b>${num}</b>&nbsp;
 				</c:if>
 			</span>
 		</c:forEach>
@@ -59,10 +64,11 @@
 		</c:if>
 		</div>
 		<!-- END paging -->
+		<br>
 		<!-- 검색 -->
 		<div class="row">
-			<div class="col">
-				<select name="searchType" class="form-control">
+			<div class="col-2">
+				<select name="searchType" class="form-select">
 					<option value="title" <c:if test="${page.searchType eq 'title'}">selected</c:if>>제목</option>
 					<option value="content" <c:if test="${page.searchType eq 'content'}">selected</c:if>>내용</option>
 					<option value="title_content" <c:if test="${page.searchType eq 'title_content'}">selected</c:if>>제목+내용</option>
@@ -77,7 +83,7 @@
 			</div>
 		<!-- END 검색 -->
 		<!-- 글작성버튼 -->
-			<div class="col-7"></div>
+			<div class="col-6"></div>
 			<div class="col">
 				<button onclick="location.href='/boards/setNewBoard'" class="form-control">글작성</button>
 			</div>
