@@ -41,9 +41,9 @@ public interface ScheduleMapper {
                 " (#{stitle},#{scontents},#{swriter})")
 
     int insertSchedule(Schedule schedule) throws Exception; ; // 게시물 등록
-    @Delete("DELETE FROM schedule WHERE sno = {sno}")
+    @Delete("DELETE FROM schedule WHERE sno = #{sno}")
     int deleteForAdmin(int sno) throws Exception; ; // 글 삭제 (관리자)
-    @Delete("DELETE FROM schedule WHERE sno = {sno} and username = #{username}")
+    @Delete("DELETE FROM schedule WHERE sno = #{sno} and username = #{username}")
     int deleteSchedule(Map map) throws Exception; ; //글 삭제(유저)
     @Delete("DELETE FROM schedule")
     int deleteAll() throws Exception; ; // 글 전체 삭제(테스트코드용)
