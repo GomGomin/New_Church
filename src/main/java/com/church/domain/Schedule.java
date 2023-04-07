@@ -7,8 +7,6 @@ package com.church.domain;
 
 import lombok.*;
 
-import java.util.Date;
-
 @Getter
 @Setter
 @ToString
@@ -21,7 +19,7 @@ public class Schedule {
     private String swriter;
     private int sview;
     private int replyCount;
-    private Date date;
+    private String date;
 
     public Schedule(String stitle, String scontents, String swriter) {
         this.stitle = stitle;

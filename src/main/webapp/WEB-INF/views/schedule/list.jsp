@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page session="false" %>
 <html>
 <head>
@@ -16,17 +17,18 @@
 </head>
 <body>
 <script>
-	if('${msg}'=="removeOk"){
+	let msg = '${msg}';
+	if(msg=="listError"){
+		alert("게시물을 목록을 가져올 수 없습니다. 다시 시도해주세요.")
+	}
+	if(msg=="removeError" || msg == "viewError"){
+		alert("게시물 존재하지 않습니다.")
+	}
+	if(msg=="removeOk"){
 		alert("게시물이 삭제 되었습니다.")
 	}
-	if('${msg}'=="removeError"){
-		alert("게시물 삭제에 실패하였습니다.")
-	}
-	if('${msg}'=="registerOk"){
+	if(msg=="registerOk"){
 		alert("게시물이 등록 되었습니다.")
-	}
-	if('${msg}'=="modifyOk"){
-		alert("게시물이 수정 되었습니다.")
 	}
 </script>
 <!-- 메인 -->
@@ -53,7 +55,7 @@
 				<tr>
 					<td>${list.sno }</td>
 					<td><a href="/schedule/view?sno=${list.sno }&page=${sph.page}">${list.stitle }</a></td>
-					<td>${list.swriter }</td>
+					<td>${list.swriter }(관리자)</td>
 					<td>${list.date }</td>
 					<td>${list.sview}</td>
 				</tr>
@@ -78,7 +80,10 @@
 	<div class="row">
 		<div class="col-11"></div>
 		<div class="col">
+		<sec:authentication property="principal" var="user"/>
+		<%--<sec:authorize access="hasRole('ADMIN')">--%>
 			<button onclick="location.href='/schedule/register'" class="form-control">글작성</button>
+		<%--</sec:authorize>--%>
 		</div>
 	</div>
 	<!-- END paging & 글작성버튼 -->
