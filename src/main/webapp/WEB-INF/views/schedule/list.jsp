@@ -16,14 +16,17 @@
 </head>
 <body>
 <script>
-	if('${msg}'=="delete ok"){
-		alert("삭제 되었습니다.")
+	if('${msg}'=="removeOk"){
+		alert("게시물이 삭제 되었습니다.")
 	}
-	if('${msg}'=="delete error"){
-		alert("삭제에 실패하였습니다.")
+	if('${msg}'=="removeError"){
+		alert("게시물 삭제에 실패하였습니다.")
 	}
-	if('${msg}'=="write ok"){
-		alert("등록 되었습니다.")
+	if('${msg}'=="registerOk"){
+		alert("게시물이 등록 되었습니다.")
+	}
+	if('${msg}'=="modifyOk"){
+		alert("게시물이 수정 되었습니다.")
 	}
 </script>
 <!-- 메인 -->
