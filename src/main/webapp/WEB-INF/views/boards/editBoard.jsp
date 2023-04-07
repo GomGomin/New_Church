@@ -4,6 +4,8 @@
  -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,9 +17,10 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
+<sec:authentication property="principal" var="user" />
 	<!-- 메인 -->
 	<div class="container">
-		<form:form modelAttribute="EditBoard" action="./edit" method="post">
+		<form:form modelAttribute="EditBoard" action="./edit?${_csrf.parameterName}=${_csrf.token}" method="post">
 			<div class="mb-3">
 				<label class="form-label">작성자</label> 
 				<form:input type="text" class="form-control" readonly="true" path="bwriter" value="${board.bwriter }" />
@@ -41,12 +44,13 @@
 					<button type="submit" class="form-control" >등록</button>
 				</div>
 				<div class="col">
-					<input type="button" onclick="location.href='/boards/detail?bno=${board.bno}&username=abc'" class="form-control" value="취소" />
+					<input type="button" onclick="location.href='/boards/detail?bno=${board.bno}&username=${user.username}'" class="form-control" value="취소" />
 				</div>
 			</div>
 		</form:form>
 	</div>
 	<!-- END 메인 -->
+<%@ include file="../footer.jsp" %>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>

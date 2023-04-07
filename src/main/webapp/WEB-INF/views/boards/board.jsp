@@ -5,6 +5,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%> 
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +15,7 @@
 <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 </head>
 <body>
+<sec:authentication property="principal" var="user" />
 	<!-- 댓글 수정 Modal -->
 	<div class="modal fade" id="modal" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog">
@@ -57,14 +59,14 @@
 							<div class="col-9">
 							</div>
 							<div class="col">
-								<%-- <c:if test="${board.bwriter==user.username }"> --%>
+								<c:if test="${board.bwriter==user.username }">
 									<button onclick="location.href='/boards/edit?bno=${board.bno }'" class="form-control">수정</button>
-								<%-- </c:if> --%>
+								</c:if>
 							</div>
 							<div class="col">
-								<%-- <c:if test="${board.bwriter==user.username }"> --%>
+								<c:if test="${board.bwriter==user.username }">
 									<button onclick="removeBoard(${board.bno })" class="form-control">삭제</button>
-								<%-- </c:if> --%>
+								</c:if>
 							</div>
 						</div>
 					</td>
@@ -76,7 +78,7 @@
 		<div class="row">
 			<div class="col-10">
 				<input type="hidden" id="bno" name="bno" value="${board.bno }" />
-				<input type="hidden" id="rwriter" name="rwriter" value="admin" /><!-- ${user.username} -->
+				<input type="hidden" id="rwriter" name="rwriter" value="${user.username}" />
 				<input type="text" class="form-control" placeholder="댓글을 입력해주세요." id="rcontents" name="rcontents"/>
 			</div>
 			<div class="col-2">
@@ -98,14 +100,14 @@
 									${reply.rupdate }
 								</div>
 								<div class="col">
-									<%-- <c:if test="${reply.rwriter==user.username }"> --%>
+									<c:if test="${reply.rwriter==user.username }">
 										<button onclick="modal(${reply.rno})" class="form-control">수정</button>
-									<%-- </c:if> --%>
+									</c:if>
 								</div>
 								<div class="col">
-									<%-- <c:if test="${reply.rwriter==user.username }"> --%>
+									<c:if test="${reply.rwriter==user.username }">
 										<button onclick="removeReply(${reply.rno})" class="form-control">삭제</button>
-									<%-- </c:if> --%>
+									</c:if>
 								</div>
 							</div>
 						</td>
@@ -126,9 +128,9 @@
 			data : {
 				bno : bno
 			},
-			/* beforeSend : function(xhr) {
+			beforeSend : function(xhr) {
 				xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-			}, */
+			},
 			success : function(result) {
 				alert("게시물이 삭제되었습니다.")
 				window.location.href = '/boards/list';
@@ -147,9 +149,9 @@
 			data : {
 				rno : rno
 			},
-			/* beforeSend : function(xhr) {
+			beforeSend : function(xhr) {
 				xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-			}, */
+			},
 			success : function(result) {
 				window.location.reload();
 				alert("댓글이 삭제되었습니다.")
@@ -170,9 +172,9 @@
 				rwriter : document.getElementById('rwriter').value,
 				rcontents : document.getElementById('rcontents').value
 			},
-			/* beforeSend : function(xhr) {
+			beforeSend : function(xhr) {
 				xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-			}, */
+			},
 			success : function(result) {
 				window.location.reload();
 				alert("댓글이 등록되었습니다.");
@@ -191,9 +193,9 @@
 			data : {
 				rno : rno
 			},
-			/* beforeSend : function(xhr) {
+			beforeSend : function(xhr) {
 				xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-			}, */
+			},
 			success : function(result) {
 				$(".modal-body #replyRcontents").val(result);
 				$(".modal-body #replyRno").val(rno);
@@ -213,9 +215,9 @@
 				rno : document.getElementById('replyRno').value,
 				rcontents : document.getElementById('replyRcontents').value
 			},
-			/* beforeSend : function(xhr) {
+			beforeSend : function(xhr) {
 				xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-			}, */
+			},
 			success : function(result) {
 				$("#modal").modal('hide');
 				window.location.reload();
