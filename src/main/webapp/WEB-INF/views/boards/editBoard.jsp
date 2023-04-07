@@ -30,12 +30,8 @@
 				<form:input type="text" class="form-control" path="btitle" value="${board.btitle }" />
 			</div>
 			<div class="mb-3">
-				<label class="form-label">이전 내용</label>
-				<br>${board.bcontents }
-			</div>
-			<div class="mb-3">
 				<label class="form-label">내용</label>
-				<form:textarea class="form-control" id="summernote" rows="3" path="bcontents"></form:textarea>
+				<textarea class="form-control" id="summernote" rows="3" name="bcontents">${board.bcontents }</textarea>
 			</div>
 			<input type="hidden" name="bno" value="${board.bno }" />
 			<div class="row">
@@ -50,7 +46,6 @@
 		</form:form>
 	</div>
 	<!-- END 메인 -->
-<%@ include file="../footer.jsp" %>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
