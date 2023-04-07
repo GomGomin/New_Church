@@ -69,13 +69,13 @@ public class BoardController {
 	}	
 	
 	@GetMapping("/detail")
-	public String requestBoardById(@RequestParam("bno") String bno, @RequestParam("username") String username, Model model, HttpServletRequest req, HttpServletResponse res) {
+	public String requestBoardById(@RequestParam("bno") String bno, @RequestParam("username") String username, Model model) {
 		// 게시물
 		Board boardById = boardService.boardById(bno);
 		model.addAttribute("board", boardById);
 		
 		//작성자 아닐 시에 조회수 증가
-		if(!username.equals(boardById.getBwriter())) { viewCountUp(bno, req, res); }
+		if(!username.equals(boardById.getBwriter())) { boardService.updateView(bno); }
 		
 		// 답변
 		List<Reply> list = replyService.replyList(bno);
@@ -86,34 +86,34 @@ public class BoardController {
 		return "boards/board";
 	}
 	
-	private void viewCountUp(String bno, HttpServletRequest request, HttpServletResponse response) {
-
-	    Cookie oldCookie = null;
-	    Cookie[] cookies = request.getCookies();
-	    if (cookies != null) {
-	        for (Cookie cookie : cookies) {
-	            if (cookie.getName().equals("postView")) {
-	                oldCookie = cookie;
-	            }
-	        }
-	    }
-
-	    if (oldCookie != null) {
-	        if (!oldCookie.getValue().contains("[" + bno.toString() + "]")) {
-	        	boardService.updateView(bno);
-	            oldCookie.setValue(oldCookie.getValue() + "_[" + bno + "]");
-	            oldCookie.setPath("/");
-	            oldCookie.setMaxAge(60 * 60 * 24);
-	            response.addCookie(oldCookie);
-	        }
-	    } else {
-	    	boardService.updateView(bno);
-	        Cookie newCookie = new Cookie("postView","[" + bno + "]");
-	        newCookie.setPath("/");
-	        newCookie.setMaxAge(60 * 60 * 24);
-	        response.addCookie(newCookie);
-	    }
-	}
+//	private void viewCountUp(String bno, HttpServletRequest request, HttpServletResponse response) {
+//
+//	    Cookie oldCookie = null;
+//	    Cookie[] cookies = request.getCookies();
+//	    if (cookies != null) {
+//	        for (Cookie cookie : cookies) {
+//	            if (cookie.getName().equals("postView")) {
+//	                oldCookie = cookie;
+//	            }
+//	        }
+//	    }
+//
+//	    if (oldCookie != null) {
+//	        if (!oldCookie.getValue().contains("[" + bno.toString() + "]")) {
+//	        	boardService.updateView(bno);
+//	            oldCookie.setValue(oldCookie.getValue() + "_[" + bno + "]");
+//	            oldCookie.setPath("/");
+//	            oldCookie.setMaxAge(60 * 60 * 24);
+//	            response.addCookie(oldCookie);
+//	        }
+//	    } else {
+//	    	boardService.updateView(bno);
+//	        Cookie newCookie = new Cookie("postView","[" + bno + "]");
+//	        newCookie.setPath("/");
+//	        newCookie.setMaxAge(60 * 60 * 24);
+//	        response.addCookie(newCookie);
+//	    }
+//	}
 	
 	@ResponseBody
 	@RequestMapping("/replynew")
