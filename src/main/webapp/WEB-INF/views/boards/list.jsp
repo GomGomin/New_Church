@@ -65,8 +65,8 @@ body{font-family: 'Noto Sans KR', sans-serif}
 		</div>
 		<!-- END paging -->
 		<br>
-		<!-- 검색 -->
 		<div class="row">
+			<!-- 검색 -->
 			<div class="col-2">
 				<select name="searchType" class="form-select">
 					<option value="title" <c:if test="${page.searchType eq 'title'}">selected</c:if>>제목</option>
@@ -81,14 +81,14 @@ body{font-family: 'Noto Sans KR', sans-serif}
 			<div class="col">
 				<button type="button" class="form-control" id="searchBtn">검색</button>
 			</div>
-		<!-- END 검색 -->
-		<!-- 글작성버튼 -->
+			<!-- END 검색 -->
+			<!-- 글작성버튼 -->
 			<div class="col-6"></div>
 			<div class="col">
 				<button onclick="location.href='/boards/setNewBoard'" class="form-control">글작성</button>
 			</div>
+			<!-- END 글작성버튼 -->
 		</div>
-		<!-- END 글작성버튼 -->
 	</div>
 	<!-- END 메인 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
