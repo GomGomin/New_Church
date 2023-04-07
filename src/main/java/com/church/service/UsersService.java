@@ -10,11 +10,14 @@ import java.util.List;
 import com.church.domain.Users;
 
 public interface UsersService {
+
 	List<Users> listUser(int displayPost, int postNum);
+
 
 	void joinUser(Users user);
 
 	Users detailUser(String username);
+
 
 	void deleteUser(String username);
 
@@ -27,5 +30,6 @@ public interface UsersService {
 	void updatePasswordUsers(String password, String username);
 
 	int totalCount();
+
 
 }

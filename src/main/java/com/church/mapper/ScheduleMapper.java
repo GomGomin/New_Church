@@ -17,13 +17,16 @@ import java.util.Map;
 public interface ScheduleMapper {
     @Insert("INSERT INTO schedule(replyCount)" +
             " VALUES(#{replyCount})")
+
     int insertReplyCnt(int replyCount) throws Exception; // int replyCount = ReplyMapper에서 sno카운트한 값
     @Select("SELECT count(*) FROM schedule")
     int selectCountBoard() throws Exception; ; //총 게시글 수
+
     @Select("SELECT * " +
             " FROM schedule " +
             " ORDER BY date DESC, sno DESC" +
             " LIMIT #{offset}, #{pageSize}")
+
     List<Schedule> selectPage(Map map) throws Exception; ; //한 페이지의 게시글 목록
     @Select("SELECT *" +
             " FROM schedule" +
@@ -31,10 +34,12 @@ public interface ScheduleMapper {
     List<Schedule> selectAll() throws Exception; ; // 게시글 전체 목록
     @Select("SELECT * FROM schedule WHERE sno = #{sno}") // 게시글 한개 조회
     Schedule selectOne(int sno) throws Exception; ;
+
     @Insert("INSERT INTO schedule" +
                 " (stitle,scontents,swriter)" +
             " VALUES" +
                 " (#{stitle},#{scontents},#{swriter})")
+
     int insertSchedule(Schedule schedule) throws Exception; ; // 게시물 등록
     @Delete("DELETE FROM schedule WHERE sno = {sno}")
     int deleteForAdmin(int sno) throws Exception; ; // 글 삭제 (관리자)
@@ -50,6 +55,7 @@ public interface ScheduleMapper {
             " SET sview = sview + 1" +
             " WHERE sno = #{sno}")
     int updateViewCnt(int sno) throws Exception; ; //조회수 카운트 + 1
+
 
 
 
