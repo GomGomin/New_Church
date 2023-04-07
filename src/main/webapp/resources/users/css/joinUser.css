@@ -31,12 +31,12 @@ img{
 }
 /* 오른쪽 입력 하는 부분 */
 .right .contact{
-    display: flex;
+    display: block;
     align-items: center;
     justify-content: center;
     align-self: center;
     height: 100%;
-    width: 73%;
+    width: 85%;
     margin: auto;
 }
 .right h3{
@@ -54,30 +54,28 @@ img{
     font-weight: 600;
     font-size: 14px;
 }
+
+.right label {
+    margin-top: 10px;
+}
+
 .right{
     background: linear-gradient(-45deg, #dcd7e0, #fff);
 }
-.submit {
+
+.buttonGroup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.submit, .button{
     border: none;
     padding: 15px 50px;
     border-radius: 8px;
     display: inline-block;
-    margin: auto;
-    margin-top: 30px;
-    background: #583672;
-    color: #fff;
-    font-weight: bold;
-    box-shadow: 0px 9px 15px -11px rgba(88,54,114,1);
-}
-.button {
-    text-decoration: none!important;
-    border: none;
-    padding: 15px 70px;
-    border-radius: 8px;
-    display: inline-block;
-    margin: auto;
-    margin-top: 30px;
-    margin-left: 25px;
+    margin: 30px 5px 5px;
     background: #583672;
     color: #fff;
     font-weight: bold;

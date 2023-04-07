@@ -34,8 +34,8 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
-	public void delete(String username) {
-		usersMapper.delete(username);
+	public void deleteUser(String username) {
+		usersMapper.deleteUser(username);
 	}
 
 	@Override
@@ -49,8 +49,8 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
-	public void updateUsers(String name, String tel, String email, String username) {
-		usersMapper.updateUsers(name, tel, email, username);
+	public void updateUsers(String name, String email, String tel, String username) {
+		usersMapper.updateUsers(name, email, tel, username);
 	}
 
 	@Override

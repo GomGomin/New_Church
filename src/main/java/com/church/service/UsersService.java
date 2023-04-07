@@ -18,13 +18,13 @@ public interface UsersService {
 
 	Users detailUser(String username);
 
-	void delete(String username);
+	void deleteUser(String username);
 
 	String findIdUser(String name, String tel);
 
 	String findPw(String name, String tel, String username);
 
-	void updateUsers(String name, String tel, String email, String username);
+	void updateUsers(String name, String email, String tel, String username);
 
 	void updatePasswordUsers(String password, String username);
 }
