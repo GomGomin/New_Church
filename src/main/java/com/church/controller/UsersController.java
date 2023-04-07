@@ -5,6 +5,7 @@
 
 package com.church.controller;
 
+import com.church.domain.Paging;
 import com.church.domain.Users;
 import com.church.service.MailService;
 import com.church.service.UsersService;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class UsersController {
@@ -73,18 +75,37 @@ public class UsersController {
 		return "users/login";
 	}
 
-	//TODO 관리자 페이지
 	@GetMapping("/listUsers") //유저 목록 페이지 출력
-	public String ListUsers(Model model) {
+	public String ListUsers(@RequestParam(value = "num",required = false, defaultValue = "1") int num, Model model) {
+		Paging page = new Paging();
+
+		page.setNum(num);
+		page.setCount(usersService.totalCount());
+
+		List<Users> listUsers = null;
+		listUsers = usersService.listUser(page.getDisplayPost(), page.getPostNum());
+
+		model.addAttribute("listUsers", listUsers);
+		model.addAttribute("page", page);
+		model.addAttribute("select", num);
+
 		return "users/listUsers";
 	}
 
 
 	@GetMapping("/updateUser") //유저 정보 수정 페이지 (이름, 이메일, 전화번호)
-	public String UpdateUser(@ModelAttribute("UpdateUser") Users user, Principal principal, Model model) {
-		String username = principal.getName();
-		Users userDetail = usersService.detailUser(username);
-		model.addAttribute("user", userDetail);
+	public String UpdateUser(@RequestParam(value="username", required = false) String username, @ModelAttribute("UpdateUser") Users user, Principal principal, Model model) {
+		String loginUsername = principal.getName(); //로그인한 유저 ID 받아오기
+		Users loginUser = usersService.detailUser(loginUsername); //로그인한 유저의 정보 받아오기
+		String authority = loginUser.getAuthority(); //유저의 권한 받아오기
+
+		//Parameter가 있고 로그인한 계정이 admin 일 때
+		if(username != null && authority.equals("ROLE_ADMIN")) {
+			Users userDetail = usersService.detailUser(username);
+			model.addAttribute("user", userDetail);
+		} else { //유저 개인별 Detail
+			model.addAttribute("user", loginUser);
+		}
 
 		return "users/updateUser";
 	}
@@ -92,14 +113,23 @@ public class UsersController {
 
 	@PostMapping("/updateUser") //유저 정보 수정 페이지 제출 후 처리
 	public String SubmitUpdateUser(@ModelAttribute("UpdateUser") Users user, Principal principal, Model model) {
-		String username = principal.getName();
+		String username = user.getUsername();
 		String name = user.getName();
 		String email = user.getEmail();
 		String tel = user.getTel();
 
+		String loginUsername = principal.getName(); //로그인한 유저 ID 받아오기
+		Users loginUser = usersService.detailUser(loginUsername); //로그인한 유저의 정보 받아오기
+		String authority = loginUser.getAuthority(); //유저의 권한 받아오기
+
 		usersService.updateUsers(name, email, tel, username);
 
-		return "redirect:/main";
+		//로그인한 계정이 admin 이고 admin 계정을 수정하는게 아닐 때
+		if(!username.equals(loginUsername) && authority.equals("ROLE_ADMIN")) {
+			return "redirect:/listUsers";
+		} else {
+			return "redirect:/main";
+		}
 	}
 
 	//TODO 비밀번호 변경 페이지
@@ -131,22 +161,43 @@ public class UsersController {
 
 	}
 
-	//TODO 회원 탈퇴
+	@ResponseBody
 	@PostMapping("/deleteUser")
-	public String deleteUser(Principal principal, Model model) {
-		String username = principal.getName();
+	public String deleteUser(@RequestParam(value="username", required = false) String username ,Principal principal, Model model) {
+		String loginUsername = principal.getName(); //로그인한 유저 ID 받아오기
+		Users loginUser = usersService.detailUser(loginUsername); //로그인한 유저의 정보 받아오기
+		String authority = loginUser.getAuthority(); //유저의 권한 받아오기
 
-		usersService.deleteUser(username);
+		//Parameter가 있고 로그인한 계정이 admin 일 때
+		if(username != null && authority.equals("ROLE_ADMIN")) {
+			if (username.equals(loginUsername)){ // ADMIN 계정 삭제시 logout 처리
+				usersService.deleteUser(username);
+				return "/logout";
+			} else { //ADMIN이 아닌 그 외 유저 삭제 시 다시 list로 이동
+				usersService.deleteUser(username);
+				return "/listUsers";
+			}
+		} else { //유저 개인별 삭제 (로그인한 계정 삭제)
+			usersService.deleteUser(loginUsername);
+		}
 
-		return "redirect:/main";
+		return "/logout";
 	}
 
 
-	@GetMapping("/detailUser") //유저 상세 페이지
-	public String DetailUser(Principal principal, Model model) {
-		String username = principal.getName();
-		Users user = usersService.detailUser(username);
-		model.addAttribute("user", user);
+	@GetMapping("/detailUser") //유저 상세 페이지 개인이 볼 때 Get으로 본다.
+	public String DetailUser(@RequestParam(value="username", required = false) String username, Principal principal, Model model) {
+		String loginUsername = principal.getName(); //로그인한 유저 ID 받아오기
+		Users loginUser = usersService.detailUser(loginUsername); //로그인한 유저의 정보 받아오기
+		String authority = loginUser.getAuthority(); //유저의 권한 받아오기
+
+		//Parameter가 있고 로그인한 계정이 admin 일 때
+		if(username != null && authority.equals("ROLE_ADMIN")) {
+			Users user = usersService.detailUser(username);
+			model.addAttribute("user", user);
+		} else { //유저 개인별 Detail
+			model.addAttribute("user", loginUser);
+		}
 
 		return "users/detailUser";
 	}

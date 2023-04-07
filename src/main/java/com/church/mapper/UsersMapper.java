@@ -7,14 +7,16 @@ package com.church.mapper;
 
 import java.util.List;
 
+import com.church.domain.Notice;
 import org.apache.ibatis.annotations.*;
 
 import com.church.domain.Users;
 
 public interface UsersMapper {
 
-	@Select("select * from users")
-	List<Users> listUser();
+	@Select("SELECT * FROM users LIMIT #{displayPost}, #{postNum}")
+	List<Users> listUser(@Param("displayPost") int displayPost, @Param("postNum") int postNum);
+
 
 	@Insert("Insert Into users(username, password, name, email, tel) Values(#{username}, #{password}, #{name}, #{email}, #{tel})")
 	@Options(useGeneratedKeys = true, keyProperty = "username")
@@ -38,4 +40,6 @@ public interface UsersMapper {
 	@Update("Update users Set password = #{password} where username = #{username}")
 	void updatePasswordUsers(@Param("password") String password, @Param("username") String username);
 
+	@Select("SELECT COUNT(username) FROM users")
+	int totalCount();
 }

@@ -1,12 +1,12 @@
 $('#deleteBtn').on('click', function(){
     $('#deleteUser').modal('show');
-})
+});
 
 $('#deleteUserBtn').on('click', function(){
     $.ajax({
         type : "POST",
         url : "/deleteUser",
-        data : { },
+        data : { username : username },
         beforeSend: function (jqXHR, settings) {
             var header = $("meta[name='_csrf_header']").attr("content");
             var token = $("meta[name='_csrf']").attr("content");

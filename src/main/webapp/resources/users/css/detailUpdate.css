@@ -52,6 +52,11 @@ input {
     font-size: 14px;
 }
 
+#username {
+    border-bottom: 0px;
+    color: black;
+}
+
 .section_box  h3{
     text-align: center;
 }

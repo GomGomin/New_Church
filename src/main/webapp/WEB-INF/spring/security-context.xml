@@ -12,7 +12,7 @@
 	<security:http use-expressions="true">
 		<security:intercept-url pattern="/**" access="permitAll" />
 		<security:form-login login-page="/login"
-				default-target-url="/detailUser"
+				default-target-url="/main"
 				authentication-failure-handler-ref="loginFailureHandler"
 				username-parameter="username"
 				password-parameter="password"/>
@@ -20,7 +20,7 @@
 			<security:concurrency-control max-sessions="1" expired-url="/main"/>
 		</security:session-management>
 		<security:csrf/>
-		<security:logout logout-success-url="/logout"/>
+		<security:logout logout-success-url="/main"/>
 	</security:http>
 
 	<bean id="loginFailureHandler" class="com.church.handler.LoginFailureHandler" />

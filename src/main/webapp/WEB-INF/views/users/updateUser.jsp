@@ -2,7 +2,7 @@
 작성자 : 강세빈
 작성일 : 2023-04-07
 -->
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
@@ -30,7 +30,7 @@
                             <label for="username" class="col-form-label">아이디 : </label>
                         </div>
                         <div class="col-6">
-                            <div id="username" name="username">${user.username}</div>
+                            <input id="username" name="username" value="${user.username}" onfocus="this.blur()" readonly></input>
                         </div>
                         <div class="col">
                             <div id="validId" class="valid"></div>
