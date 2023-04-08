@@ -8,6 +8,9 @@
 <link rel="stylesheet" href ="resources/css/map.css" type="text/css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 </head>
+<style>
+
+</style>
 <body>
 <section>
 		<div id="map"></div>

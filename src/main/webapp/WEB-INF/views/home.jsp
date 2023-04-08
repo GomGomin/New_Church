@@ -5,13 +5,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Home</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+</style>
 </head>
 <body>
-<h1>
-	Hello world!  
-</h1>
-<h1 id="size">window size</h1>
+
+<h2>Hoverable Dropdown</h2>
+<p>Move the mouse over the button to open the dropdown menu.</p>
+
+<p>1</p>
 <p>1</p>
 <p>1</p>
 <p>1</p>
@@ -35,15 +39,14 @@
 <p>1</p>
 <p>1</p>
 
-<P>  The time on the server is ${serverTime}. </P>
- <div class="form-group">
-<c:forEach items="${userList }" var="member">
-<tr>
-<td>${member.uno }</td>
-<td>${member.id }</td>
-<td>${member.password }</td>
-<td>${member.name  }</td>
-</tr>
-</c:forEach>
-</div>
+</body>
 
+
+
+
+
+<script type="text/javascript">
+
+;	
+console.log($("#sidebar").text);
+</script>

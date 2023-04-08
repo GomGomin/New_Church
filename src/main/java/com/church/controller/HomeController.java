@@ -25,6 +25,12 @@ public class HomeController {
 		return "home";
 	}
 
+	@RequestMapping(value = "/notice", method = RequestMethod.GET)
+	public String notice(Locale locale, Model model) {
+	
+		return "home";
+	}
+	
 	@RequestMapping(value = "/header", method = RequestMethod.GET)
 	public String header(Locale locale, Model model) {
 

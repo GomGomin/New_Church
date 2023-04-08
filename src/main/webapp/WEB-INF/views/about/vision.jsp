@@ -27,15 +27,20 @@
             <div class="title">
                 <h2>환영합니다</h2>
             </div>
-            <div class="about-self">
-                <div class="contents">
-                    <h3>Hello,<strong>I'm Sucoding</strong></h3>
-                    <p>I`m Web Publisher And Web Front-End Developer.</p>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe veritatis aperiam accusantium.</p>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit praesentium doloremque quos quis est officiis.</p>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Autem, omnis quibusdam.</p>         
-                </div>
-            </div>
+            <div class="w3-container">
+    <div class="w3-col m6" id="contents">
+      <h2>교회 역사</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmodtempor incididunt ut labore et dolore.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod<br>tempor incididunt ut labore et dolore.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod<br>tempor incididunt ut labore et dolore.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod<br>tempor incididunt ut labore et dolore.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod<br>tempor incididunt ut labore et dolore.</p>
+      
+    </div>
+    <div class="w3-col m6" id="picture">
+      <img class="w3-image" alt="Alps" src="/resources/img/history.jpg" alt="Buildings" width="700" height="394">
+    </div>
+</div>
         </div>
     </section>
     
