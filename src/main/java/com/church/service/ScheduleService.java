@@ -6,6 +6,7 @@
 package com.church.service;
 
 import com.church.domain.Schedule;
+import com.church.domain.SearchCondition;
 
 import java.util.List;
 import java.util.Map;
@@ -20,9 +21,10 @@ public interface ScheduleService {
     boolean scheduleRegister(Schedule schedule) throws Exception; ; // 게시물 등록
     boolean scheduleRemoveForAdmin(int sno) throws Exception; ; // 관리자 글 삭제
     boolean scheduleRemove(Map map) throws Exception; ; // 유저 글 삭제
-    boolean scheduleModify(Schedule schedule) throws Exception; ; //게스글 수정
+    boolean scheduleModify(Schedule schedule) throws Exception; ; //게시글 수정
     boolean scheduleViewCnt(int sno) throws Exception; ; //조회수 카운트 + 1
-
+    List<Schedule> scheduleSearchPage(SearchCondition sc) throws Exception;
+    int scheduleSearchCount(SearchCondition sc) throws Exception;
 
 
 

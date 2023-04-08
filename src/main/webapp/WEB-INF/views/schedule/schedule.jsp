@@ -1,3 +1,7 @@
+<%--
+	작성자 : 박지원
+	작성일 : 2023-04-08
+--%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -19,9 +23,6 @@
 	if(msg=="modifyError") {
 		alert("게시물 수정에 실패하였습니다. 다시 시도해 주세요.");
 	}
-	if(msg =="modifyOk"){
-		alert("게시물이 수정 되었습니다.")
-	}
 </script>
 <!-- 메인 -->
 	<div class="container">
@@ -32,18 +33,16 @@
 			</header>
 			<div>
 				<form id = "form">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					<c:if test="${mode ne 'new'}">
-						<div class="pb-3 mb-3">
+						<input type="hidden" name="sno" value="${schedule.sno}">
+						<div class="pb-3 mb-3" id="view_only">
 							<span class="fs-6">${schedule.swriter}(관리자)</span>&nbsp; | &nbsp;
 							<span class="fs-6">등록일 : ${schedule.date}</span> | &nbsp;
 							<span class="fs-6">조회수 : ${schedule.sview}</span>
 						</div>
 					</c:if>
 						<div class="col-sm-8 my-5">
-							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-							<c:if test="${mode ne 'new'}">
-								<input type="hidden" name="sno" value="${schedule.sno}">
-							</c:if>
 							<input type = "text" class = "form-control" name = "stitle" id = "stitle" placeholder="제목을 입력해 주세요." value="${schedule.stitle}" ${mode == "new" ? "" : "readonly"}>
 						</div>
 						<div class="col-sm-8">
@@ -55,6 +54,7 @@
 								<%--<sec:authentication property="principal" var="user"/>--%>
 								<%--<sec:authorize access="hasRole('ADMIN')">--%>
 									<c:if test="${mode eq 'new'}">
+										<%--<input type="hidden" value="${user.username}" name="swriter">--%>
 										<button type="button" id="writeBtn" class="btn btn-secondary mx-3">등록</button>
 									</c:if>
 									<c:if test="${mode ne 'new'}">
@@ -88,7 +88,7 @@
 	$('#removeBtn').on("click", function(){
 		if(!confirm("정말로 삭제하시겠습니까?")) return;
 		let form = $('#form');
-		form.attr("action", '/schedule/adminRemove?page=${page}');
+		form.attr("action", '/schedule/adminRemove${searchCondition.queryString}');
 		form.attr("method", "post");
 		form.submit();
 	});
@@ -101,9 +101,27 @@
 			form.submit();
 		}
 	});
+	$('#modifyBtn').on("click", function(){
+		const form = $('#form');
+		const isReadOnly = $("input[name=stitle]").attr('readonly');
+
+		if(isReadOnly=='readonly'){
+			$("input[name=stitle]").attr('readonly', false);
+			$("textarea").attr('readonly', false);
+			$("#modifyBtn").html("등록");
+			$("h4").html("일정 수정");
+			$("#view_only").hide();
+			return;
+		}
+		form.attr('action', '/schedule/modify${searchCondition.queryString}');
+		form.attr('method', 'post');
+		if (formCheck()) {
+			form.submit();
+		}
+	});
 
 	$('#listBtn').on("click", function(){
-		location.href = `/schedule/list?page=${page}`;
+		location.href = `/schedule/list${searchCondition.queryString}`;
 	});
 </script>
 </body>
