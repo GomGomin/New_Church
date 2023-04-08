@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.church.mapper.PraiseMapper">
+    <sql id = "searchCondition">
+        <choose>
+            <when test='option=="title"'>
+                AND ptitle LIKE concat('%', #{keyword}, '%')
+            </when>
+            <otherwise>
+                AND (ptitle LIKE concat('%', #{keyword}, '%')
+                OR pcontents LIKE concat('%', #{keyword}, '%'))
+            </otherwise>
+        </choose>
+    </sql>
+
+    <select id="selectSearchPage" resultType="com.church.domain.Praise">
+        SELECT *
+        FROM praise
+        WHERE true
+           <include refid="searchCondition"/>
+        ORDER BY date DESC, sno DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+    <select id="selectSearchCount" resultType="int">
+        SELECT count(*)
+        FROM praise
+        WHERE true
+        <include refid="searchCondition"/>
+    </select>
+</mapper>
