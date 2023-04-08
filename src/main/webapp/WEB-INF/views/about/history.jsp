@@ -14,6 +14,17 @@
 </head>
 <body>
 <div class="w3-container w3-light-gray" style="padding:128px 16px">
+<<<<<<< HEAD
+  <div class="w3-row-padding">
+    <div class="w3-col m6" id="contents">
+      <h2>교회 역사</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmodtempor incididunt ut labore et dolore.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod<br>tempor incididunt ut labore et dolore.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod<br>tempor incididunt ut labore et dolore.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod<br>tempor incididunt ut labore et dolore.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod<br>tempor incididunt ut labore et dolore.</p>
+      
+=======
     <div class="w3-row-padding">
         <div class="w3-col m6" id="contents">
             <h2>교회 역사</h2>
@@ -27,6 +38,7 @@
         <div class="w3-col m6" id="picture">
             <img class="w3-image w3-border w3-padding" alt="Alps" src="/resources/img/history.jpg" alt="Buildings" width="700" height="394">
         </div>
+>>>>>>> jiwon
     </div>
 </div>
 </body>

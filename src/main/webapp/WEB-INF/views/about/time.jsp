@@ -76,6 +76,29 @@
     function deleteBoard() {
 // 			bid = $("#bid2").val();
 
+<<<<<<< HEAD
+			$.ajax({
+				type:"POST",
+				url:"/pickup/delete",
+				data:{
+					pbno : "1"
+				},
+				beforeSend : function(xhr)
+		        {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다. */
+		            xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+		        },
+				success:function(result) {
+					alert("삭제 성공")
+					window.location.reload();
+				},
+				error:function(request,status,error) {
+					alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+				}
+			})
+		}
+
+		function editBoard() {
+=======
         $.ajax({
             type:"POST",
             url:"/pickup/delete",
@@ -97,6 +120,7 @@
     }
 
     function editBoard() {
+>>>>>>> jiwon
 // 			bid = $("#bid2").val();
 // 			btitle = $("#btitle2").val();
 // 			bcontent = $("#bcontent2").val();
