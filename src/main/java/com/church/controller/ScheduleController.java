@@ -6,16 +6,18 @@ package com.church.controller;
 
 import com.church.domain.Schedule;
 import com.church.domain.SchedulePageHandler;
+import com.church.domain.SearchCondition;
 import com.church.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -24,14 +26,11 @@ public class ScheduleController {
     private final ScheduleService scheduleService;
 
     @GetMapping("/list")
-    public String list(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int pageSize, Model model, RedirectAttributes attr){
-        Map map = new HashMap();
-        map.put("offset", (page-1) * pageSize);
-        map.put("pageSize", pageSize);
+    public String list(SearchCondition sc, Model model, RedirectAttributes attr){
         try {
-            int totalCnt = scheduleService.scheduleTotalCnt();
-            SchedulePageHandler sph = new SchedulePageHandler(totalCnt, page, pageSize);
-            List<Schedule> list = scheduleService.schedulePageList(map);
+            int totalCnt = scheduleService.scheduleSearchCount(sc);
+            SchedulePageHandler sph = new SchedulePageHandler(totalCnt, sc);
+            List<Schedule> list = scheduleService.scheduleSearchPage(sc);
             model.addAttribute("sph", sph);
             model.addAttribute("scheduleList", list);
         } catch (Exception e) {
@@ -41,18 +40,15 @@ public class ScheduleController {
         return "schedule/list";
     }
     @GetMapping("/view")
-    public String view(@RequestParam int sno, @RequestParam int page, @RequestParam(defaultValue = "10") int pageSize, Model model, RedirectAttributes attr){
+    public String view(@RequestParam int sno, SearchCondition sc, Model model, RedirectAttributes attr){
         try {
             Schedule schedule = scheduleService.scheduleView(sno);
             model.addAttribute("schedule", schedule);
-            model.addAttribute("page", page);
-            model.addAttribute("pageSize", pageSize);
+            model.addAttribute("mode", "view");
         } catch (Exception e) {
             e.printStackTrace();
-            attr.addAttribute("page", page);
-            attr.addAttribute("pageSize", pageSize);
             attr.addFlashAttribute("msg", "viewError");
-            return "redirect:/schedule/list";
+            return "redirect:/schedule/list" + sc.getQueryString();
         }
         return "schedule/schedule";
     }
@@ -80,14 +76,11 @@ public class ScheduleController {
         }
     }
     @PostMapping("/modify")
-    public String update(@RequestParam int page, @RequestParam(defaultValue = "10") int pageSize, Schedule schedule, Model model, RedirectAttributes attr){
+    public String update(SearchCondition sc, Schedule schedule, Model model, RedirectAttributes attr){
         try {
             if(scheduleService.scheduleModify(schedule)){
-                attr.addAttribute("sno", schedule.getSno());
-                attr.addAttribute("page", page);
-                attr.addAttribute("pageSize", pageSize);
                 attr.addFlashAttribute("msg", "modifyOk");
-                return "redirect:schedule/view";
+                return "redirect:/schedule/list" + sc.getQueryString();
             } else{
                 throw new Exception("scheduleService.scheduleModify(schedule)!=1");
             }
@@ -96,37 +89,13 @@ public class ScheduleController {
             System.out.println("Exception : " + e.getMessage());
             model.addAttribute("msg", "modelError");
             model.addAttribute("schedule", schedule);
-            model.addAttribute("page", page);
-            model.addAttribute("pageSize", pageSize);
             return "schedule/schedule";
         }
     }
-    @PostMapping("/remove")
-    public String remove(@RequestParam int sno, @RequestParam int page, @RequestParam(defaultValue = "10") int pageSize, @RequestParam String swriter, RedirectAttributes attr){
-        Map map = new HashMap();
-        map.put("sno", sno);
-        map.put("swriter", swriter);
-        try {
-            if(scheduleService.scheduleRemove(map)){
-                attr.addAttribute("page", page);
-                attr.addAttribute("pageSize", pageSize);
-                attr.addFlashAttribute("msg", "removeOk");
-            } else{
-                throw new Exception("scheduleService.scheduleRemove(map) != 1");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println(e.getMessage());
-            attr.addAttribute("removeError");
-        }
-        return "redirect:/schedule/list";
-    }
     @PostMapping("/adminRemove")
-    public String removeForAdmin(@RequestParam int sno, @RequestParam int page, @RequestParam(defaultValue = "10") int pageSize, RedirectAttributes attr){
+    public String removeForAdmin(@RequestParam int sno, SearchCondition sc, RedirectAttributes attr){
         try {
             if(scheduleService.scheduleRemoveForAdmin(sno)){
-                attr.addAttribute("page", page);
-                attr.addAttribute("pageSize", pageSize);
                 attr.addFlashAttribute("msg", "removeOk");
             } else{
                 throw new Exception("scheduleService.scheduleRemoveForAdmin(map) != 1");
@@ -136,7 +105,7 @@ public class ScheduleController {
             System.out.println(e.getMessage());
             attr.addAttribute("removeError");
         }
-        return "redirect:/schedule/list";
+        return "redirect:/schedule/list" + sc.getQueryString();
     }
 
 }
