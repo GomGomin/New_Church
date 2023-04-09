@@ -18,16 +18,16 @@ public interface PraiseMapper {
     @Select("SELECT * FROM praise WHERE pno = #{pno}") // 게시글 한개 조회
     Praise selectOne(int pno) throws Exception; ;
     @Insert("INSERT INTO praise" +
-                " (ptitle,pcontents,pwriter)" +
+                " (ptitle,pcontents,pwriter,pfile)" +
             " VALUES" +
-                " (#{ptitle},#{pcontents},#{pwriter})")
+                " (#{ptitle},#{pcontents},#{pwriter},#{pfile})")
     int insertPraise(Praise praise) throws Exception; ; // 게시물 등록
     @Delete("DELETE FROM praise WHERE pno = #{pno}")
     int deleteForAdmin(int pno) throws Exception; ; // 글 삭제 (관리자)
     @Delete("DELETE FROM praise")
     int deleteAll() throws Exception; ; // 글 전체 삭제(테스트코드용)
     @Update("UPDATE praise" +
-            " SET ptitle = #{ptitle}, pcontents = #{pcontents}" +
+            " SET ptitle = #{ptitle}, pcontents = #{pcontents}, pfile = #{pfile}" +
             " WHERE pno = #{pno}")
     int updatePraise(Praise praise) throws Exception; ; //게시글 수정
     @Update("UPDATE praise" +

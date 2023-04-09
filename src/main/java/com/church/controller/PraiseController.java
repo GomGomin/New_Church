@@ -1,6 +1,6 @@
 /*
     작성자 : 박지원
-    작성일 : 2023-04-05
+    작성일 : 2023-04-09
 */
 package com.church.controller;
 
@@ -40,9 +40,9 @@ public class PraiseController {
         return "praise/list";
     }
     @GetMapping("/view")
-    public String view(@RequestParam int sno, SearchCondition sc, Model model, RedirectAttributes attr){
+    public String view(@RequestParam int pno, SearchCondition sc, Model model, RedirectAttributes attr){
         try {
-            Praise praise = praiseService.praiseView(sno);
+            Praise praise = praiseService.praiseView(pno);
             model.addAttribute("praise", praise);
             model.addAttribute("mode", "view");
         } catch (Exception e) {
@@ -60,6 +60,8 @@ public class PraiseController {
     @PostMapping("/register")
     public String register(Praise praise, RedirectAttributes attr, Model model){
         try {
+            String embedUrl = praise.getPfile().replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/");
+            praise.setPfile(embedUrl);
             if(praiseService.praiseRegister(praise)){
                 attr.addFlashAttribute("msg", "registerOk");
                 return "redirect:/praise/list";
@@ -78,6 +80,8 @@ public class PraiseController {
     @PostMapping("/modify")
     public String update(SearchCondition sc, Praise praise, Model model, RedirectAttributes attr){
         try {
+            String embedUrl = praise.getPfile().replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/");
+            praise.setPfile(embedUrl);
             if(praiseService.praiseModify(praise)){
                 attr.addFlashAttribute("msg", "modifyOk");
                 return "redirect:/praise/list" + sc.getQueryString();
@@ -93,9 +97,9 @@ public class PraiseController {
         }
     }
     @PostMapping("/adminRemove")
-    public String removeForAdmin(@RequestParam int sno, SearchCondition sc, RedirectAttributes attr){
+    public String removeForAdmin(@RequestParam int pno, SearchCondition sc, RedirectAttributes attr){
         try {
-            if(praiseService.praiseRemoveForAdmin(sno)){
+            if(praiseService.praiseRemoveForAdmin(pno)){
                 attr.addFlashAttribute("msg", "removeOk");
             } else{
                 throw new Exception("praiseService.praiseRemoveForAdmin(map) != 1");

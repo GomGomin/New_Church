@@ -18,7 +18,7 @@
         FROM praise
         WHERE true
            <include refid="searchCondition"/>
-        ORDER BY date DESC, sno DESC
+        ORDER BY date DESC, pno DESC
         LIMIT #{offset}, #{pageSize}
     </select>
     <select id="selectSearchCount" resultType="int">

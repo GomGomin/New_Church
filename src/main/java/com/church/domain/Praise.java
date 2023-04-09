@@ -15,7 +15,8 @@ import lombok.*;
 public class Praise {
     private int pno;
     private String ptitle;
-    private int pfile;
+    private String plink;
+    private String pfile;
     private String pcontents;
     private String pwriter;
     private int plike;
