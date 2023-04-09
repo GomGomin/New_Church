@@ -1,15 +1,57 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- CSS only -->
+<style>
+.blog-footer{
+background-color: #5B5B5B;
+}
 
-<footer class="w3-center w3-gray w3-padding-50">
-  <div class="w3-xlarge w3-section" style="padding:10px" >
-  	<h2>계정교회</h2>
-  	<p style="margin:0">주소 | 전화번호 | 이메일 </p>
-    <i class="fa fa-facebook-official w3-hover-opacity"></i>
-    <i class="fa fa-instagram w3-hover-opacity"></i>
-    <i class="fa fa-snapchat w3-hover-opacity"></i>
-    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
-    <i class="fa fa-twitter w3-hover-opacity"></i>
-    <i class="fa fa-linkedin w3-hover-opacity"></i>
-  </div>
+
+.blog-footer h3, p{
+color:white;
+font-family: TheJamsil5Bold;
+}
+
+footer{
+display: flex;
+justify-content: center;
+height: 120px;
+top: 50%;
+left: 50%;
+text-align: center;
+}
+
+.info{
+margin: 10px;
+}
+
+.logo{
+}
+
+@font-face {
+    font-family: 'TheJamsil5Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+}
+
+</style>
+</head>
+<body>
+
+<footer class="blog-footer">
+	<div class="info">
+	<h3>계정교회</h3>	
+	<p>주소 : 경기도 김포시 통진읍 / 전화번호 : 010-1234-1234</p>
+
+	</div>
 </footer>
+
+<!-- JavaScript Bundle with Popper -->
+</body>
+</html>

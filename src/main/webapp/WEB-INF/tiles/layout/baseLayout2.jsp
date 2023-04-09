@@ -9,47 +9,7 @@
 </script>
 <style>
 
-*{
-margin: 0;
-padding: 0;
-}
-
-body{
-display: block;
-margin: 0 auto;
-width: 100%;
-height: 100%;
-}
-
-.header{
-width: 100%;
-height: 90px;
-}
-
-.container{
-width:100%;
-height:auto;
-display: flex;
-justify-content: center;
-text-align: center;
-margin: 0 auto;
-overflow: hidden;
-min-width: 780px;
-flex-direction: column;
-}
-
-
-.content{
-width: 80%;
-}
-
-.footer{
-width: 100%;
-min-width: 780px;
-margin: 0;
-}
 </style>
-<title><tiles:insertAttribute name="title" /></title>  
 </head>
 <body>
 <div class="header">

@@ -12,7 +12,7 @@
     <definition name="home" extends="base-Template"> 
         <put-attribute name="title" value="Home" />
         <put-attribute name="heading" value="홈" />
-        <put-attribute name="content" value="/WEB-INF/views/about/map.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/about/maptest.jsp" />
     </definition>
     
     <definition name="notice" extends="base-Template"> 
