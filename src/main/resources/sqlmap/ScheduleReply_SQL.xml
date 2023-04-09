@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.church.mapper.ScheduleReplyMapper">
+    <delete id="deleteAll">
+        DELETE FROM reply
+        WHERE  sno = #{sno}
+    </delete>
+
+    <select id="count" resultType="int">
+        SELECT count(*) FROM reply
+        WHERE  sno = #{sno}
+    </select>
+
+    <delete id="delete">
+        DELETE FROM reply WHERE rno = #{rno} AND rwriter = #{rwriter}
+    </delete>
+
+    <insert id="insert">
+        INSERT INTO reply
+            (sno, rcontents, rwriter)
+        VALUES
+            (#{sno}, #{rcontents}, #{rwriter})
+    </insert>
+
+    <select id="selectAll" resultType="ScheduleReply">
+        SELECT *
+        FROM reply
+        WHERE sno = #{sno}
+        ORDER BY reg_date ASC, rno ASC
+    </select>
+
+    <select id="select" resultType="ScheduleReply">
+        SELECT *
+        FROM reply
+        WHERE rno = #{rno}
+    </select>
+
+    <update id="update">
+        UPDATE reply
+        SET rcontents = #{rcontents}
+          , rupdate = '수정됨'
+        WHERE rno = #{rno} and rwriter = #{rwriter}
+    </update>
+</mapper>

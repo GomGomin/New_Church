@@ -65,6 +65,7 @@
 							</div>
 						</div>
 				</form>
+
 			</div>
 		<!-- END paging & 글작성버튼 -->
 		</div>

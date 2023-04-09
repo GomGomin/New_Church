@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 public interface ScheduleService {
-    boolean scheduleReplyCnt(int replyCount) throws Exception; ; // int replyCpunt -> ReplyMapper에서 sno카운트한 값 넣기
     int scheduleTotalCnt() throws Exception; // 총 게시글 수
     List<Schedule> schedulePageList(Map map) throws Exception; ; //한 페이지의 게시글 목록
     List<Schedule> scheduleAll() throws Exception; //게시글 전체 목록

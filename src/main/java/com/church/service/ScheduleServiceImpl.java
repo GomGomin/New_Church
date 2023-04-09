@@ -16,10 +16,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ScheduleServiceImpl implements ScheduleService {
     private final ScheduleMapper scheduleMapper;
-    @Override
-    public boolean scheduleReplyCnt(int replyCount) throws Exception {
-        return scheduleMapper.insertReplyCnt(replyCount)==1;
-    }
 
     @Override
     public int scheduleTotalCnt() throws Exception{
