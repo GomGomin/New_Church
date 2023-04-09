@@ -25,6 +25,21 @@ import java.util.List;
 public class PraiseController {
     private final PraiseService praiseService;
 
+    @PostMapping("/recommend")
+    public String recommend(@RequestParam int pno, SearchCondition sc, RedirectAttributes attr){
+        try {
+            if(praiseService.praiseLikeCnt(pno)){
+                attr.addAttribute("pno", pno);
+                return "redirect:/praise/view" + sc.getQueryString();
+            }else{
+                throw new Exception("praiseService.praiseLikeCnt(pno) : false" );
+            }
+        } catch (Exception e) {
+            System.out.println("Exception : " + e.getMessage());
+            attr.addAttribute("pno", pno);
+            return "redirect:/praise/view" + sc.getQueryString();
+        }
+    }
     @GetMapping("/list")
     public String list(SearchCondition sc, Model model){
         try {

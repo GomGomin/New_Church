@@ -35,7 +35,7 @@ public interface PraiseMapper {
             " WHERE pno = #{pno}")
     int updateViewCnt(int pno) throws Exception; ; //조회수 카운트 + 1
     @Update("UPDATE praise" +
-            " SET pview = pview + 1" +
+            " SET plike = plike + 1" +
             " WHERE pno = #{pno}")  
     int updateLikeCnt(int pno) throws  Exception; // 좋아요 카운트  + 1
     int selectSearchCount(SearchCondition sc) throws Exception; ; //키워드 검색 포함 게시물 수

@@ -53,7 +53,11 @@
 							<div class="col-sm-8 my-5" id="screen">
 								<iframe width="550" height="315" src="${praise.pfile}" allowfullscreen></iframe>
 							</div>
+							<div>
+								<button type="button" id="recommend" class="btn btn-primary mx-3">추천하기</button>
+							</div>
 					</c:if>
+						<br>
 						<div class="col-sm-8">
 							<textarea id="pcontents" name = "pcontents" rows="10" cols="10" class="form-control" placeholder="본문 또는 내용을 입력해 주세요." ${mode == "new" ? "" : "readonly"}>${praise.pcontents}</textarea>
 						</div>
@@ -110,6 +114,12 @@
 			form.submit();
 		}
 	});
+	$('#recommend').on("click",function(){
+		const form = $('#form');
+		form.attr('action', '/praise/recommend${searchCondition.queryString}&pno=${praise.pno}');
+		form.attr('method', 'post');
+		form.submit();
+	});
 	$('#modifyBtn').on("click", function(){
 		const form = $('#form');
 		const isReadOnly = $("input[name=ptitle]").attr('readonly');
@@ -122,6 +132,7 @@
 			$("h4").html("일정 수정");
 			$("#view_only").hide();
 			$("#screen").hide();
+			$("#recommend").hide();
 			$(".except_view").show();
 			return;
 		}
