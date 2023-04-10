@@ -21,6 +21,25 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<beans:bean id="multipartResolver"  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <beans:property name="maxUploadSize" value="52428800" />
+    <beans:property name="maxInMemorySize" value="1000000" />
+    <beans:property name="defaultEncoding" value="utf-8" />
+	</beans:bean>
+	
+	<!-- 업로드 패스 설정 -->
+	<beans:bean class="java.lang.String" id="uploadPath">
+		<beans:constructor-arg
+					value="C:\develop\JSP\New_Church\src\main\webapp\resources"/>  <!-- 로컬에서 작업할 때 -->
+
+
+	</beans:bean>
+	
+<!-- 		    value="C:\develop\JSP\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\New_Church\resources" /> 호스팅 할 때 -->
+	
+	<!-- 일반 파일 업로드 경로 -->
+	<resources mapping="/images/**" location="/resources/images/" />
+	
 	<context:component-scan base-package="com.church.controller" />
 	
 	

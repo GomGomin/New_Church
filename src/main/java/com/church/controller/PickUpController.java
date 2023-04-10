@@ -113,6 +113,11 @@ public class PickUpController {
 		pickUpsService.update(pickBoard);
 	}
 	
+	@PostMapping("/formModify")
+	public String modify(@RequestParam Map<String, Object> pickBoard) {
+		pickUpsService.update(pickBoard);
+		return "redirect:/pickup/list";
+	}
 	
 	@ResponseBody
 	@PostMapping("/access")

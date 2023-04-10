@@ -4,6 +4,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,10 +55,10 @@
 <tbody>
 <c:forEach items="${accessList}" var="access">
 <tr>
-<td onclick="location.href='./detail?pbwriter=${access.pbwriter}'">${access.pbno}</td>
-<td onclick="location.href='./detail?pbwriter=${access.pbwriter}'" id="address1">${access.pbaddress}</td>
-<td onclick="location.href='./detail?pbwriter=${access.pbwriter}'">${access.pbtel}</td>
-<td onclick="location.href='./detail?pbwriter=${access.pbwriter}'">${access.pbname}</td>
+<td onclick="location.href='./detail?pbwriter=${access.pbwriter}'" style="cursor : pointer;">${access.pbno}</td>
+<td onclick="location.href='./detail?pbwriter=${access.pbwriter}'" style="cursor : pointer;">(${fn:split(access.pbaddress,"/")[0]}) ${fn:split(access.pbaddress,"/")[1]} ${fn:split(access.pbaddress,"/")[2]} ${fn:split(access.pbaddress,"/")[3]}</td>
+<td onclick="location.href='./detail?pbwriter=${access.pbwriter}'" style="cursor : pointer;">${access.pbtel}</td>
+<td onclick="location.href='./detail?pbwriter=${access.pbwriter}'" style="cursor : pointer;">${access.pbname}</td>
 <td><button type="button" class="btn btn-success btn-sm" onclick="remove('${access.pbno}')">
 	픽업 완료
 </button></td>
@@ -80,24 +81,14 @@
 </thead>
 <tbody>
 <c:forEach items="${denyList}" var="deny">
-<tr>
-  <%
-//  pbaddress 값을 '/'를 기준으로 분리하여 배열로 만듦
-     String[] addressArr = deny.getPbaddress().split("/");
-  %>
-  <%
-    // 분리한 배열의 값을 출력
-    for (int i = 0; i < addressArr.length; i++) {
-      out.print(addressArr[i] + "<br>");
-    }
-   %>
+<tr>	
 
 
 
-<td onclick="location.href='./detail?pbwriter=${deny.pbwriter}'">${deny.pbno}</td>
-<td onclick="location.href='./detail?pbwriter=${deny.pbwriter}'">${deny.pbaddress}</td>
-<td onclick="location.href='./detail?pbwriter=${deny.pbwriter}'">${deny.pbtel}</td>
-<td onclick="location.href='./detail?pbwriter=${deny.pbwriter}'">${deny.pbname}</td>
+<td onclick="location.href='./detail?pbwriter=${deny.pbwriter}'" style="cursor : pointer;">${deny.pbno}</td>
+<td onclick="location.href='./detail?pbwriter=${deny.pbwriter}'" style="cursor : pointer;">(${fn:split(deny.pbaddress,"/")[0]}) ${fn:split(deny.pbaddress,"/")[1]} ${fn:split(deny.pbaddress,"/")[2]} ${fn:split(deny.pbaddress,"/")[3]}</td>
+<td onclick="location.href='./detail?pbwriter=${deny.pbwriter}'" style="cursor : pointer;">${deny.pbtel}</td>
+<td onclick="location.href='./detail?pbwriter=${deny.pbwriter}'" style="cursor : pointer;">${deny.pbname}</td>
 <td><button type="button" class="btn btn-primary btn-sm" onclick="access('${deny.pbno}')"> 승인
 </button>
 <button type="button" class="btn btn-danger btn-sm" onclick="remove('${deny.pbno}')"> 거부
@@ -120,9 +111,7 @@
 
 
 <script>
-var address = $("#address1").val();
-var addressList = address.split('/');
-console.log(addressList);
+
 
 	function access(pbno) {
 		$.ajax({

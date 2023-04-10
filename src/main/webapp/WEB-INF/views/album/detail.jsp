@@ -5,212 +5,74 @@
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
 <head>
-<title>글 상세보기</title>
+<title>계정 교회</title>
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"
 	integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
 	crossorigin="anonymous"></script>
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+	
 </head>
 <body class="text-center">
 
-<!-- 	<!-- Content Wrapper. Contains page content --> -->
-<!-- 	<div class="content-wrapper"> -->
-<!-- 		<!-- Content Header (Page header) --> -->
-<!-- 		<div class="content-header"> -->
-<!-- 			<div class="container-fluid"> -->
-<!-- 				<div class="row mb-2"> -->
-<!-- 					<div class="col-sm-6"> -->
-<!-- 						<h1 class="m-0">글 상세보기</h1> -->
-<!-- 					</div> -->
-<!-- 					/.col -->
-<!-- 					<div class="col-sm-6"> -->
-<!-- 						<ol class="breadcrumb float-sm-right"> -->
-<!-- 							<li class="breadcrumb-item"><a href="#">홈</a></li> -->
-<!-- 							<li class="breadcrumb-item active">글 상세보기</li> -->
-<!-- 						</ol> -->
-<!-- 					</div> -->
-<!-- 					/.col -->
-<!-- 				</div> -->
-<!-- 				/.row -->
-<!-- 			</div> -->
-<!-- 			<!-- /.container-fluid --> -->
-<!-- 		</div> -->
-<!-- 		<!-- /.content-header --> -->
+<div class="w3-container w3-black" style="text-align: left; margin-top: 10px;">
+  <h3>포토 갤러리</h3>
+</div>
+<div style=" text-align: left; padding-left: 10px; margin-top: 10px;">
 
-
-
-<!-- 		<!-- Main content --> -->
-<!-- 		<div class="content"> -->
-<!-- 			<div class="container-fluid"> -->
-<!-- 				<div class="row"> -->
-<!-- 					<div class="col-lg-12"> -->
-
-<!------------------------- form ------------------------------->
-<fieldset>
-				
-				
-            
-            <div class="card-body">
-              <div class="form-group">
-                <label for="inputName">제목</label>
-                 ${albums.ano}
-              </div>
-              <div class="form-group">
-                <label for="inputDescription">작성자</label>
-                 ${albums.atitle}
-              </div>
-              <div class="form-group">
-                <label for="inputStatus">유형</label>
-                 ${albums.acontents}
-              </div>
-              <div class="form-group">
-                <label for="inputStatus">날짜</label>
-                 ${albums.awriter}
-              </div>
-              <div class="form-group">
-                <label for="inputDescription">내용</label>
-                 ${albums.date}
-              </div>
-              <div class="form-group">
-                <label for="inputDescription">내용</label>
-                 ${albums.aview}
-              </div>
-
-            </div>
-  <button type="button" class="btn btn-danger btn-sm" onclick="deleteBoard()" style="margin-left: 10px; float: right;">
-	앨범 삭제
-</button>
-
-<button type="button" class="btn btn-success btn-sm" onclick="editBoard()" data-toggle="modal" data-target="#modal-success" style="margin-left: 10px; float: right;">
-	앨범 수정
-</button>       
-            
-            <div class="row" style="padding-bottom: 30px; padding-left: 30px;">
-          <a onclick="history.back()" class="btn btn-secondary">이전으로</a>
-        </div>
-			</fieldset>
-			
-			
-<!-- 댓글 -->
-<div class="card">
-  <div class="card-body">
-	댓글 리스트
-	<br><br>
-<%-- <b>${cnt}개의 답변이 있습니다.</b><br> --%>
-<%-- 	<c:forEach items="${replyList}" var="reply"> --%>
-	
-<!-- 	<div class="card"> -->
-<!--   <div class="card-header"> -->
-<%--     ${reply.bwriter} --%>
-<!--   </div> -->
-<!--   <div class="card-body"> -->
-<!--     <blockquote class="blockquote mb-0"> -->
-<%--       <p>${reply.bcontent}</p> --%>
-<%--       <footer class="blockquote-footer">${reply.bdate}</footer> --%>
-<!--     </blockquote> -->
-<!--   </div> -->
-<!-- </div> -->
-	
-	
-	
-<!-- <br> -->
-	
-	
-<%-- 	</c:forEach> --%>
-	
-	
-	<!-- 댓글 등록 -->
-<%-- 	<sec:authentication property="principal" var="user"/> --%>
-<%-- <input id="boardWriter" type="hidden" value="${board.bwriter}" /> --%>
-<%-- <input id="bwriter" type="hidden" value="${user.username}" /> --%>
-<%-- <input id="bid" type="hidden" name="bid" value="${board.bid}" > --%>
-<!-- <textarea name="bcontent" id="bcontent" rows="5" class="form-control"></textarea> -->
-<!-- <input type="button" class="btn btn-primary my-2" onclick="replyNewFunction()" value="댓글 등록"> -->
-	
-<!--   </div> -->
-<!-- </div> -->
-<!-- 댓글 -->
-				
-<!------------------------- form end ------------------------------->
-				</div>
-			</div>
-		</div>
-	</div>
+작성자 : ${albums.awriter} | 등록일 : ${albums.date} | 조회수 : ${albums.aview}
 </div>
 
+	<hr class="featurette-divider">
+<!------------------------- form ------------------------------->
 
+<c:forEach items="${attachPaths}" var="attachPaths">
+
+				<img src="/resources/images/${attachPaths}" style="width: 1200px; height: 800px;" alt="album image"><br><br>
+				
+</c:forEach>	
+
+	<hr class="featurette-divider">
+<div style="padding-right: 150px; margin-bottom: 200px;">
+<button type="button" class="btn btn-danger btn-sm" onclick="remove('${albums.ano}')" style="margin-left: 10px; float: right;">
+	삭제
+</button>
+
+<button type="button" class="btn btn-success btn-sm" onclick="location.href='/album/modify?ano=${albums.ano}'" data-toggle="modal" data-target="#modal-success" style="margin-left: 10px; float: right;">
+	수정
+</button>
+<button type="button" class="btn btn-secondary btn-sm" onclick="location.href='/album/list'" style="margin-left: 10px; float: right;">
+	목록
+</button>   
+</div>
+
+<!------------------------- form end ------------------------------->
+			
 </body>
 
 
 <script type="text/javascript">
 
-// function replyNewFunction() {
-// 	$.ajax({
-// 		type:"POST",
-// 		url:"/boards/replyNew",
-// 		data:{
-// 			boardWriter : document.getElementById('boardWriter').value,
-// 			bid : document.getElementById('bid').value,
-// 			bwriter : document.getElementById('bwriter').value,
-// 			bcontent : document.getElementById('bcontent').value,
-// 		},
-// 		beforeSend : function(xhr)
-//         {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
-//             xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-//         },
-// 		success:function(result) {
-// 			alert("답변 등록 성공");
-// 		},
-// 		error:function(request, status, error) {
-// 			alert(request.status + " " + request.responseText);
-// 		}
-		
-// 	})
-	
-// 	window.location.reload();
-// }
-
-// function checkFunction(bid, check) {
-// 	$.ajax({
-// 		type:"POST",
-// 		url:"/boards/check",
-// 		data:{
-// 			bid : bid,
-// 			check : check
-// 		},
-// 		beforeSend : function(xhr)
-//         {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
-//             xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-//         },
-// 		success:function(result) {
-// 			window.location.reload();
-// 		},
-// 		error:function(request, status, error) {
-// 			alert(request.status + " " + request.responseText);
-// 		}
-		
-// 	})
-	
-
-// }
-
-		function deleteBoard() {
-// 			bid = $("#bid2").val();
+		function remove(ano) {
 			
 			$.ajax({
 				type:"POST",
 				url:"/album/delete",
 				data:{
-					ano : "3"
+					ano : ano
 				},
 				beforeSend : function(xhr)
 		        {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다. */
 		            xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
 		        },
 				success:function(result) {
-					alert("삭제 성공")
-					window.location.reload();
+					alert("해당 앨범이 삭제되었습니다.");
+					window.location.replace("/album/list");
 				},
 				error:function(request,status,error) {
 					alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
@@ -221,37 +83,6 @@
 
 		}
 		
-		function editBoard() {
-// 			bid = $("#bid2").val();
-// 			btitle = $("#btitle2").val();
-// 			bcontent = $("#bcontent2").val();
-// 			bwriter = $("#bwriter2").val();
-// 			bcate = $("#bcate2").val();
-			
-			$.ajax({
-				type:"POST",
-				url:"/album/modify",
-				data:{
-					ano : "2",
-					atitle : "강서구 풍성빌딩 102호",
-					acontents : "010-3333-3333"
-				},
-				beforeSend : function(xhr)
-		        {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다. */
-		            xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-		        },
-				success:function(result) {
-					alert("수정 성공")
-					window.location.reload();
-				},
-				error:function(request,status,error) {
-					alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-				}
-				
-			})
-			
-
-		}
 
 </script>
 
