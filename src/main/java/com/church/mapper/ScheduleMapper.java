@@ -20,12 +20,15 @@ public interface ScheduleMapper {
             " SET replyCount = replyCount + #{cnt}" +
             " WHERE sno = #{sno}")
     int updateReplyCnt(int cnt, int sno) throws Exception; // 댓글 수
+
     @Select("SELECT count(*) FROM schedule")
     int selectCountBoard() throws Exception; ; //총 게시글 수
+
     @Select("SELECT *" +
             " FROM schedule" +
             " ORDER BY date DESC, sno DESC" +
             " LIMIT #{offset}, #{pageSize}")
+
     List<Schedule> selectPage(Map map) throws Exception; ; //한 페이지의 게시글 목록
     @Select("SELECT *" +
             " FROM schedule" +
@@ -33,10 +36,12 @@ public interface ScheduleMapper {
     List<Schedule> selectAll() throws Exception; ; // 게시글 전체 목록
     @Select("SELECT * FROM schedule WHERE sno = #{sno}") // 게시글 한개 조회
     Schedule selectOne(int sno) throws Exception; ;
+
     @Insert("INSERT INTO schedule" +
                 " (stitle,scontents,swriter)" +
             " VALUES" +
                 " (#{stitle},#{scontents},#{swriter})")
+
     int insertSchedule(Schedule schedule) throws Exception; ; // 게시물 등록
     @Delete("DELETE FROM schedule WHERE sno = #{sno}")
     int deleteForAdmin(int sno) throws Exception; ; // 글 삭제 (관리자)
@@ -55,4 +60,5 @@ public interface ScheduleMapper {
 
     int selectSearchCount(SearchCondition sc) throws Exception; ; //키워드 검색 게시물 수
     List<Schedule> selectSearchPage(SearchCondition sc) throws Exception; ; //키워드 검색 페이지 목록
+
 }

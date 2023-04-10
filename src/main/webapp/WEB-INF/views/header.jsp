@@ -8,6 +8,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href = "/resources/css/header.css" type="text/css">
 <style>
@@ -49,7 +52,6 @@ function w3_close() {
     <a href="javascript:void(0)" class="w3-bar-item w3-button w3-left w3-hide-large" onclick="w3_open()">
       <i class="fa fa-bars"></i>
     </a>
-    
     <nav class="w3-sidebar w3-bar-block w3-white w3-card w3-animate-left" style="display:none" id="mySidebar">
 	  <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">닫기 &times;</a>
 	  <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">교회 소개</a>
@@ -57,13 +59,11 @@ function w3_close() {
 	  <a href="#work" onclick="w3_close()" class="w3-bar-item w3-button">게시판</a>
 	  <a href="#pricing" onclick="w3_close()" class="w3-bar-item w3-button">공지사항</a>
 	</nav>
-    
     <!-- Right-sided navbar links -->
     <div class="w3-right">
       <a href="#team" class="w3-bar-item w3-button">로그인 </a>
       <a href="#work" class="w3-bar-item w3-button">회원가입</a>
     </div>
     <!-- Hide right-floated links on small screens and replace them with a menu icon -->
-
-  </div>
+</div>
 </div>
