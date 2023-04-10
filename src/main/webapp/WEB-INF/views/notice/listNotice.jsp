@@ -34,7 +34,12 @@
         <c:forEach items="${list }" var="notice">
             <tr>
                 <td>${notice.nno }</td>
+                <sec:authorize access="isAnonymous()">
+                    <td><a id="listTitle" href="/notice/detail?nno=${notice.nno }&username=${user}">${notice.ntitle }</a></td>
+                </sec:authorize>
+                <sec:authorize access="isAuthenticated()">
                 <td><a id="listTitle" href="/notice/detail?nno=${notice.nno }&username=${user.username}">${notice.ntitle }</a></td>
+                </sec:authorize>
                 <td>${notice.date }</td>
                 <td>${notice.nview }</td>
             </tr>
