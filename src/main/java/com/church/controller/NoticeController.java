@@ -2,6 +2,10 @@
 //최초 작성일 : 23.04.04
 package com.church.controller;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +24,10 @@ import com.church.domain.Notice;
 import com.church.domain.Paging;
 import com.church.service.NoticeService;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 @Controller
 @RequestMapping("notice")
 public class NoticeController {
@@ -28,12 +36,12 @@ public class NoticeController {
     NoticeService noticeService;
 
     @GetMapping("setNewNotice")
-    public String requestAddBoardForm(@ModelAttribute("NewNotice") Notice notice) {
+    public String requestAddNoticeForm(@ModelAttribute("NewNotice") Notice notice) {
         return "notice/addNotice";
     }
 
     @PostMapping("/setNewNotice")
-    public String submitAddBoardForm(@ModelAttribute("NewNotice") Notice notice) {
+    public String submitAddNoticeForm(@ModelAttribute("NewNotice") Notice notice) {
         noticeService.newNotice(notice);
 
         return "redirect:/notice/list";
@@ -61,16 +69,54 @@ public class NoticeController {
     }
 
     @GetMapping("/detail")
-    public String requestBoardById(@RequestParam("nno") String nno, @RequestParam("username") String username, Model model) {
+    public String requestNoticeById(@RequestParam("nno") int nno, @RequestParam("username") String username,
+                                    HttpServletRequest request, HttpServletResponse response, Model model) {
         // 게시물
         Notice noticeById = noticeService.noticeById(nno);
         model.addAttribute("notice", noticeById);
 
-        //작성자 아닐 시에 조회수 증가
-        if(!username.equals(noticeById.getNwriter())) { noticeService.updateView(nno); }
+        viewCountValidation(noticeById, nno, username, request, response);
 
         return "notice/notice";
     }
+
+    private void viewCountValidation(Notice notice, int nno, String username,
+                                    HttpServletRequest request, HttpServletResponse response) {
+        Cookie[] cookies = request.getCookies();
+
+        Cookie cookie = null;
+        boolean isCookie = false;
+
+        // request에 쿠키들이 있을 때
+        for (int i = 0; cookies != null && i < cookies.length; i++) {
+            // 사용자명_notice 쿠키가 있을 때
+            if (cookies[i].getName().equals(username + "_notice")) {//다른 게시판은 "_notice" 변경
+                // cookie 변수에 저장
+                cookie = cookies[i];
+                // 만약 cookie 값에 현재 게시글 번호가 없을 때
+                if (!cookie.getValue().contains("[" + notice.getNno() + "]")) {
+                    // 해당 게시글 조회수를 증가시키고, 쿠키 값에 해당 게시글 번호를 추가
+                    noticeService.updateView(nno);
+                    cookie.setValue(cookie.getValue() + "[" + notice.getNno() + "]");
+                }
+                isCookie = true;
+                break;
+            }
+        }
+        // 만약 사용자명_notice라는 쿠키가 없으면 처음 접속한 것이므로 새로 생성
+        if (!isCookie) {
+            noticeService.updateView(nno);
+            cookie = new Cookie(username + "_notice", "[" + notice.getNno() + "]"); // 새 쿠키 생성
+        }
+
+        // 쿠키 유지시간을 오늘 하루 자정까지로 설정
+        long todayEndSecond = LocalDate.now().atTime(LocalTime.MAX).toEpochSecond(ZoneOffset.UTC);
+        long currentSecond = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
+        cookie.setPath("/"); // 모든 경로에서 접근 가능
+        cookie.setMaxAge((int) (todayEndSecond - currentSecond + 32400));//크롬 UTC 기준 +9시간(32400초) 필요
+        response.addCookie(cookie);
+    }
+
 
     @ResponseBody
     @RequestMapping("/removeNotice")
@@ -79,8 +125,8 @@ public class NoticeController {
     }
 
     @GetMapping("/edit")
-    public String requestEditNotice(@RequestParam("nno") String bno, Model model, @ModelAttribute("EditNotice") Notice notice) {
-        Notice noticeById = noticeService.noticeById(bno);
+    public String requestEditNotice(@RequestParam("nno") int nno, Model model, @ModelAttribute("EditNotice") Notice notice) {
+        Notice noticeById = noticeService.noticeById(nno);
         model.addAttribute("notice", noticeById);
 
         return "notice/editNotice";

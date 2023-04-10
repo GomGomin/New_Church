@@ -6,6 +6,7 @@
 package com.church.mapper;
 
 import com.church.domain.Schedule;
+import com.church.domain.SearchCondition;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
@@ -15,15 +16,16 @@ import java.util.List;
 import java.util.Map;
 
 public interface ScheduleMapper {
-    @Insert("INSERT INTO schedule(replyCount)" +
-            " VALUES(#{replyCount})")
+    @Update("UPDATE schedule" +
+            " SET replyCount = replyCount + #{cnt}" +
+            " WHERE sno = #{sno}")
+    int updateReplyCnt(int cnt, int sno) throws Exception; // 댓글 수
 
-    int insertReplyCnt(int replyCount) throws Exception; // int replyCount = ReplyMapper에서 sno카운트한 값
     @Select("SELECT count(*) FROM schedule")
     int selectCountBoard() throws Exception; ; //총 게시글 수
 
-    @Select("SELECT * " +
-            " FROM schedule " +
+    @Select("SELECT *" +
+            " FROM schedule" +
             " ORDER BY date DESC, sno DESC" +
             " LIMIT #{offset}, #{pageSize}")
 
@@ -41,9 +43,9 @@ public interface ScheduleMapper {
                 " (#{stitle},#{scontents},#{swriter})")
 
     int insertSchedule(Schedule schedule) throws Exception; ; // 게시물 등록
-    @Delete("DELETE FROM schedule WHERE sno = {sno}")
+    @Delete("DELETE FROM schedule WHERE sno = #{sno}")
     int deleteForAdmin(int sno) throws Exception; ; // 글 삭제 (관리자)
-    @Delete("DELETE FROM schedule WHERE sno = {sno} and username = #{username}")
+    @Delete("DELETE FROM schedule WHERE sno = #{sno} and swriter = #{swriter}")
     int deleteSchedule(Map map) throws Exception; ; //글 삭제(유저)
     @Delete("DELETE FROM schedule")
     int deleteAll() throws Exception; ; // 글 전체 삭제(테스트코드용)
@@ -56,7 +58,7 @@ public interface ScheduleMapper {
             " WHERE sno = #{sno}")
     int updateViewCnt(int sno) throws Exception; ; //조회수 카운트 + 1
 
-
-
+    int selectSearchCount(SearchCondition sc) throws Exception; ; //키워드 검색 게시물 수
+    List<Schedule> selectSearchPage(SearchCondition sc) throws Exception; ; //키워드 검색 페이지 목록
 
 }

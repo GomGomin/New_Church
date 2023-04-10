@@ -26,7 +26,7 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
-    public Notice noticeById(String nno) {
+    public Notice noticeById(int nno) {
         return noticeMapper.noticeById(nno);
     }
 
@@ -36,7 +36,7 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
-    public void updateView(String nno) {
+    public void updateView(int nno) {
         noticeMapper.updateView(nno);
     }
 
