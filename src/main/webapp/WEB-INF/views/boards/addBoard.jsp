@@ -3,9 +3,10 @@
 최초 작성일 : 23.04.04
  -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%> 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%> 
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,9 +18,11 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
+<!-- 로그인 정보 받기 -->
 <sec:authentication property="principal" var="user" />
 	<!-- 메인 -->
 	<div class="container">
+		<!-- 게시물 등록 폼 -->
 		<form:form modelAttribute="NewBoard" action="./setNewBoard?${_csrf.parameterName}=${_csrf.token}" method="post">
 			<div class="mb-3">
 				<label class="form-label">작성자</label> 
@@ -43,6 +46,7 @@
 				</div>
 			</div>
 		</form:form>
+		<!-- END 게시물 등록 폼 -->
 	</div>
 	<!-- END 메인 -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">

@@ -3,8 +3,8 @@
 최초 작성일 : 23.04.05
  -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%> 
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%> 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -18,8 +18,9 @@
 <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 </head>
 <body>
-<jsp:useBean id="now" class="java.util.Date" />
-<fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss" var="now" />
+<%-- <jsp:useBean id="now" class="java.util.Date" />
+<fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss" var="now" /> --%>
+<!-- 로그인 정보 받기 -->
 <sec:authentication property="principal" var="user" />
 	<!-- 댓글 수정 Modal -->
 	<div class="modal fade" id="modal" tabindex="-1" aria-hidden="true">
@@ -102,35 +103,36 @@
 		</div>
 		<!-- END 댓글 등록 -->
 		<!-- 댓글 목록 -->
-				<c:forEach items="${replyList }" var="reply">
-				<br><div class='border rounded p-4'>
-						<div class="row">
-							<div class="col-10" style="word-break:break-all">
-								<b>${reply.rwriter }</b> ${reply.date}<br>
-								${reply.rcontents }<c:if test="${reply.rupdate!=null }">(${reply.rupdate })</c:if>
-							</div>
-							<div class="col">
-								<c:if test="${reply.rwriter==user.username }">
-									<button onclick="modal(${reply.rno})" class="btn btn-outline-white">
-										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-								  			<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-											<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-										</svg>
-									</button>
-								</c:if>
-							</div>
-							<div class="col">
-								<c:if test="${reply.rwriter==user.username }">
-									<button onclick="removeReply(${reply.rno})" class="btn btn-outline-white">
-										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
- 												<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-										</svg>
-									</button>
-								</c:if>
-							</div>
-						</div>
-						</div>
-				</c:forEach>
+		<c:forEach items="${replyList }" var="reply">
+			<br>
+			<div class='border rounded p-4'>
+				<div class="row">
+					<div class="col-10" style="word-break:break-all">
+						<b>${reply.rwriter }</b> ${reply.date}<br>
+						${reply.rcontents }<c:if test="${reply.rupdate!=null }">(${reply.rupdate })</c:if>
+					</div>
+					<div class="col">
+						<c:if test="${reply.rwriter==user.username }">
+							<button onclick="modal(${reply.rno})" class="btn btn-outline-white">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+						  			<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+									<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+								</svg>
+							</button>
+						</c:if>
+					</div>
+					<div class="col">
+						<c:if test="${reply.rwriter==user.username }">
+							<button onclick="removeReply(${reply.rno})" class="btn btn-outline-white">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+											<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+								</svg>
+							</button>
+						</c:if>
+					</div>
+				</div>
+			</div>
+		</c:forEach>
 		<!-- END 댓글 목록 -->
 	</div>
 	<!-- END 메인 -->
