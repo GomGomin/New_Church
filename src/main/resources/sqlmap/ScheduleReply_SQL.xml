@@ -26,7 +26,7 @@
         SELECT *
         FROM reply
         WHERE sno = #{sno}
-        ORDER BY reg_date ASC, rno ASC
+        ORDER BY date DESC, rno DESC
     </select>
 
     <select id="select" resultType="com.church.domain.ScheduleReply">
