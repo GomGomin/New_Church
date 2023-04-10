@@ -12,13 +12,13 @@ import org.apache.ibatis.annotations.Update;
 
 import com.church.domain.Reply;
 
-public interface ReplyMapper {
+public interface BoardReplyMapper {
 	
 	@Insert("INSERT INTO reply (bno, rwriter, rcontents) VALUES (#{bno}, #{rwriter}, #{rcontents})")
 	void newReply(Map<String, Object> reply);
 	
 	@Select("SELECT * FROM reply WHERE bno = #{bno}")
-	List<Reply> replyList(String bno); 
+	List<Reply> replyList(int bno); 
 	
 	@Select("SELECT rcontents FROM reply WHERE rno = #{rno}")
 	String reply(String rno); 

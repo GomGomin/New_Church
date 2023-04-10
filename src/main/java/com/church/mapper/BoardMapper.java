@@ -25,13 +25,13 @@ public interface BoardMapper {
 	public int searchCount(@Param("searchType") String searchType, @Param("keyword") String keyword);
 	
 	@Select("SELECT * FROM board WHERE bno = #{bno}")
-	Board boardById(String bno);
+	Board boardById(int bno);
 
 	@Update("UPDATE board SET btitle = #{btitle}, bcontents = #{bcontents} WHERE bno = #{bno}")
 	void editBoard(Board board);
 	
 	@Update("UPDATE board SET bview = bview + 1 WHERE bno = #{bno}")
-	void updateView(String bno);
+	void updateView(int bno);
 	
 	@Update("UPDATE board SET replyCount = replyCount + 1 WHERE bno = #{bno}")
 	void updateReplyCnt(Object bno);

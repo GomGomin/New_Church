@@ -62,6 +62,7 @@ public class Paging {
 		displayPost = (num - 1) * postNum;
 
 	}
+	
 	public String getSearchTypeKeyword() {
 
 		if(searchType.equals("") || keyword.equals("")) {
@@ -73,20 +74,6 @@ public class Paging {
 
 	private String searchType, keyword;
 
-	public void setSearchType(String searchType) {
-		this.searchType = searchType;
-	}
-
-	public String getSearchType() {
-		return searchType;
-	}
-
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
-	}
-
-	public String getKeyword() {
-		return keyword;
-	}
+	
 
 }

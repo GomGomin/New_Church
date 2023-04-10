@@ -17,6 +17,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
+<!-- 로그인 정보 받기 -->
 <sec:authentication property="principal" var="user" />
 	<!-- 메인 -->
 	<div class="container">

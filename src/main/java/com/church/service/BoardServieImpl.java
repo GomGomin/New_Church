@@ -27,7 +27,7 @@ public class BoardServieImpl implements BoardService {
 	}
 	
 	@Override
-	public Board boardById(String bno) {
+	public Board boardById(int bno) {
 		return boardMapper.boardById(bno);
 	}
 
@@ -37,7 +37,7 @@ public class BoardServieImpl implements BoardService {
 	}
 
 	@Override
-	public void updateView(String bno) {
+	public void updateView(int bno) {
 		boardMapper.updateView(bno);
 	}
 
