@@ -21,10 +21,15 @@
     float: right;
     margin-left: 15px;
 }
-#findPwForm, #findIdForm {
-    border: 1px solid #afafaf;
-    border-radius: 10px;
+#findIdForm {
+    border-right: 1px solid #afafaf;
     padding: 20px;
+}
+#findPwForm {
+    padding:20px;
+}
+hr {
+    margin:0px;
 }
 
 a{

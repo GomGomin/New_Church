@@ -18,7 +18,10 @@ import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.security.Principal;
 import java.util.List;
 
@@ -34,6 +37,9 @@ public class UsersController {
 
 	@Autowired
 	MailService mailService;
+
+	@Autowired
+	ServletContext context;
 
 	@GetMapping("/joinUser") //회원가입 페이지
 	public String JoinUser(@ModelAttribute("JoinUser") Users user) {
@@ -57,9 +63,25 @@ public class UsersController {
 				String to = user.getEmail();
 				String subject = "교회에 오신 것을 환영합니다.";
 
-				//TODO: body html 적용해서 예쁘게 만들기
-				String body = "교회에 오신 것을 환영합니다. 축하드립니다.";
+				String body = ""; //전체 내용을 html 형식으로 바꾸어 저장할 변수
 
+				try {
+					String templatePath = context.getRealPath("/WEB-INF/views/users/Welcome.html");//jsp 메일 템플릿 파일 읽어오기
+					System.out.println(templatePath);
+					BufferedReader br = new BufferedReader(new FileReader(templatePath));
+
+					String oneLine;
+					while ((oneLine = br.readLine()) != null) { //한 줄씩 Enter 넣기
+						body += oneLine + "\n";
+					}
+
+					br.close(); //BufferedReader 닫기
+
+					//읽어온 템플릿의 자리표시자인 __NAME__ 부분을 회원의 이름으로 대체
+					body = body.replace("__NAME__", user.getName());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				mailService.sendMail(to, subject, body);
 			}
 
@@ -87,11 +109,12 @@ public class UsersController {
 	public String ListUsers(@RequestParam(value = "num",required = false, defaultValue = "1") int num, Model model) {
 		Paging page = new Paging();
 
-		page.setNum(num);
-		page.setCount(usersService.totalCount());
+		page.setNum(num); //현재 페이지
+		page.setCount(usersService.totalCount()); //User의 총 숫자
 
 		List<Users> listUsers = null;
 		listUsers = usersService.listUser(page.getDisplayPost(), page.getPostNum());
+		//DisplayPost()의 기본 값은 10 (domain의 Paging에서 수정)
 
 		model.addAttribute("listUsers", listUsers);
 		model.addAttribute("page", page);
@@ -223,6 +246,7 @@ public class UsersController {
 	public String submitFindId(@RequestParam String name, @RequestParam String tel) {
 		String username = usersService.findIdUser(name, tel);
 
+		//아이디 찾기시 Modal에 넘겨줄 Text
 		if (username == null || username.equals("") ) {
 			return "<p>아이디가 존재하지 않습니다.<br>이름과 전화번호를 확인해주세요.</p>";
 		} else {

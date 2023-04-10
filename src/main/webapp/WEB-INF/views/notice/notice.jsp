@@ -49,14 +49,14 @@
                     <div class="col-9">
                     </div>
                     <div class="col">
-                        <c:if test="${notice.nwriter==user.username }">
+                        <sec:authorize access="hasRole('admin')">
                             <button onclick="location.href='/notice/edit?nno=${notice.nno }'" class="form-control">수정</button>
-                        </c:if>
+                        </sec:authorize>
                     </div>
                     <div class="col">
-                        <c:if test="${notice.nwriter==user.username }">
+                        <sec:authorize access="hasRole('admin')">
                             <button onclick="removeNotice(${notice.nno })" class="form-control">삭제</button>
-                        </c:if>
+                        </sec:authorize>
                     </div>
                 </div>
             </td>

@@ -16,11 +16,11 @@ public interface NoticeService {
 
     public int searchCount(String searchType, String keyword) throws Exception;
 
-    Notice noticeById(String nno);
+    Notice noticeById(int nno);
 
     void editNotice(Notice notice);
 
-    void updateView(String nno);
+    void updateView(int nno);
 
     void removeNotice(String nno);
 }
