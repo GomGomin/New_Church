@@ -6,8 +6,8 @@ package com.church.controller;
 
 import com.church.domain.SchedulePageHandler;
 import com.church.domain.SearchCondition;
-import com.church.domain.Worship;
-import com.church.service.WorshipService;
+import com.church.domain.Event;
+import com.church.service.EventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,99 +21,99 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/worship")
-public class WorshipController {
-    private final WorshipService worshipService;
+@RequestMapping("/event")
+public class EventController {
+    private final EventService eventService;
 
     @GetMapping("/list")
     public String list(SearchCondition sc, Model model){
         try {
-            int totalCnt = worshipService.worshipSearchCount(sc);
+            int totalCnt = eventService.eventSearchCount(sc);
             SchedulePageHandler sph = new SchedulePageHandler(totalCnt, sc);
-            List<Worship> list = worshipService.worshipSearchPage(sc);
+            List<Event> list = eventService.eventSearchPage(sc);
             model.addAttribute("sph", sph);
-            model.addAttribute("worshipList", list);
+            model.addAttribute("eventList", list);
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("msg","listError");
         }
-        return "worship/list";
+        return "event/list";
     }
     @GetMapping("/view")
-    public String view(@RequestParam int wno, SearchCondition sc, Model model, RedirectAttributes attr){
+    public String view(@RequestParam int eno, SearchCondition sc, Model model, RedirectAttributes attr){
         try {
-            Worship worship = worshipService.worshipView(wno);
-            model.addAttribute("worship", worship);
+            Event event = eventService.eventView(eno);
+            model.addAttribute("event", event);
             model.addAttribute("mode", "view");
         } catch (Exception e) {
             e.printStackTrace();
             attr.addFlashAttribute("msg", "viewError");
-            return "redirect:/worship/list" + sc.getQueryString();
+            return "redirect:/event/list" + sc.getQueryString();
         }
-        return "worship/worship";
+        return "event/event";
     }
     @GetMapping("/register")
     public String register(Model model){
         model.addAttribute("mode", "new");
-        return "worship/worship";
+        return "event/event";
     }
     @PostMapping("/register")
-    public String register(Worship worship, RedirectAttributes attr, Model model){
+    public String register(Event event, RedirectAttributes attr, Model model){
         try {
-            String embedUrl = worship.getWfile().replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/");
-            worship.setWfile(embedUrl);
+            String embedUrl = event.getEfile().replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/");
+            event.setEfile(embedUrl);
             String thumbnail = embedUrl.replace("https://www.youtube.com/embed/","https://img.youtube.com/vi/");
-            worship.setWimg(thumbnail + "/0.jpg");
-            if(worshipService.worshipRegister(worship)){
+            event.setEimg(thumbnail + "/0.jpg");
+            if(eventService.eventRegister(event)){
                 attr.addFlashAttribute("msg", "registerOk");
-                return "redirect:/worship/list";
+                return "redirect:/event/list";
             } else{
-                throw new Exception("worshipService.worshipRegister(worship) != 1");
+                throw new Exception("eventService.eventRegister(event) != 1");
             }
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Exception : " + e.getMessage());
-            model.addAttribute("worship", worship);
+            model.addAttribute("event", event);
             model.addAttribute("mode", "new");
             model.addAttribute("msg", "writerError");
-            return "worship/worship";
+            return "event/event";
         }
     }
     @PostMapping("/modify")
-    public String update(SearchCondition sc, Worship worship, Model model, RedirectAttributes attr){
+    public String update(SearchCondition sc, Event event, Model model, RedirectAttributes attr){
         try {
-            String embedUrl = worship.getWfile().replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/");
-            worship.setWfile(embedUrl);
+            String embedUrl = event.getEfile().replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/");
+            event.setEfile(embedUrl);
             String thumbnail = embedUrl.replace("https://www.youtube.com/embed/","https://img.youtube.com/vi/");
-            worship.setWimg(thumbnail + "/0.jpg");
-            if(worshipService.worshipModify(worship)){
+            event.setEimg(thumbnail + "/0.jpg");
+            if(eventService.eventModify(event)){
                 attr.addFlashAttribute("msg", "modifyOk");
-                return "redirect:/worship/list" + sc.getQueryString();
+                return "redirect:/event/list" + sc.getQueryString();
             } else{
-                throw new Exception("worshipService.worshipModify(worship)!=1");
+                throw new Exception("eventService.eventModify(event)!=1");
             }
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Exception : " + e.getMessage());
             model.addAttribute("msg", "modelError");
-            model.addAttribute("worship", worship);
-            return "worship/worship";
+            model.addAttribute("event", event);
+            return "event/event";
         }
     }
     @PostMapping("/adminRemove")
-    public String removeForAdmin(@RequestParam int wno, SearchCondition sc, RedirectAttributes attr){
+    public String removeForAdmin(@RequestParam int eno, SearchCondition sc, RedirectAttributes attr){
         try {
-            if(worshipService.worshipRemoveForAdmin(wno)){
+            if(eventService.eventRemoveForAdmin(eno)){
                 attr.addFlashAttribute("msg", "removeOk");
             } else{
-                throw new Exception("worshipService.worshipRemoveForAdmin(map) != 1");
+                throw new Exception("eventService.eventRemoveForAdmin(map) != 1");
             }
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(e.getMessage());
             attr.addAttribute("removeError");
         }
-        return "redirect:/worship/list" + sc.getQueryString();
+        return "redirect:/event/list" + sc.getQueryString();
     }
 
 }

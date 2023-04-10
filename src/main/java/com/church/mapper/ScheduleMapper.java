@@ -16,10 +16,11 @@ import java.util.List;
 import java.util.Map;
 
 public interface ScheduleMapper {
-    @Insert("INSERT INTO schedule(replyCount)" +
-            " VALUES(#{replyCount})")
+    @Update("UPDATE schedule" +
+            " SET replyCount = replyCount + #{cnt}" +
+            " WHERE sno = #{sno}")
+    int updateReplyCnt(int cnt, int sno) throws Exception; // 댓글 수
 
-    int insertReplyCnt(int replyCount) throws Exception; // int replyCount = ReplyMapper에서 sno카운트한 값
     @Select("SELECT count(*) FROM schedule")
     int selectCountBoard() throws Exception; ; //총 게시글 수
 

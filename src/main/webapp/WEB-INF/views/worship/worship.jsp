@@ -1,6 +1,6 @@
 <%--
 	작성자 : 박지원
-	작성일 : 2023-04-08
+	작성일 : 2023-04-09
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -29,24 +29,33 @@
 		<!-- 검색 -->
 		<div class="col-lg-8 mx-auto p-4 py-md-5">
 			<header class="d-flex align-items-center pb-3 mb-5 border-bottom">
-				<h4 class="pb-3 mb-3">일정 ${mode eq "new" ? "작성" : "보기"}</h4>
+				<h4 class="pb-3 mb-3">예배 ${mode eq "new" ? "작성" : "보기"}</h4>
 			</header>
 			<div>
 				<form id = "form">
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					<c:if test="${mode ne 'new'}">
-						<input type="hidden" name="sno" value="${schedule.sno}">
+						<input type="hidden" name="wno" value="${worship.wno}">
 						<div class="pb-3 mb-3" id="view_only">
-							<span class="fs-6">${schedule.swriter}(관리자)</span>&nbsp; | &nbsp;
-							<span class="fs-6">등록일 : ${schedule.date}</span> | &nbsp;
-							<span class="fs-6">조회수 : ${schedule.sview}</span>
+							<span class="fs-6">${worship.wwriter}(관리자)</span>&nbsp; | &nbsp;
+							<span class="fs-6">등록일 : ${worship.date}</span> | &nbsp;
+							<span class="fs-6">조회수 : ${worship.wview}</span>
 						</div>
 					</c:if>
 						<div class="col-sm-8 my-5">
-							<input type = "text" class = "form-control" name = "stitle" id = "stitle" placeholder="제목을 입력해 주세요." value="${schedule.stitle}" ${mode == "new" ? "" : "readonly"}>
+							<input type = "text" class = "form-control" name = "wtitle" id = "wtitle" placeholder="제목을 입력해 주세요." value="${worship.wtitle}" ${mode == "new" ? "" : "readonly"}>
 						</div>
+						<div class="col-sm-8 my-5 except_view" style="${mode ne 'new' ? 'display: none' : ''}">
+							<input type="text" class="form-control" name="wfile" id="wfile" placeholder="영상 링크를 입력해 주세요." value="${worship.wfile}">
+						</div>
+					<c:if test="${mode ne 'new'}">
+							<div class="col-sm-8 my-5" id="screen">
+								<iframe width="550" height="315" src="${worship.wfile}" allowfullscreen></iframe>
+							</div>
+					</c:if>
+						<br>
 						<div class="col-sm-8">
-							<textarea id="scontents" name = "scontents" rows="10" cols="20" class="form-control" placeholder="일정 내용을 입력해 주세요." ${mode == "new" ? "" : "readonly"}>${schedule.scontents}</textarea>
+							<textarea id="wcontents" name = "wcontents" rows="10" cols="10" class="form-control" placeholder="본문 또는 내용을 입력해 주세요." ${mode == "new" ? "" : "readonly"}>${worship.wcontents}</textarea>
 						</div>
 						<div class="row my-5">
 							<div class="col">
@@ -54,7 +63,7 @@
 								<%--<sec:authentication property="principal" var="user"/>--%>
 								<%--<sec:authorize access="hasRole('ADMIN')">--%>
 									<c:if test="${mode eq 'new'}">
-										<%--<input type="hidden" value="${user.username}" name="swriter">--%>
+										<%--<input type="hidden" value="${user.username}" name="wwriter">--%>
 										<button type="button" id="writeBtn" class="btn btn-secondary mx-3">등록</button>
 									</c:if>
 									<c:if test="${mode ne 'new'}">
@@ -65,7 +74,6 @@
 							</div>
 						</div>
 				</form>
-
 			</div>
 		<!-- END paging & 글작성버튼 -->
 		</div>
@@ -74,14 +82,14 @@
 <script>
 	let formCheck = function() {
 		let form = document.getElementById("form");
-		if(form.stitle.value=="") {
+		if(form.wtitle.value=="") {
 			alert("제목을 입력해 주세요.");
-			form.stitle.focus();
+			form.wtitle.focus();
 			return false;
 		}
-		if(form.scontents.value=="") {
+		if(form.wcontents.value=="") {
 			alert("내용을 입력해 주세요.");
-			form.scontents.focus();
+			form.wcontents.focus();
 			return false;
 		}
 		return true;
@@ -89,14 +97,14 @@
 	$('#removeBtn').on("click", function(){
 		if(!confirm("정말로 삭제하시겠습니까?")) return;
 		let form = $('#form');
-		form.attr("action", '/schedule/adminRemove${searchCondition.queryString}');
+		form.attr("action", '/worship/adminRemove${searchCondition.queryString}');
 		form.attr("method", "post");
 		form.submit();
 	});
 
 	$('#writeBtn').on("click", function(){
 		const form = $('#form');
-		form.attr('action', '/schedule/register');
+		form.attr('action', '/worship/register');
 		form.attr('method', 'post');
 		if (formCheck()) {
 			form.submit();
@@ -104,17 +112,20 @@
 	});
 	$('#modifyBtn').on("click", function(){
 		const form = $('#form');
-		const isReadOnly = $("input[name=stitle]").attr('readonly');
+		const isReadOnly = $("input[name=wtitle]").attr('readonly');
 
 		if(isReadOnly=='readonly'){
-			$("input[name=stitle]").attr('readonly', false);
+			$("input[name=wtitle]").attr('readonly', false);
+			$("input[name=wfile]").attr('readonly', false);
 			$("textarea").attr('readonly', false);
 			$("#modifyBtn").html("등록");
-			$("h4").html("일정 수정");
+			$("h4").html("행사 수정");
 			$("#view_only").hide();
+			$("#screen").hide();
+			$(".except_view").show();
 			return;
 		}
-		form.attr('action', '/schedule/modify${searchCondition.queryString}');
+		form.attr('action', '/worship/modify${searchCondition.queryString}');
 		form.attr('method', 'post');
 		if (formCheck()) {
 			form.submit();
@@ -122,11 +133,8 @@
 	});
 
 	$('#listBtn').on("click", function(){
-		location.href = `/schedule/list${searchCondition.queryString}`;
+		location.href = `/worship/list${searchCondition.queryString}`;
 	});
-</script>
-<script>
-
 </script>
 </body>
 </html>
