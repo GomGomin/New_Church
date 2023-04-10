@@ -22,14 +22,14 @@
             (#{sno}, #{rcontents}, #{rwriter})
     </insert>
 
-    <select id="selectAll" resultType="ScheduleReply">
+    <select id="selectAll" resultType="com.church.domain.ScheduleReply">
         SELECT *
         FROM reply
         WHERE sno = #{sno}
         ORDER BY reg_date ASC, rno ASC
     </select>
 
-    <select id="select" resultType="ScheduleReply">
+    <select id="select" resultType="com.church.domain.ScheduleReply">
         SELECT *
         FROM reply
         WHERE rno = #{rno}

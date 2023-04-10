@@ -29,37 +29,33 @@
 		<!-- 검색 -->
 		<div class="col-lg-8 mx-auto p-4 py-md-5">
 			<header class="d-flex align-items-center pb-3 mb-5 border-bottom">
-				<h4 class="pb-3 mb-3">찬양 ${mode eq "new" ? "작성" : "보기"}</h4>
+				<h4 class="pb-3 mb-3">행사 ${mode eq "new" ? "작성" : "보기"}</h4>
 			</header>
 			<div>
 				<form id = "form">
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					<c:if test="${mode ne 'new'}">
-						<input type="hidden" name="pno" value="${praise.pno}">
+						<input type="hidden" name="eno" value="${event.eno}">
 						<div class="pb-3 mb-3" id="view_only">
-							<span class="fs-6">${praise.pwriter}(관리자)</span>&nbsp; | &nbsp;
-							<span class="fs-6">등록일 : ${praise.date}</span> | &nbsp;
-							<span class="fs-6">추천수 : ${praise.plike}</span> | &nbsp;
-							<span class="fs-6">조회수 : ${praise.pview}</span>
+							<span class="fs-6">${event.ewriter}(관리자)</span>&nbsp; | &nbsp;
+							<span class="fs-6">등록일 : ${event.date}</span> | &nbsp;
+							<span class="fs-6">조회수 : ${event.eview}</span>
 						</div>
 					</c:if>
 						<div class="col-sm-8 my-5">
-							<input type = "text" class = "form-control" name = "ptitle" id = "ptitle" placeholder="제목을 입력해 주세요." value="${praise.ptitle}" ${mode == "new" ? "" : "readonly"}>
+							<input type = "text" class = "form-control" name = "etitle" id = "etitle" placeholder="제목을 입력해 주세요." value="${event.etitle}" ${mode == "new" ? "" : "readonly"}>
 						</div>
 						<div class="col-sm-8 my-5 except_view" style="${mode ne 'new' ? 'display: none' : ''}">
-							<input type="text" class="form-control" name="pfile" id="pfile" placeholder="영상 링크를 입력해 주세요." value="${praise.pfile}">
+							<input type="text" class="form-control" name="efile" id="efile" placeholder="영상 링크를 입력해 주세요." value="${event.efile}">
 						</div>
 					<c:if test="${mode ne 'new'}">
 							<div class="col-sm-8 my-5" id="screen">
-								<iframe width="550" height="315" src="${praise.pfile}" allowfullscreen></iframe>
-							</div>
-							<div>
-								<button type="button" id="recommend" class="btn btn-primary mx-3">추천하기</button>
+								<iframe width="550" height="315" src="${event.efile}" allowfullscreen></iframe>
 							</div>
 					</c:if>
 						<br>
 						<div class="col-sm-8">
-							<textarea id="pcontents" name = "pcontents" rows="10" cols="10" class="form-control" placeholder="본문 또는 내용을 입력해 주세요." ${mode == "new" ? "" : "readonly"}>${praise.pcontents}</textarea>
+							<textarea id="econtents" name = "econtents" rows="10" cols="10" class="form-control" placeholder="본문 또는 내용을 입력해 주세요." ${mode == "new" ? "" : "readonly"}>${event.econtents}</textarea>
 						</div>
 						<div class="row my-5">
 							<div class="col">
@@ -86,14 +82,14 @@
 <script>
 	let formCheck = function() {
 		let form = document.getElementById("form");
-		if(form.ptitle.value=="") {
+		if(form.etitle.value=="") {
 			alert("제목을 입력해 주세요.");
-			form.ptitle.focus();
+			form.etitle.focus();
 			return false;
 		}
-		if(form.pcontents.value=="") {
+		if(form.econtents.value=="") {
 			alert("내용을 입력해 주세요.");
-			form.pcontents.focus();
+			form.econtents.focus();
 			return false;
 		}
 		return true;
@@ -101,42 +97,35 @@
 	$('#removeBtn').on("click", function(){
 		if(!confirm("정말로 삭제하시겠습니까?")) return;
 		let form = $('#form');
-		form.attr("action", '/praise/adminRemove${searchCondition.queryString}');
+		form.attr("action", '/event/adminRemove${searchCondition.queryString}');
 		form.attr("method", "post");
 		form.submit();
 	});
 
 	$('#writeBtn').on("click", function(){
 		const form = $('#form');
-		form.attr('action', '/praise/register');
+		form.attr('action', '/event/register');
 		form.attr('method', 'post');
 		if (formCheck()) {
 			form.submit();
 		}
 	});
-	$('#recommend').on("click",function(){
-		const form = $('#form');
-		form.attr('action', '/praise/recommend${searchCondition.queryString}&pno=${praise.pno}');
-		form.attr('method', 'post');
-		form.submit();
-	});
 	$('#modifyBtn').on("click", function(){
 		const form = $('#form');
-		const isReadOnly = $("input[name=ptitle]").attr('readonly');
+		const isReadOnly = $("input[name=etitle]").attr('readonly');
 
 		if(isReadOnly=='readonly'){
-			$("input[name=ptitle]").attr('readonly', false);
-			$("input[name=pfile]").attr('readonly', false);
+			$("input[name=etitle]").attr('readonly', false);
+			$("input[name=efile]").attr('readonly', false);
 			$("textarea").attr('readonly', false);
 			$("#modifyBtn").html("등록");
-			$("h4").html("찬양 수정");
+			$("h4").html("행사 수정");
 			$("#view_only").hide();
 			$("#screen").hide();
-			$("#recommend").hide();
 			$(".except_view").show();
 			return;
 		}
-		form.attr('action', '/praise/modify${searchCondition.queryString}');
+		form.attr('action', '/event/modify${searchCondition.queryString}');
 		form.attr('method', 'post');
 		if (formCheck()) {
 			form.submit();
@@ -144,7 +133,7 @@
 	});
 
 	$('#listBtn').on("click", function(){
-		location.href = `/praise/list${searchCondition.queryString}`;
+		location.href = `/event/list${searchCondition.queryString}`;
 	});
 </script>
 </body>
