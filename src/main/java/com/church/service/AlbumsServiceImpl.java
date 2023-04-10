@@ -16,7 +16,7 @@ public class AlbumsServiceImpl implements AlbumsService {
 	AlbumsMapper albumsMapper;
 
 	@Override
-	public int insert(Albums albums) {
+	public int insert(Map<String, Object> albums) {
 		return albumsMapper.insert(albums);
 	}
 
@@ -26,8 +26,18 @@ public class AlbumsServiceImpl implements AlbumsService {
 	}
 
 	@Override
-	public List<Albums> list() {
-		return albumsMapper.list();
+	public Albums recent() {
+		return albumsMapper.recent();
+	}
+
+	@Override
+	public List<Albums> list(int displayPost, int postNum, String searchType, String keyword) throws Exception {
+		return albumsMapper.list(displayPost, postNum, searchType, keyword);
+	}
+
+	@Override
+	public int searchCount(String searchType, String keyword) throws Exception {
+		return albumsMapper.searchCount(searchType, keyword);
 	}
 
 	@Override

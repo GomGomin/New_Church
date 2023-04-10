@@ -8,11 +8,15 @@ import com.church.domain.Albums;
 
 public interface AlbumsService {
 	
-	int insert(Albums albums);
+	int insert(Map<String, Object> albums);
 	
 	Albums detail(String ano);
+
+	Albums recent();
 	
-	List<Albums> list();
+	public List<Albums> list(int displayPost, int postNum, String searchType, String keyword) throws Exception;
+	
+	public int searchCount(String searchType, String keyword) throws Exception;
 	
 	void update(Map<String, Object> albums);
 	

@@ -5,6 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -132,8 +133,10 @@
 
 
 var pbaddress = $("#pbaddress").val();
+var parts = pbaddress.split("/");
+$("#pbaddress").val("(" + parts[0] + ") " + parts[1] + parts[2] + " " + parts[3]);
 
-
+var kakaoAddress = parts[1] + parts[2] + " " + parts[3];
 
 var inputDate = $("#date").val();
 var date = new Date(inputDate);
@@ -159,11 +162,6 @@ if ($("#pbstate").val() == '1') {
 }
 
 
-
-function check() {
-	$("#pbaddress").val($("#sample6_address").val() + $("#sample6_extraAddress").val() + $("#sample6_detailAddress").val());
-	$("#form").submit();
-}
 
     function sample6_execDaumPostcode() {
         new daum.Postcode({
@@ -230,7 +228,7 @@ function check() {
 		var geocoder = new kakao.maps.services.Geocoder();
 		
 		// 주소로 좌표를 검색합니다
-		geocoder.addressSearch(pbaddress, function(result, status) {
+		geocoder.addressSearch(kakaoAddress, function(result, status) {
 
 		    // 정상적으로 검색이 완료됐으면 
 		     if (status === kakao.maps.services.Status.OK) {
@@ -245,7 +243,7 @@ function check() {
 
 		        // 인포윈도우로 장소에 대한 설명을 표시합니다
 		        var infowindow = new kakao.maps.InfoWindow({
-		            content: '<div style="width:200px;text-align:center;padding:6px 0;"><b>' + pbaddress + '<b></div>'
+		            content: '<div style="width:200px;text-align:center;padding:6px 0;"><b>' + parts[1] + '<b></div>' + '<div style="width:200px;text-align:center;padding:6px 0;"><b>'+ parts[2] + parts[3] + '<b></div>'
 		        });
 		        infowindow.open(map, marker);
 
