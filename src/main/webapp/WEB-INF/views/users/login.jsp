@@ -53,8 +53,8 @@
                         <a href="/findPw" style="float: right">비밀번호 찾기</a>
                     </div>
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                    <a class="submit" id="loginBtn"  href="javascript:$('#loginForm').submit();">로그인</a>
-                    <a href="/joinUser" class="button">회원가입</a>
+                    <button class="submit" id="loginBtn"  type="submit">로그인</button>
+                    <button type="button" onclick="location.href='/joinUser'" class="button">회원가입</button>
                 </form>
             </div>
         </div>
@@ -63,7 +63,6 @@
             <div class="right-text">
                 <h2>계정 교회</h2>
                 <h5>교회 간단한 소개</h5>
-                교회 사진이 들어갈 공간입니다.
             </div>
         </div>
     </div>
