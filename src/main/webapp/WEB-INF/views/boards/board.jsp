@@ -18,8 +18,6 @@
 <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 </head>
 <body>
-<%-- <jsp:useBean id="now" class="java.util.Date" />
-<fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss" var="now" /> --%>
 <!-- 로그인 정보 받기 -->
 <sec:authentication property="principal" var="user" />
 	<!-- 댓글 수정 Modal -->
@@ -108,14 +106,29 @@
 		</div>
 		</sec:authorize>
 		<!-- END 댓글 등록 -->
+		<!-- 현재시각 -->
+		<jsp:useBean id="now" class="java.util.Date" />
+		<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="now" /><!-- 형식 변경 > String -->
+		<fmt:parseDate value="${now}" var="now" pattern="yyyy-MM-dd"/><!-- String > Date -->
+		<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="now" /><!-- Date > Number -->
+		<!-- END 현재시각 -->
 		<!-- 댓글 목록 -->
 		<c:forEach items="${replyList }" var="reply">
 			<br>
 			<div class='border rounded p-4'>
 				<div class="row">
 					<div class="col-10" style="word-break:break-all">
-						<b>${reply.rwriter }</b> ${reply.date}<br>
-						${reply.rcontents }<c:if test="${reply.rupdate!=null }">(${reply.rupdate })</c:if>
+						<!-- 댓글 등록 시간 -->
+						<fmt:parseDate value="${reply.date}" pattern="yyyy-MM-dd" var="date" /><!-- String > Date -->
+						<fmt:parseNumber value="${date.time / (1000*60*60*24)}" integerOnly="true" var="date" /><!-- Date > Number -->
+						<!-- END 댓글 등록 시간 -->
+						<c:if test="${now-date!=0 }">
+							<b>${reply.rwriter }</b> ${now-date }일 전<br>
+						</c:if>
+						<c:if test="${now-date==0 }">
+							<b>${reply.rwriter }</b> ${fn:split(reply.date, ' ')[1] }<br>
+						</c:if>
+							${reply.rcontents }<c:if test="${reply.rupdate!=null }">(${reply.rupdate })</c:if>
 					</div>
 					<div class="col">
 					<sec:authorize access="isAuthenticated()">

@@ -19,6 +19,7 @@
 body{font-family: 'Noto Sans KR', sans-serif}
 </style>
 <body>
+<!-- 로그인 정보 받기 -->
 <sec:authentication property="principal" var="user" />
 	<!-- 메인 -->
 	<div class="container">

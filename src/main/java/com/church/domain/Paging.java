@@ -32,8 +32,9 @@ public class Paging {
 	private int startPageNum;
 
 	// 다음/이전 표시 여부
-	private boolean prev;
-	private boolean next;
+	private boolean prev, next;
+	
+	private String searchType, keyword;
 	
 	public void setCount(int count) {
 		this.count = count;
@@ -62,6 +63,7 @@ public class Paging {
 		displayPost = (num - 1) * postNum;
 		 
 	}
+	
 	public String getSearchTypeKeyword() {
 		 
 		if(searchType.equals("") || keyword.equals("")) {
@@ -69,24 +71,6 @@ public class Paging {
 		} else {
 			return "&amp;searchType=" + searchType + "&amp;keyword=" + keyword; 
 		}
-	}
-		
-	private String searchType, keyword;
-	
-	public void setSearchType(String searchType) {
-		this.searchType = searchType;  
-	}
-	
-	public String getSearchType() {
-		return searchType;
-	} 
-	
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;  
-	} 
-	
-	public String getKeyword() {
-		return keyword;
 	}
 
 }

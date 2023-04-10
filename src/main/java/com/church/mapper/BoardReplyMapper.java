@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.Update;
 
 import com.church.domain.Reply;
 
-public interface ReplyMapper {
+public interface BoardReplyMapper {
 	
 	@Insert("INSERT INTO reply (bno, rwriter, rcontents) VALUES (#{bno}, #{rwriter}, #{rcontents})")
 	void newReply(Map<String, Object> reply);

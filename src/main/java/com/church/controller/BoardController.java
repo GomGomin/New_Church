@@ -27,7 +27,7 @@ import com.church.domain.Board;
 import com.church.domain.Paging;
 import com.church.domain.Reply;
 import com.church.service.BoardService;
-import com.church.service.ReplyService;
+import com.church.service.BoardReplyService;
 
 @Controller
 @RequestMapping("boards")
@@ -37,7 +37,7 @@ public class BoardController {
 	BoardService boardService;
 	
 	@Autowired
-	ReplyService replyService;
+	BoardReplyService replyService;
 	
 	@GetMapping("setNewBoard")
 	public String requestAddBoardForm(@ModelAttribute("NewBoard") Board board) {

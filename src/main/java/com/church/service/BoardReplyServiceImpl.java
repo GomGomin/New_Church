@@ -9,13 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.church.domain.Reply;
-import com.church.mapper.ReplyMapper;
+import com.church.mapper.BoardReplyMapper;
 
 @Service
-public class ReplyServiceImpl implements ReplyService {
+public class BoardReplyServiceImpl implements BoardReplyService {
 
 	@Autowired
-	ReplyMapper replyMapper;
+	BoardReplyMapper replyMapper;
 
 	@Override
 	public void newReply(Map<String, Object> reply) {

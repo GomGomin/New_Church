@@ -7,7 +7,7 @@ import java.util.Map;
 
 import com.church.domain.Reply;
 
-public interface ReplyService {
+public interface BoardReplyService {
 
 	void newReply(Map<String, Object> reply);
 	
