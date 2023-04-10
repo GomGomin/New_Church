@@ -6,6 +6,7 @@ package com.church.mapper;
 
 import com.church.domain.Schedule;
 import com.church.domain.SchedulePageHandler;
+import com.church.domain.SearchCondition;
 import lombok.Setter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,6 +24,35 @@ public class ScheduleMapperTest {
     @Setter(onMethod_ = @Autowired)
     private ScheduleMapper scheduleMapper;
 
+    @Test
+    public void selectSearchPage() throws Exception {
+        scheduleMapper.deleteAll();
+        for (int i = 1; i <= 20; i++) {
+            Schedule schedule = new Schedule("title"+i, "asdfasdf"+i, "asdf");
+            scheduleMapper.insertSchedule(schedule);
+        }
+        SearchCondition sc = new SearchCondition(1,10,"title2", "title");
+        List<Schedule> list = scheduleMapper.selectSearchPage(sc);
+        System.out.println("list : " + list);
+        assert (list.size()==2);
+
+        sc = new SearchCondition(1,10,"2", "all");
+        list = scheduleMapper.selectSearchPage(sc);
+        System.out.println("list : " + list);
+        assert (list.size()==3);
+    }
+    @Test
+    public void selectSearchCount() throws Exception {
+        scheduleMapper.deleteAll();
+        for (int i = 1; i <= 20; i++) {
+            Schedule schedule = new Schedule("title"+i, "asdfasdf", "asdf");
+            scheduleMapper.insertSchedule(schedule);
+        }
+        SearchCondition sc = new SearchCondition(1,10,"title2", "title");
+        int cnt = scheduleMapper.selectSearchCount(sc);
+        System.out.println("cnt : " + cnt);
+        assert (cnt==2);
+    }
     @Test
     public void deleteAllTest() throws Exception {
         scheduleMapper.deleteAll();
@@ -53,7 +83,8 @@ public class ScheduleMapperTest {
     }
     @Test
     public void pagingTest(){
-        SchedulePageHandler sph = new SchedulePageHandler(256,12,10);
+        SchedulePageHandler sph = new SchedulePageHandler(256,new SearchCondition(12,10));
+        System.out.println(sph);
     }
     @Test
     public void selectPageTest() throws Exception {
