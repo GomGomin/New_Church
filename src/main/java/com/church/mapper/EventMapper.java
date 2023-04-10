@@ -25,7 +25,7 @@ public interface EventMapper {
     @Delete("DELETE FROM event WHERE eno = #{eno}")
     int deleteForAdmin(int eno) throws Exception; ; // 글 삭제 (관리자)
     @Update("UPDATE event" +
-            " SET etitle = #{etitle}, econtents = #{econtents}, efile = #{efile}" +
+            " SET etitle = #{etitle}, econtents = #{econtents}, efile = #{efile}, eimg = #{eimg}" +
             " WHERE eno = #{eno}")
     int updateevent(Event event) throws Exception; ; //게시글 수정
     @Update("UPDATE event" +

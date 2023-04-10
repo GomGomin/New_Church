@@ -42,7 +42,7 @@
 <div class="container">
 	<!-- 검색 -->
 	<div class="row">
-		<form action="/event/list">
+		<form action="/worship/list">
 			<div class="row g-0">
 				<div class="col-2">
 					<select name="option" class="form-select">
@@ -65,17 +65,17 @@
 				<tr>
 					<th>번호</th>
 					<th>사진</th>
-					<th>찬양제목</th>
+					<th>예배제목</th>
 					<th>작성일</th>
 					<th>조회수</th>
 				</tr>
-				<c:forEach items="${eventList }" var="list">
+				<c:forEach items="${worshipList }" var="list">
 					<tr>
-						<td>${list.eno }</td>
-						<td><a href="/event/view${sph.sc.getQueryString()}&eno=${list.eno }"><img src="${list.eimg}" alt="동영상이 없습니다." width="100px", height="80px"></a></td>
-						<td><a href="/event/view${sph.sc.getQueryString()}&eno=${list.eno }">${list.etitle }</a></td>
+						<td>${list.wno }</td>
+						<td><a href="/worship/view${sph.sc.getQueryString()}&wno=${list.wno }"><img src="${list.wimg}" alt="동영상이 없습니다." width="100px", height="80px"></a></td>
+						<td><a href="/worship/view${sph.sc.getQueryString()}&wno=${list.wno }">${list.wtitle }</a></td>
 						<td>${list.date }</td>
-						<td>${list.eview}</td>
+						<td>${list.wview}</td>
 					</tr>
 				</c:forEach>
 			</table>
@@ -85,13 +85,13 @@
 		<!-- paging & 글작성버튼 -->
 		<div class = "text-center">
 			<c:if test="${sph.showPrev}">
-				<a href="/event/list${sph.sc.getQueryString(sph.beginPage-1)}"class = "fs-3 text-dark">&lt;</a>
+				<a href="/worship/list${sph.sc.getQueryString(sph.beginPage-1)}"class = "fs-3 text-dark">&lt;</a>
 			</c:if>
 			<c:forEach var="i" begin="${sph.beginPage}" end="${sph.endPage}">
-				<a style="font-size: 28px" href="/event/list${sph.sc.getQueryString(i)}" class = ${i eq sph.sc.page ? "text-primary"  : "text-dark" }>${i}&nbsp;</a>
+				<a style="font-size: 28px" href="/worship/list${sph.sc.getQueryString(i)}" class = ${i eq sph.sc.page ? "text-primary"  : "text-dark" }>${i}&nbsp;</a>
 			</c:forEach>
 			<c:if test="${sph.showNext}">
-				<a href="/event/list${sph.sc.getQueryString(sph.endPage+1)}" class = "fs-3 text-dark">&gt;</a>
+				<a href="/worship/list${sph.sc.getQueryString(sph.endPage+1)}" class = "fs-3 text-dark">&gt;</a>
 			</c:if>
 		</div>
 
@@ -99,7 +99,7 @@
 		<div class="col">
 		<sec:authentication property="principal" var="user"/>
 		<%--<sec:authorize access="hasRole('ADMIN')">--%>
-			<button onclick="location.href='/event/register'" class="form-control">글작성</button>
+			<button onclick="location.href='/worship/register'" class="form-control">글작성</button>
 		<%--</sec:authorize>--%>
 		</div>
 	</div>

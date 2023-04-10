@@ -84,6 +84,8 @@ public class EventController {
         try {
             String embedUrl = event.getEfile().replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/");
             event.setEfile(embedUrl);
+            String thumbnail = embedUrl.replace("https://www.youtube.com/embed/","https://img.youtube.com/vi/");
+            event.setEimg(thumbnail + "/0.jpg");
             if(eventService.eventModify(event)){
                 attr.addFlashAttribute("msg", "modifyOk");
                 return "redirect:/event/list" + sc.getQueryString();
