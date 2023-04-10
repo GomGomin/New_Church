@@ -8,7 +8,7 @@
 <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
 <script>
 $(window).scroll(function(){
-	if ($(this).scrollTop() > 300){
+	if ($(this).scrollTop() > 150){
 		$('.btn_gotop').show();
 	} else{
 		$('.btn_gotop').hide();

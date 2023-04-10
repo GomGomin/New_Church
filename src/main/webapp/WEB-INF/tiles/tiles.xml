@@ -14,7 +14,7 @@
         <put-attribute name="heading" value="홈" /> 
         <put-attribute name="main_slide" value="/WEB-INF/views/home.jsp" />
         <put-attribute name="image" value="" />
-        <put-attribute name="content" value="/WEB-INF/views/about/vision.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/vision2.jsp" />
     </definition>
     
     <definition name="notice" extends="base-Template"> 
