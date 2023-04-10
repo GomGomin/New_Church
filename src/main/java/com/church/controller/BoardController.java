@@ -53,7 +53,6 @@ public class BoardController {
 		page.setCount(boardService.searchCount(searchType, keyword));
 		page.setSearchType(searchType);
 		page.setKeyword(keyword);
-		
 
 		List<Board> list = null; 
 	    list = boardService.list(page.getDisplayPost(), page.getPostNum(), searchType, keyword);
@@ -81,6 +80,35 @@ public class BoardController {
 		
 		return "boards/board";
 	}
+	
+//	private void viewCountUp(String bno, HttpServletRequest request, HttpServletResponse response) {
+//
+//	    Cookie oldCookie = null;
+//	    Cookie[] cookies = request.getCookies();
+//	    if (cookies != null) {
+//	        for (Cookie cookie : cookies) {
+//	            if (cookie.getName().equals("postView")) {
+//	                oldCookie = cookie;
+//	            }
+//	        }
+//	    }
+//
+//	    if (oldCookie != null) {
+//	        if (!oldCookie.getValue().contains("[" + bno.toString() + "]")) {
+//	        	boardService.updateView(bno);
+//	            oldCookie.setValue(oldCookie.getValue() + "_[" + bno + "]");
+//	            oldCookie.setPath("/");
+//	            oldCookie.setMaxAge(60 * 60 * 24);
+//	            response.addCookie(oldCookie);
+//	        }
+//	    } else {
+//	    	boardService.updateView(bno);
+//	        Cookie newCookie = new Cookie("postView","[" + bno + "]");
+//	        newCookie.setPath("/");
+//	        newCookie.setMaxAge(60 * 60 * 24);
+//	        response.addCookie(newCookie);
+//	    }
+//	}
 	
 	@ResponseBody
 	@RequestMapping("/replynew")
