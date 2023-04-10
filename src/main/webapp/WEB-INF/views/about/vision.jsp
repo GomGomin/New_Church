@@ -11,39 +11,51 @@
 <meta charset="UTF-8">
 
 <style>
+
 </style>
 </head>
 <body>
-<main>
-	<div id="header">
-		<div id="hcontents">
-			<h1>마가복음</h1>
-			<p>누가누가 그리 말하였다.</p>
+<section id="vision">
+	<div class="welcome">
+			<h1>환영합니다!</h1>
+			<hr>
+			<p>계정교회의 비전은 하나님의 나라를 넓게 이루기 위한 새로운 교회를 세우는 것입니다. 이를 위해서는 지역사회에서 필요로 하는 복음의 메시지를 전하는 일과 그에 따른 변화를 이루어나가는 일이 중요합니다. 따라서 계정교회는 지역사회의 문제를 파악하고, 그 문제를 해결할 수 있는 실질적인 방안을 마련하며, 사랑과 관심을 바탕으로 지역사회와 교류하고 소통합니다.</p>
+			<br>
+			<p>	계정교회는 또한 다양한 세대와 문화를 아우르는 교회로서 성장하고, 예배와 봉사, 교육 등의 다양한 분야에서 지속적인 변화와 발전을 추구합니다. 이를 위해 교육적, 문화적, 사회적인 프로그램을 제공하고, 지속적인 리더십 개발과 전문성을 향상시키는 노력을 기울입니다.</p>
+			<br>
+			<p>	이러한 방식으로 계정교회는 하나님의 나라를 넓히기 위해 새로운 교회를 세우고, 지역사회와 교류하며, 세계적인 미션 활동을 전개하는 일에 힘쓰며, 하나님의 사랑과 더 나은 세상을 만드는 일에 동참합니다.</p>
+	</div>
+	<div class ="vision">
+		<div class="title">
+		<h1>신앙지도원칙 </h1>
+		</div>
+		<div class="contents">
+		<h2>복음 전파와 사랑의 실천</h2>
+		<p>하나님의 나라를 세우는 교회
+		이 교회는 복음을 전하며, 사랑으로 이웃을 섬겨 하나님의 나라를 세우는 것을 목표로 합니다.
+		</p>
+		<hr>
+		<h2>제자훈련과 전인적 섬김</h2>
+		<p>예수 그리스도의 제자를 만들어 세상에 보내는 교회
+		이 교회는 예수 그리스도의 모습을 따르며, 제자들을 양육하여 예수님의 사랑을 나누고 세상에 보내는 것을 목표로 합니다.
+		</p>
+		<hr>
+		<h2>가족의 성장과 섬김</h2>
+		<p>가족이 하나되어 하나님의 나라를 세우는 교회
+		이 교회는 가족을 중심으로한 섬김을 강조하며, 가족들이 함께 하나님을 섬기며 하나가 되어 하나님의 나라를 세우는 것을 목표로 합니다.
+		</p>
+		<hr>
+		<h2>사회적 책임과 공동체 섬김</h2>
+		<p>사회적 책임을 다하고 공동체를 섬기는 교회
+		이 교회는 사회의 문제와 고통을 함께 나누며, 공동체를 섬기는 것을 목표로 합니다.
+		</p>
+		<hr>
+		<h2>예배와 목양</h2>
+		<p>하나님의 영광을 위한 예배와 영혼의 목양을 하는 교회
+		이 교회는 하나님의 영광을 위한 예배와 영혼의 목양을 중요시하며, 예수 그리스도를 향한 성령의 동기를 가진 교회를 목표로 합니다.
+		</p>
 		</div>
 	</div>
-	
-	<section>
-        <div class="about">
-            <div class="title">
-                <h2>환영합니다</h2>
-            </div>
-            <div class="w3-container">
-    <div class="w3-col m6" id="contents">
-      <h2>교회 역사</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmodtempor incididunt ut labore et dolore.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod<br>tempor incididunt ut labore et dolore.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod<br>tempor incididunt ut labore et dolore.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod<br>tempor incididunt ut labore et dolore.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod<br>tempor incididunt ut labore et dolore.</p>
-      
-    </div>
-    <div class="w3-col m6" id="picture">
-      <img class="w3-image" alt="Alps" src="/resources/img/history.jpg" alt="Buildings" width="700" height="394">
-    </div>
-</div>
-        </div>
-    </section>
-    
-</main>
+</section>
 </body>
 </html>

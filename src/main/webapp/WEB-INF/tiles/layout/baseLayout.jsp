@@ -3,9 +3,21 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 
 <html>
-<head>
-<script>
 
+<head>
+<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+<script>
+$(window).scroll(function(){
+	if ($(this).scrollTop() > 300){
+		$('.btn_gotop').show();
+	} else{
+		$('.btn_gotop').hide();
+	}
+});
+$('.btn_gotop').click(function(){
+	$('html, body').animate({scrollTop:0},400);
+	return false;
+});
 </script>
 <style>
 
@@ -26,28 +38,48 @@ width: 100%;
 height: 90px;
 }
 
-.container{
-width:100%;
-height:auto;
-display: flex;
-justify-content: center;
-text-align: center;
-margin: 0 auto;
-overflow: hidden;
-min-width: 780px;
-flex-direction: column;
-}
+/* .container{ */
+/* width:80%; */
+/* height:auto; */
+/* display: flex; */
+/* justify-content: center; */
+/* text-align: center; */
+/* margin: 0 auto; */
+/* overflow: hidden; */
+/* min-width: 780px; */
+/* flex-direction: column; */
+/* } */
 
 
 .content{
 width: 80%;
+margin: 0 auto;
+margin-bottom: 30px;
+min-width: 780px;
 }
 
 .footer{
 width: 100%;
 min-width: 780px;
 margin: 0;
+height: 70px;
 }
+
+.btn_gotop {
+	display:none;
+	position:fixed;
+	bottom:30px;
+	right:30px;
+	z-index:999;
+	border:1px solid #ccc;
+	outline:none;
+	background-color:white;
+	color:#333;
+	cursor:pointer;
+	padding:15px 20px;
+	border-radius:100%;
+}
+
 </style>
 <title><tiles:insertAttribute name="title" /></title>  
 </head>
@@ -55,11 +87,24 @@ margin: 0;
 <div class="header">
 <tiles:insertAttribute name="header" />
 </div>
-<div class="container">
+<section>
+<tiles:insertAttribute name="main_slide" />  
+</section>
+<section style="margin-bottom: 15px;">
+<tiles:insertAttribute name="image" />
+</section>
+<div class="content">
 <tiles:insertAttribute name="content" />  
 </div>
 <div class="footer">
 <tiles:insertAttribute name="footer" />  
 </div>
+
+<a href="#" class="btn_gotop" id="click">
+  <span class="glyphicon glyphicon-chevron-up">
+  &#9650;
+  </span>
+</a>
+
 </body>
 </html>

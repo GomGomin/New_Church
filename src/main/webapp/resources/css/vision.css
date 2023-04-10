@@ -1,14 +1,5 @@
 @charset "UTF-8";
 
-body{
-margin: 0;
-padding: 0;
-}
-
-h1,p{
-padding: 0;
-}
-
 @font-face {
     font-family: 'TAEBAEKmilkyway';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/TAEBAEKmilkyway.woff2') format('woff2');
@@ -16,78 +7,50 @@ padding: 0;
     font-style: normal;
 }
 
+.welcome p{
+color: #808080;
+font-family : "TAEBAEKmilkyway";
+font-size: 20px;
+font-weight: bold;
+}
+
+.welcome h1{
+font-family: "TAEBAEKmilkyway";
+color: #0288d1;
+
+}
+
+.vision{
+margin-top: 50px;
+}
+
+.vision .title{
+text-align: center;
+}
+
+.vision .title h1{
+font-family: "Chosunilbo_myungjo";
+font-weight: bold;
+}
+
+.vision .contents h2{
+font-family: "TAEBAEKmilkyway";
+color: #0288d1;
+font-weight: bold;
+}
+
+.vision .contents p{
+color: black;
+font-family : "TAEBAEKmilkyway";
+font-size: 20px;
+font-weight: bold;
+}
+
+
 @font-face {
-    font-family: 'TheJamsil5Bold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
-    font-weight: 700;
+    font-family: 'Chosunilbo_myungjo';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff') format('woff');
+    font-weight: normal;
     font-style: normal;
 }
-
-
-
-#header {
-    position: relative; 
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-
-#header::before{
-content: "";
-background: url("/resources/img/vision.jpg"),no-repeat; background-size:cover; background-position: center, center;
-width: 100%;
-height: 100vh;
-opacity: 0.8;
-border-radius: 10px;
-}
-
-#hcontents{
-position: absolute;
-width: 100%;
-text-align: center;
-font-family: TAEBAEKmilkyway;
-font-size: 3rem;
-}
-
-#contents{
-width: 100%;
-position: absolute;
-text-align: left;
-}
-
-#contents h1{
-font-family: TAEBAEKmilkyway;
-font-size: 50px;
-}
-
-#contents p{
-font-family: TAEBAEKmilkyway;
-font-size: 30px;
-}
-
-section{
-    background-color: #f8f8f8;
-}
-
-section .about .title{
-align-items: center;
-justify-content: center;
-width: 100%;
-font-family: TheJamsil5Bold;
-font-size: 50px;
-display: flex;
-}
-
-section .about .about-self{
-align-items: center;
-justify-content: center;
-width: 100%;
-font-family: TAEBAEKmilkyway;
-font-size: 20px;
-display: flex;
-}
-
 

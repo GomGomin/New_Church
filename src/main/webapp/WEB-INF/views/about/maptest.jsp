@@ -5,56 +5,81 @@
 <head>
 	<meta charset="utf-8"/>
 	<title>오시는 길</title>
-<link rel="stylesheet" href ="resources/css/map.css" type="text/css">
+<!-- <link rel="stylesheet" href ="resources/css/map.css" type="text/css"> -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=91966b94c8dcb08be4fe8c7e60e81bb2"></script>
-</head>
+<style>
+#map{
+width: 100%;
+height: 400px;
+margin: 0 auto;
+board:1px solid light grey;
+border-radius: 10px;
+box-shadow: 1px 1px 2px 4px grey;
+}
 
+@font-face {
+    font-family: 'NanumSquareNeo-Variable';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.map_title{
+text-align: center;
+}
+
+
+.map_title h1{
+font-family: "NanumSquareNeo-Variable";
+font-weight: bold;
+text-decoration: underline overline;
+text-underline-position : under;
+text-decoration-color : #0288d1;
+}
+
+.map-container {
+margin : 0 auto;
+margin-top : 30px;
+width: 80%;
+}
+
+.map-container h2{
+font-family: "TAEBAEKmilkyway";
+color: #0288d1;
+font-weight: bold;
+}
+
+.map-container p{
+color: #808080;
+font-family : "TAEBAEKmilkyway";
+font-size: 20px;
+font-weight: bold;
+}
+</style>
+</head>
 <body>
-<section style="margin-bottom: 15px;">
-<%@ include file = "../about/img_test.jsp" %>
-</section>
-<div id="map"></div>
-<p><em>지도를 확대 또는 축소 해주세요!</em></p> 
-<p id="result"></p>
-<div class="map-container">
-			<h2>찾아오시는 길</h2><hr>
-			<p>주소 : 경기도 김포시 통진읍 
-			&nbsp
-			&nbsp	
-			&nbsp
-			&nbsp
-			&nbsp	
-			전화번호 : 010-1234-1234</p>
+
+	<div class="map_title">
+	<h1>약도</h1>
+	<hr>
+    <div id="map"></div>
+    </div>
+	<div class="map-container">
+		<h2>계정교회</h2><hr>
+		<p>주소 : 경기도 양평군 양동면 양서북로 490 <p>	
+		<p>전화번호 : 010-1234-1234</p>
 		<hr>
 		<br>
 		<h2>예배시간</h2>
 		<hr>
-		<p>일요일 : 12~ 12<p>
-		<hr>
-		</div>
-<script>
-	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-	mapOption = { 
-	    center: new kakao.maps.LatLng(30, 50), // 지도의 중심좌표
-	    level: 3 // 지도의 확대 레벨
-	};
-	
-	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-	
-    var markerPosition  = new kakao.maps.LatLng(37.693155, 126.593735); 
-
-    var marker = new kakao.maps.Marker({
-        position: markerPosition
-    });
-    
-</script>    
+</div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=91966b94c8dcb08be4fe8c7e60e81bb2"></script>
 <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
+        center: new kakao.maps.LatLng(37.4546, 127.7707), // 지도의 중심좌표
+        level: 1 // 지도의 확대 레벨
     };
 
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
@@ -69,11 +94,19 @@ kakao.maps.event.addListener(map, 'zoom_changed', function() {
     // 지도의 현재 레벨을 얻어옵니다
     var level = map.getLevel();
     
-    var message = '현재 지도 레벨은 ' + level + ' 입니다';
-    var resultDiv = document.getElementById('result');  
-    resultDiv.innerHTML = message;
     
 });
+
+var markerPosition  = new kakao.maps.LatLng(37.4546, 127.7707); 
+
+// 마커를 생성합니다
+var marker = new kakao.maps.Marker({
+    position: markerPosition
+});
+
+// 마커가 지도 위에 표시되도록 설정합니다
+marker.setMap(map);
+
 </script>
 </body>
 </html>

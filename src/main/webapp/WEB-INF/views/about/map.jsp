@@ -11,11 +11,11 @@
 </head>
 
 <body>
-<section style="margin-bottom: 15px;">
-<%@ include file = "../about/img_test.jsp" %>
-</section>
-<section>	
+<section>
+	<div class="map_div">
+	<h1>지도</h1>
     <div id="map"></div>
+    </div>
 		<div class="map-container">
 			<h2>계정교회</h2><hr>
 			<p>주소 : 경기도 김포시 통진읍 

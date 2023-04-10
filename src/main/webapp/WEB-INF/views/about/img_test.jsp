@@ -8,12 +8,12 @@
 </head>
 <style>
 .image{
-width : 2000px;
+width : 100%;
 height: 300px;
 background-image: url("/resources/img/church2.jpg");
-background-size: cover;
+background-size: auto;
 background-repeat: no-repeat;
-background-position: 50% 20%;
+background-position: 50% 30%;
 }
 
 </style>

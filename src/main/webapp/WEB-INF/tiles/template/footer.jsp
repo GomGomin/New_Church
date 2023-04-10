@@ -9,25 +9,30 @@
 <style>
 .blog-footer{
 background-color: #5B5B5B;
+height: 100%;
+text-align: left;
+vertical-align: center;
+
 }
 
 
-.blog-footer h3, p{
+.blog-footer h3{
 color:white;
 font-family: TheJamsil5Bold;
+font-size: 30px;
+display: inline;
 }
 
-footer{
-display: flex;
-justify-content: center;
-height: 120px;
-top: 50%;
-left: 50%;
-text-align: center;
+.blog-footer p{
+color:white;
+font-family: TheJamsil5Bold;
+font-size: 20px;
+display: inline;
 }
 
 .info{
-margin: 10px;
+width: 80%;
+margin: 0 auto;
 }
 
 .logo{
@@ -40,6 +45,12 @@ margin: 10px;
     font-style: normal;
 }
 
+.footer_content{
+margin :10px;
+display: inline;
+text-align: right;
+float: right;
+}
 </style>
 </head>
 <body>
@@ -47,8 +58,10 @@ margin: 10px;
 <footer class="blog-footer">
 	<div class="info">
 	<h3>계정교회</h3>	
-	<p>주소 : 경기도 김포시 통진읍 / 전화번호 : 010-1234-1234</p>
-
+	<div class="footer_content">
+	<p>주소 : 경기 양평군 양동면 양서북로 490</p>
+	<p>전화번호 : 010-1234-1234</p>
+	</div>
 	</div>
 </footer>
 
