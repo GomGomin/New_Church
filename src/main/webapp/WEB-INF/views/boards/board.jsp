@@ -75,18 +75,18 @@
 							<div class="col-9">
 							</div>
 							<div class="col">
-							<c:if test="${user != 'anonymousUser' }">
+							<sec:authorize access="isAuthenticated()">
 								<c:if test="${board.bwriter==user.username }">
 									<button onclick="location.href='/boards/edit?bno=${board.bno }'" class="form-control">수정</button>
 								</c:if>
-								</c:if>
+							</sec:authorize>
 							</div>
 							<div class="col">
-							<c:if test="${user != 'anonymousUser' }">
+							<sec:authorize access="isAuthenticated()">
 								<c:if test="${board.bwriter==user.username }">
 									<button onclick="removeBoard(${board.bno })" class="form-control">삭제</button>
 								</c:if>
-								</c:if>
+							</sec:authorize>
 							</div>
 						</div>
 					</td>
@@ -95,7 +95,7 @@
 		</table>
 		<!-- END 게시물 -->
 		<!-- 댓글 등록 -->
-		<c:if test="${user != 'anonymousUser' }">
+		<sec:authorize access="isAuthenticated()">
 		<div class="row">
 			<div class="col-10">
 				<input type="hidden" id="bno" name="bno" value="${board.bno }" />
@@ -106,7 +106,7 @@
 				<button onclick="replyNewFunction()" class="form-control">등록</button>
 			</div>
 		</div>
-		</c:if>
+		</sec:authorize>
 		<!-- END 댓글 등록 -->
 		<!-- 댓글 목록 -->
 		<c:forEach items="${replyList }" var="reply">
@@ -118,7 +118,7 @@
 						${reply.rcontents }<c:if test="${reply.rupdate!=null }">(${reply.rupdate })</c:if>
 					</div>
 					<div class="col">
-					<c:if test="${user != 'anonymousUser' }">
+					<sec:authorize access="isAuthenticated()">
 						<c:if test="${reply.rwriter==user.username }">
 							<button onclick="modal(${reply.rno})" class="btn btn-outline-white">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -127,10 +127,10 @@
 								</svg>
 							</button>
 						</c:if>
-						</c:if>
+					</sec:authorize>
 					</div>
 					<div class="col">
-					<c:if test="${user != 'anonymousUser' }">
+					<sec:authorize access="isAuthenticated()">
 						<c:if test="${reply.rwriter==user.username }">
 							<button onclick="removeReply(${reply.rno})" class="btn btn-outline-white">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
@@ -138,7 +138,7 @@
 								</svg>
 							</button>
 						</c:if>
-						</c:if>
+					</sec:authorize>
 					</div>
 				</div>
 			</div>

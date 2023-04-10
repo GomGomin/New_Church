@@ -36,12 +36,12 @@ body{font-family: 'Noto Sans KR', sans-serif}
 				<c:forEach items="${list }" var="board">
 				<tr>
 					<td>${board.bno }</td>
-					<c:if test="${user != 'anonymousUser' }">
+					<sec:authorize access="isAuthenticated()">
 						<td><a href="/boards/detail?bno=${board.bno }&username=${user.username}">${board.btitle }</a></td>
-					</c:if>
-					<c:if test="${user == 'anonymousUser' }">
+					</sec:authorize>
+					<sec:authorize access="isAnonymous()" >
 						<td><a href="/boards/detail?bno=${board.bno }&username=${user }">${board.btitle }</a></td>
-					</c:if>
+					</sec:authorize>
 					<td>${fn:split(board.date,' ')[0] }</td>
 					<td>${board.bview }</td>
 				</tr>
@@ -90,9 +90,9 @@ body{font-family: 'Noto Sans KR', sans-serif}
 			<!-- 글작성버튼 -->
 			<div class="col-6"></div>
 			<div class="col">
-			<c:if test="${user != 'anonymousUser' }">
+			<sec:authorize access="isAuthenticated()" >
 				<button onclick="location.href='/boards/setNewBoard'" class="form-control">글작성</button>
-			</c:if>
+			</sec:authorize>
 			</div>
 			<!-- END 글작성버튼 -->
 		</div>
