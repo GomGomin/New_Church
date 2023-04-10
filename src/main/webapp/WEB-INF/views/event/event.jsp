@@ -63,7 +63,7 @@
 								<%--<sec:authentication property="principal" var="user"/>--%>
 								<%--<sec:authorize access="hasRole('ADMIN')">--%>
 									<c:if test="${mode eq 'new'}">
-										<%--<input type="hidden" value="${user.username}" name="pwriter">--%>
+										<%--<input type="hidden" value="${user.username}" name="ewriter">--%>
 										<button type="button" id="writeBtn" class="btn btn-secondary mx-3">등록</button>
 									</c:if>
 									<c:if test="${mode ne 'new'}">

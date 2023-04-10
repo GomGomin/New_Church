@@ -125,5 +125,8 @@
 		location.href = `/schedule/list${searchCondition.queryString}`;
 	});
 </script>
+<script>
+
+</script>
 </body>
 </html>
