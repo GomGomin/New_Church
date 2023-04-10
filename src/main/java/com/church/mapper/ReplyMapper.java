@@ -18,7 +18,7 @@ public interface ReplyMapper {
 	void newReply(Map<String, Object> reply);
 	
 	@Select("SELECT * FROM reply WHERE bno = #{bno}")
-	List<Reply> replyList(String bno); 
+	List<Reply> replyList(int bno); 
 	
 	@Select("SELECT rcontents FROM reply WHERE rno = #{rno}")
 	String reply(String rno); 

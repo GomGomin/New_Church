@@ -75,13 +75,17 @@
 							<div class="col-9">
 							</div>
 							<div class="col">
+							<c:if test="${user != 'anonymousUser' }">
 								<c:if test="${board.bwriter==user.username }">
 									<button onclick="location.href='/boards/edit?bno=${board.bno }'" class="form-control">수정</button>
 								</c:if>
+								</c:if>
 							</div>
 							<div class="col">
+							<c:if test="${user != 'anonymousUser' }">
 								<c:if test="${board.bwriter==user.username }">
 									<button onclick="removeBoard(${board.bno })" class="form-control">삭제</button>
+								</c:if>
 								</c:if>
 							</div>
 						</div>
@@ -91,6 +95,7 @@
 		</table>
 		<!-- END 게시물 -->
 		<!-- 댓글 등록 -->
+		<c:if test="${user != 'anonymousUser' }">
 		<div class="row">
 			<div class="col-10">
 				<input type="hidden" id="bno" name="bno" value="${board.bno }" />
@@ -101,6 +106,7 @@
 				<button onclick="replyNewFunction()" class="form-control">등록</button>
 			</div>
 		</div>
+		</c:if>
 		<!-- END 댓글 등록 -->
 		<!-- 댓글 목록 -->
 		<c:forEach items="${replyList }" var="reply">
@@ -112,6 +118,7 @@
 						${reply.rcontents }<c:if test="${reply.rupdate!=null }">(${reply.rupdate })</c:if>
 					</div>
 					<div class="col">
+					<c:if test="${user != 'anonymousUser' }">
 						<c:if test="${reply.rwriter==user.username }">
 							<button onclick="modal(${reply.rno})" class="btn btn-outline-white">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -120,14 +127,17 @@
 								</svg>
 							</button>
 						</c:if>
+						</c:if>
 					</div>
 					<div class="col">
+					<c:if test="${user != 'anonymousUser' }">
 						<c:if test="${reply.rwriter==user.username }">
 							<button onclick="removeReply(${reply.rno})" class="btn btn-outline-white">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
 											<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
 								</svg>
 							</button>
+						</c:if>
 						</c:if>
 					</div>
 				</div>

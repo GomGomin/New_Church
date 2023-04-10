@@ -11,7 +11,7 @@ public interface ReplyService {
 
 	void newReply(Map<String, Object> reply);
 	
-	List<Reply> replyList(String bno); 
+	List<Reply> replyList(int bno); 
 	
 	String reply(String rno); 
 

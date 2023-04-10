@@ -2,8 +2,16 @@
 //최초 작성일 : 23.04.04
 package com.church.controller;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -64,13 +72,14 @@ public class BoardController {
 	}	
 	
 	@GetMapping("/detail")
-	public String requestBoardById(@RequestParam("bno") String bno, @RequestParam("username") String username, Model model) {
+	public String requestBoardById(@RequestParam("bno") int bno,
+									@RequestParam("username") String username,
+						            HttpServletRequest request,
+						            HttpServletResponse response,
+						            Model model) {
 		// 게시물
 		Board boardById = boardService.boardById(bno);
 		model.addAttribute("board", boardById);
-		
-		//작성자 아닐 시에 조회수 증가
-		if(!username.equals(boardById.getBwriter())) { boardService.updateView(bno); }
 		
 		// 답변
 		List<Reply> list = replyService.replyList(bno);
@@ -78,37 +87,51 @@ public class BoardController {
 		model.addAttribute("replyList",list);
 		model.addAttribute("cnt", cnt);
 		
+		viewCountValidation(boardById, bno, username, request, response);
+		 
 		return "boards/board";
 	}
 	
-//	private void viewCountUp(String bno, HttpServletRequest request, HttpServletResponse response) {
-//
-//	    Cookie oldCookie = null;
-//	    Cookie[] cookies = request.getCookies();
-//	    if (cookies != null) {
-//	        for (Cookie cookie : cookies) {
-//	            if (cookie.getName().equals("postView")) {
-//	                oldCookie = cookie;
-//	            }
-//	        }
-//	    }
-//
-//	    if (oldCookie != null) {
-//	        if (!oldCookie.getValue().contains("[" + bno.toString() + "]")) {
-//	        	boardService.updateView(bno);
-//	            oldCookie.setValue(oldCookie.getValue() + "_[" + bno + "]");
-//	            oldCookie.setPath("/");
-//	            oldCookie.setMaxAge(60 * 60 * 24);
-//	            response.addCookie(oldCookie);
-//	        }
-//	    } else {
-//	    	boardService.updateView(bno);
-//	        Cookie newCookie = new Cookie("postView","[" + bno + "]");
-//	        newCookie.setPath("/");
-//	        newCookie.setMaxAge(60 * 60 * 24);
-//	        response.addCookie(newCookie);
-//	    }
-//	}
+	 private void viewCountValidation(Board board, 
+			 						 int bno,
+			 						 String username,
+									 HttpServletRequest request, 
+									 HttpServletResponse response) {
+        Cookie[] cookies = request.getCookies();
+
+        Cookie cookie = null;
+        boolean isCookie = false;
+        
+        // request에 쿠키들이 있을 때
+        for (int i = 0; cookies != null && i < cookies.length; i++) {
+        	// 사용자명_board 쿠키가 있을 때
+            if (cookies[i].getName().equals(username + "_board")) {//다른 게시판은 "_board" 변경 
+            	// cookie 변수에 저장
+                cookie = cookies[i];
+                // 만약 cookie 값에 현재 게시글 번호가 없을 때
+                if (!cookie.getValue().contains("[" + board.getBno() + "]")) {
+                	// 해당 게시글 조회수를 증가시키고, 쿠키 값에 해당 게시글 번호를 추가
+                	boardService.updateView(bno);
+                    cookie.setValue(cookie.getValue() + "[" + board.getBno() + "]");
+                }
+                isCookie = true;
+                break;
+            }
+        }
+        
+        // 만약 사용자명_board라는 쿠키가 없으면 처음 접속한 것이므로 새로 생성
+        if (!isCookie) { 
+        	boardService.updateView(bno);
+            cookie = new Cookie(username + "_board", "[" + board.getBno() + "]"); // oldCookie에 새 쿠키 생성
+        }
+        
+        // 쿠키 유지시간을 오늘 하루 자정까지로 설정
+        long todayEndSecond = LocalDate.now().atTime(LocalTime.MAX).toEpochSecond(ZoneOffset.UTC);
+        long currentSecond = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
+        cookie.setPath("/"); // 모든 경로에서 접근 가능
+        cookie.setMaxAge((int) (todayEndSecond - currentSecond + 32400));//크롬 UTC 기준 +9시간(32400초) 필요 
+        response.addCookie(cookie);
+    }
 	
 	@ResponseBody
 	@RequestMapping("/replynew")
@@ -144,7 +167,7 @@ public class BoardController {
 	}
 	
 	@GetMapping("/edit")
-	public String requestEditboard(@RequestParam("bno") String bno, Model model, @ModelAttribute("EditBoard") Board board) {
+	public String requestEditboard(@RequestParam("bno") int bno, Model model, @ModelAttribute("EditBoard") Board board) {
 		Board boardById = boardService.boardById(bno);
 		model.addAttribute("board", boardById);
 
