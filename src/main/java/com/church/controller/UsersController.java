@@ -5,14 +5,17 @@
 
 package com.church.controller;
 
+
 import com.church.domain.Paging;
 import com.church.domain.Users;
 import com.church.service.MailService;
 import com.church.service.UsersService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletContext;
@@ -30,6 +33,7 @@ public class UsersController {
 
 	@Autowired
 	BCryptPasswordEncoder bcryptPasswordEncoder;
+
 
 	@Autowired
 	MailService mailService;
@@ -52,6 +56,7 @@ public class UsersController {
 
 			//비밀번호 암호화가 끝난 user 객체를 DB에 저장 (UserService의 joinUser 함수)
 			usersService.joinUser(user);
+
 
 			//email을 채워서 가입했다면 메일을 전송한다.
 			if(user.getEmail() != null && !user.getEmail().equals("")) {
@@ -81,10 +86,12 @@ public class UsersController {
 			}
 
 			return "redirect:/login";
+
 		} else { //유효성 검사에서 걸렸으면
 			return "redirect:/joinUser";
 		}
 	}
+
 
 	@RequestMapping("/login")
 	public String Login(HttpServletRequest request, Model model) {
@@ -96,6 +103,7 @@ public class UsersController {
 
 		return "users/login";
 	}
+
 
 	@GetMapping("/listUsers") //유저 목록 페이지 출력
 	public String ListUsers(@RequestParam(value = "num",required = false, defaultValue = "1") int num, Model model) {
@@ -156,10 +164,12 @@ public class UsersController {
 	}
 
 	//TODO 비밀번호 변경 페이지
+
 	@GetMapping("/updatePw") //비밀번호 변경 페이지
 	public String UpdatePw(Model model) {
 		return "users/updatePw";
 	}
+
 
 	@ResponseBody
 	@PostMapping("/updatePw") //비밀번호 변경 페이지 제출 후 처리
@@ -230,6 +240,7 @@ public class UsersController {
 		return "users/findId";
 	}
 
+
 	@ResponseBody
 	@PostMapping(value="/findId", produces = "text/html;charset=UTF-8") //아이디 찾기 제출 후 처리
 	public String submitFindId(@RequestParam String name, @RequestParam String tel) {
@@ -252,6 +263,7 @@ public class UsersController {
 	@PostMapping("/findPw") //비밀번호 찾기 제출 후 처리
 	public String submitFindPw(@RequestParam String name, @RequestParam String tel, @RequestParam String username) {
 		return usersService.findPw(name, tel, username);
+
 	}
 
 	@ResponseBody
