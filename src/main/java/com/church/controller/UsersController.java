@@ -159,7 +159,7 @@ public class UsersController {
 		if(!username.equals(loginUsername) && authority.equals("ROLE_ADMIN")) {
 			return "redirect:/listUsers";
 		} else {
-			return "redirect:/main";
+			return "redirect:/";
 		}
 	}
 
