@@ -39,7 +39,7 @@
 <!-- Navbar (sit on top) -->
 <div class="w3-top">
     <div class="w3-bar w3-white w3-card" id="myNavbar">
-        <a href="#home" class="w3-bar-item w3-button w3-wide">LOGO</a>
+        <a href="#home" class="w3-bar-item w3-button w3-wide w3-hide-medium w3-hide-small logo"></a>
         <!-- Right-sided navbar links -->
         <div class="w3-left w3-hide-small w3-hide-medium">
             <div class="dropdown w3-bar-item w3-button">
@@ -69,7 +69,7 @@
             <div class="dropdown w3-bar-item w3-button">
                 <button>공지사항</button>
                 <div class="dropdown-content">
-                    <a href="#">Link 1</a>
+                    <a href="/notice/list">공지사항 목록</a>
                     <a href="#">Link 2</a>
                     <a href="#">Link 3</a>
                 </div>
@@ -104,11 +104,11 @@
         <!-- Right-sided navbar links -->
         <div class="w3-right">
             <sec:authorize access="isAnonymous()">
-                <a href="#team" class="w3-bar-item w3-button">로그인 </a>
-                <a href="#work" class="w3-bar-item w3-button">회원가입</a>
+                <a href="/login" class="w3-bar-item w3-button">로그인 </a>
+                <a href="/joinUser" class="w3-bar-item w3-button">회원가입</a>
             </sec:authorize>
             <sec:authorize access="isAuthenticated()">
-                <a href="#team" class="w3-bar-item w3-button">로그아웃 </a>
+                <a href="/logout" class="w3-bar-item w3-button">로그아웃 </a>
             </sec:authorize>
         </div>
 
