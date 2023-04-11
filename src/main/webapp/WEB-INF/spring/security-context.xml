@@ -20,7 +20,8 @@
 			<security:concurrency-control max-sessions="1" expired-url="/"/>
 		</security:session-management>
 		<security:csrf/>
-		<security:logout logout-success-url="/main"/>
+		<security:logout logout-success-url="/"/>
+		<security:logout logout-url="/logout"/>
 	</security:http>
 
 	<bean id="loginFailureHandler" class="com.church.handler.LoginFailureHandler" />

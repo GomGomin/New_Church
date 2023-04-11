@@ -12,7 +12,10 @@ import com.church.service.MailService;
 import com.church.service.UsersService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.security.Principal;
@@ -159,11 +163,9 @@ public class UsersController {
 		if(!username.equals(loginUsername) && authority.equals("ROLE_ADMIN")) {
 			return "redirect:/listUsers";
 		} else {
-			return "redirect:/main";
+			return "redirect:/";
 		}
 	}
-
-	//TODO 비밀번호 변경 페이지
 
 	@GetMapping("/updatePw") //비밀번호 변경 페이지
 	public String UpdatePw(Model model) {
@@ -277,4 +279,14 @@ public class UsersController {
 			return false; //select한 값이 존재하면
 		}
 	}
+
+	@GetMapping(value="/logout")
+	public String logout(HttpServletRequest request, HttpServletResponse response) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null && auth.isAuthenticated()) {
+			new SecurityContextLogoutHandler().logout(request, response, auth);
+		}
+		return "redirect:/";
+	}
+
 }
