@@ -7,10 +7,7 @@ package com.church.mapper;
 
 import com.church.domain.Schedule;
 import com.church.domain.SearchCondition;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 import java.util.Map;
@@ -19,7 +16,8 @@ public interface ScheduleMapper {
     @Update("UPDATE schedule" +
             " SET replyCount = replyCount + #{cnt}" +
             " WHERE sno = #{sno}")
-    int updateReplyCnt(int cnt, int sno) throws Exception; // 댓글 수
+
+    int updateReplyCnt(@Param("cnt") int cnt, @Param("sno") int sno) throws Exception; // 댓글 수
 
     @Select("SELECT count(*) FROM schedule")
     int selectCountBoard() throws Exception; ; //총 게시글 수

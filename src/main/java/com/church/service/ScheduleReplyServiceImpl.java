@@ -20,10 +20,11 @@ public class ScheduleReplyServiceImpl implements ScheduleReplyService {
     }
 
     @Override
-    @Transactional
-    public int remove(int rno, String rwriter, int sno) throws Exception {
-        scheduleMapper.updateReplyCnt(-1, sno);
-        return scheduleReplyMapper.delete(rno, rwriter);
+    @Transactional(rollbackFor = Exception.class)
+    public int remove(int rno, int sno) throws Exception {
+        int cnt = scheduleMapper.updateReplyCnt(-1, sno);
+        cnt = scheduleReplyMapper.delete(rno);
+        return cnt;
     }
 
     @Override
