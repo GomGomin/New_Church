@@ -34,7 +34,7 @@
 					<input type="hidden" class="form-control" id="replyRno" value="">
 				</div>
 				<div class="modal-footer">
-					<button type="button" onclick="editReply()" class="btn btn-secondary">수정</button>
+					<button type="button" id="editReply" class="btn btn-secondary">수정</button>
 					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">취소</button>
 				</div>
 			</div>
@@ -101,7 +101,7 @@
 			<input type="text" class="form-control" placeholder="댓글을 입력해주세요." id="rcontents" name="rcontents"/>
 		</div>
 		<div class="col-2">
-			<button onclick="replyNewFunction()" class="form-control">등록</button>
+			<button id="replyNewFunction" class="form-control">등록</button>
 		</div>
 	</div>
 	</sec:authorize>
@@ -209,28 +209,34 @@
 		window.location.reload();
 	}
 	/* 댓글 등록 */
-	function replyNewFunction() {
-		$.ajax({
-			type : "POST",
-			url : "/boards/replynew",
-			data : {
-				bno : document.getElementById('bno').value,
-				rwriter : document.getElementById('rwriter').value,
-				rcontents : document.getElementById('rcontents').value
-			},
-			beforeSend : function(xhr) {
-				xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-			},
-			success : function(result) {
-				window.location.reload();
-				alert("댓글이 등록되었습니다.");
-			},
-			error : function(request, status, error) {
-				alert(request.status + " " + request.responseText);
-			}
-		})
+	$('#replyNewFunction').click(function(){
+		if(document.getElementById('rcontents').value==''){
+			alert("내용이 비었습니다.");
+			e.preventDefault();
+		} else {
+			$.ajax({
+				type : "POST",
+				url : "/boards/replynew",
+				data : {
+					bno : document.getElementById('bno').value,
+					rwriter : document.getElementById('rwriter').value,
+					rcontents : document.getElementById('rcontents').value
+				},
+				beforeSend : function(xhr) {
+					xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+				},
+				success : function(result) {
+					window.location.reload();
+					alert("댓글이 등록되었습니다.");
+				},
+				error : function(request, status, error) {
+					alert(request.status + " " + request.responseText);
+				}
+			})
 		window.location.reload();
-	}
+		}
+	})
+	
 	/* 댓글 수정 모달 */
 	function modal(rno) {
 		$.ajax({
@@ -253,27 +259,32 @@
 		})
 	}
 	/* 댓글 수정 */
-	function editReply() {
-		$.ajax({
-			type : "POST",
-			url : "/boards/editReply",
-			data : {
-				rno : document.getElementById('replyRno').value,
-				rcontents : document.getElementById('replyRcontents').value
-			},
-			beforeSend : function(xhr) {
-				xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-			},
-			success : function(result) {
-				$("#modal").modal('hide');
-				window.location.reload();
-			},
-			error : function(request, status, error) {
-				alert(request.status + " " + request.responseText);
-			}
-		})
-		window.location.reload();
-	}
+	$('#editReply').click(function(){
+		if(document.getElementById('replyRcontents').value==''){
+			alert("내용이 비었습니다.");
+			e.preventDefault();
+		} else {
+			$.ajax({
+				type : "POST",
+				url : "/boards/editReply",
+				data : {
+					rno : document.getElementById('replyRno').value,
+					rcontents : document.getElementById('replyRcontents').value
+				},
+				beforeSend : function(xhr) {
+					xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+				},
+				success : function(result) {
+					$("#modal").modal('hide');
+					window.location.reload();
+				},
+				error : function(request, status, error) {
+					alert(request.status + " " + request.responseText);
+				}
+			})
+			window.location.reload();
+		}
+	})
 </script>
 </body>
 </html>
