@@ -21,14 +21,14 @@
 <sec:authentication property="principal" var="user" />
 	<!-- 메인 -->
 	<br><h1>게시물 수정</h1><br>
-	<form:form modelAttribute="EditBoard" action="./edit?${_csrf.parameterName}=${_csrf.token}" method="post">
+	<form:form modelAttribute="EditBoard" action="./edit?${_csrf.parameterName}=${_csrf.token}" method="post" id="check">
 		<div class="mb-3">
 			<label class="form-label">작성자</label> 
 			<form:input type="text" class="form-control" readonly="true" path="bwriter" value="${board.bwriter }" />
 		</div>
 		<div class="mb-3">
 			<label class="form-label">제목</label> 
-			<form:input type="text" class="form-control" path="btitle" value="${board.btitle }" />
+			<form:input type="text" class="form-control" path="btitle" value="${board.btitle }" required="true"/>
 		</div>
 		<div class="mb-3">
 			<label class="form-label">내용</label>
@@ -63,6 +63,15 @@
 	    ['insert', ['link', 'picture', 'video']],
 	    ['view', ['fullscreen', 'codeview', 'help']]
 	  ]
+	});
+	
+	$('#check').on('submit', function(e) {
+		  if($('#summernote').summernote('isEmpty')) {
+			  alert("내용이 비었습니다.");
+		    e.preventDefault();
+		  }
+		  else {
+		  }
 	});
 </script>	
 </body>
