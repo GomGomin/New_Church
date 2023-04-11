@@ -1,3 +1,7 @@
+<!--
+작성자 : 김도영
+최초 작성일 : 23.04.04
+-->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -11,26 +15,20 @@
 <title>계정 교회</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://code.jquery.com/jquery-3.6.3.min.js"
-	integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
-	crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-	
+
 </head>
 <body class="text-center">
 
 
 	<div class="col-md-6 px-0">
-		<h1 class="display-4 fst-italic" style="padding-right: 220px;">포토 갤러리</h1>
+		<h1 class="display-4 fst-italic" style="padding-right: 220px; padding-top: 20px;">포토 갤러리</h1>
 	</div>
 	<hr class="featurette-divider">
 
-	<br>
-	<br>
 	<br>
 			<!-- 검색 -->
 			<div style=" display: flex; justify-content: flex-end; margin-right: 20px;">
@@ -43,7 +41,7 @@
 								<button type="button" class="btn btn-success" id="searchBtn" style="margin-left: 10px;">검색</button>
 			</div>
 			<!-- END 검색 -->
-
+	<hr class="featurette-divider">
 
 	<div class="w3-container" id="menu">
 
@@ -51,7 +49,7 @@
 
 
 
-	<hr class="featurette-divider">
+
 
 
 		<div class="row" align="center">
@@ -113,7 +111,7 @@
 
 
 	<div class="text-end">
-		<a href="/album/add" style="margin-right: 100px; margin-bottom: 500px;"
+		<a href="/album/add" style="margin-right: 10px; margin-bottom: 200px;"
 			class="btn btn-success">게시물 등록</a>
 	</div>
 
