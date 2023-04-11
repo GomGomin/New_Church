@@ -73,7 +73,7 @@
                     <div class="BtnGroup">
                         <a href="/updateUser" type="button" class="button" id="updateBtn">정보 수정</a>
                         <button type="button" class="button" id="deleteBtn">회원 탈퇴</button>
-                        <a href="/main" type="button" class="button">취소</a>
+                        <a href="/" type="button" class="button">취소</a>
                     </div>
                 </div>
             </form>

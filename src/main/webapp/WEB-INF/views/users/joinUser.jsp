@@ -100,7 +100,7 @@
                     </div>
                     <div class="buttonGroup">
                         <button type="button" class="submit">회원 가입</button>
-                        <a href="/main" type="button" class="button">취소</a>
+                        <a href="/" type="button" class="button">취소</a>
                     </div>
                     <input type="hidden" name="validate" id="validate" value="false">
                 </form:form>
