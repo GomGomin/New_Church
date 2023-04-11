@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.church.mapper.AlbumsMapper">
+
+
+<insert id="insert"
+	parameterType="HashMap" useGeneratedKeys="true" keyProperty="ano">
+	<![CDATA[
+		INSERT INTO album
+		(atitle, awriter) VALUES (#{atitle}, #{awriter})
+	]]>
+</insert>
+
+<select id="detail" parameterType="String" resultType="com.church.domain.Albums">
+<![CDATA[
+	SELECT * FROM album WHERE ano = #{ano}
+	]]>
+</select>
+
+<select id="recent" resultType="com.church.domain.Albums">
+<![CDATA[
+SELECT * FROM album ORDER BY ano DESC LIMIT 1;
+	]]>
+</select>
+
+<!-- <select id="list" resultType="com.church.domain.Albums"> -->
+<!-- <![CDATA[ -->
+<!-- 	SELECT * FROM album ORDER BY ano DESC -->
+<!-- 	]]> -->
+<!-- </select> -->
+
+	<select id="list" parameterType="hashMap" resultType="com.church.domain.Albums">
+		SELECT *
+		FROM album
+		<if test='searchType.equals("title")'>
+			WHERE atitle LIKE concat('%', #{keyword}, '%')
+		</if>
+		<if test='searchType.equals("title_awriter")'>
+			WHERE atitle LIKE concat('%', #{keyword}, '%') OR awriter LIKE concat('%', #{keyword}, '%')
+		</if>
+		<if test='searchType.equals("writer")'>
+			WHERE awriter LIKE concat('%', #{keyword}, '%')
+		</if>
+		ORDER BY ano DESC, date DESC
+		LIMIT #{displayPost}, #{postNum}
+	</select> 
+	<select id="searchCount" parameterType="hashMap" resultType="int">
+		SELECT COUNT(ano)
+		FROM album
+		<if test='searchType.equals("title")'>
+			WHERE atitle LIKE concat('%', #{keyword}, '%')
+		</if>
+		<if test='searchType.equals("title_awriter")'>
+			WHERE atitle LIKE concat('%', #{keyword}, '%') OR awriter LIKE concat('%', #{keyword}, '%')
+		</if>
+		<if test='searchType.equals("writer")'>
+			WHERE awriter LIKE concat('%', #{keyword}, '%')
+		</if>
+	</select>
+
+<update id="update" parameterType="HashMap">
+
+	UPDATE album SET atitle=#{atitle} WHERE ano = #{ano}
+
+</update>
+
+<delete id="delete" parameterType="String">
+
+	DELETE FROM album WHERE ano = #{ano}
+
+</delete>
+
+<update id="updateView" parameterType="String">
+
+<![CDATA[
+UPDATE album SET aview = aview + 1 WHERE ano = #{ano}
+	]]>
+	
+</update>
+
+
+</mapper>

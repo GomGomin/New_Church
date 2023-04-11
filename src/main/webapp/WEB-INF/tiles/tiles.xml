@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD  Tiles Configuration 3.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+    <definition name="base-Template" template="/WEB-INF/tiles/layout/baseLayout.jsp">
+        <put-attribute name="title" value="Sample Title" />
+        <put-attribute name="header" value="/WEB-INF/tiles/template/header.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/tiles/template/footer.jsp"/>
+    </definition>
+
+    <definition name="home" extends="base-Template">
+        <put-attribute name="title" value="계정교회" />
+        <put-attribute name="main_slide" value="/WEB-INF/views/home.jsp" />
+        <put-attribute name="image" value="" />
+        <put-attribute name="content" value="/WEB-INF/views/main.jsp" />
+    </definition>
+
+    <definition name="vision" extends="base-Template">
+        <put-attribute name="title" value="교회소개" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="/WEB-INF/views/about/img_test.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/about/vision.jsp" />
+    </definition>
+
+    <definition name="map" extends="base-Template">
+        <put-attribute name="title" value="찾아오시는 길" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="/WEB-INF/views/about/img_test.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/about/maptest.jsp" />
+    </definition>
+
+    <definition name="boards/list" extends="base-Template">
+        <put-attribute name="title" value="게시물 목록" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="/WEB-INF/views/about/img_test.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/boards/list.jsp" />
+    </definition>
+
+    <definition name="boards/board" extends="base-Template">
+        <put-attribute name="title" value="게시물 하나" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="/WEB-INF/views/about/img_test.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/boards/board.jsp" />
+    </definition>
+
+    <definition name="boards/addBoard" extends="base-Template">
+        <put-attribute name="title" value="게시물 등록" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="/WEB-INF/views/about/img_test.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/boards/addBoard.jsp" />
+    </definition>
+
+    <definition name="boards/editBoard" extends="base-Template">
+        <put-attribute name="title" value="게시물 수정" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="/WEB-INF/views/about/img_test.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/boards/editBoard.jsp" />
+    </definition>
+
+    <definition name="users/login" extends="base-Template">
+        <put-attribute name="title" value="게시물 수정" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="/WEB-INF/views/about/img_test.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/users/login.jsp" />
+    </definition>
+    
+    <definition name="/album/add" extends="base-Template">
+        <put-attribute name="title" value="add" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="/WEB-INF/views/about/img_test.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/album/add.jsp" />
+    </definition>
+
+    <definition name="/album/detail" extends="base-Template">
+        <put-attribute name="title" value="detail" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="/WEB-INF/views/about/img_test.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/album/detail.jsp" />
+    </definition>
+
+    <definition name="/album/list" extends="base-Template">
+        <put-attribute name="title" value="list" />
+        <put-attribute name="main_slide" value="/WEB-INF/views/home.jsp" />
+        <put-attribute name="image" value="" />
+        <put-attribute name="content" value="/WEB-INF/views/album/list.jsp" />
+    </definition>
+
+    <definition name="/album/modify" extends="base-Template">
+        <put-attribute name="title" value="modify" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="/WEB-INF/views/about/img_test.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/album/modify.jsp" />
+    </definition>
+
+        <definition name="/pickUp/add" extends="base-Template">
+        <put-attribute name="title" value="add" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="/WEB-INF/views/about/img_test.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/pickUp/add.jsp" />
+    </definition>
+
+    <definition name="/pickUp/detail" extends="base-Template">
+        <put-attribute name="title" value="detail" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="/WEB-INF/views/about/img_test.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/pickUp/detail.jsp" />
+    </definition>
+
+    <definition name="/pickUp/list" extends="base-Template">
+        <put-attribute name="title" value="list" />
+        <put-attribute name="main_slide" value="/WEB-INF/views/home.jsp" />
+        <put-attribute name="image" value="" />
+        <put-attribute name="content" value="/WEB-INF/views/pickUp/list.jsp" />
+    </definition>
+
+    <definition name="/pickUp/modify" extends="base-Template">
+        <put-attribute name="title" value="modify" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="/WEB-INF/views/about/img_test.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/pickUp/modify.jsp" />
+    </definition>
+
+    <definition name="orderCartWarning" extends="base-Template">
+        <put-attribute name="title" value="Order" />
+        <put-attribute name="heading" value="주문 취소" />
+        <put-attribute name="subheading" value="Invalid Cart" />
+        <put-attribute name="content" value="/WEB-INF/flows/order/orderCartWarning.jsp" />
+    </definition>
+
+    <definition name="users/login" extends="base-Template">
+        <put-attribute name="title" value="로그인" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="" />
+        <put-attribute name="content" value="/WEB-INF/views/users/login.jsp" />
+    </definition>
+
+    <definition name="users/findId" extends="base-Template">
+        <put-attribute name="title" value="아이디 찾기" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="" />
+        <put-attribute name="content" value="/WEB-INF/views/users/findId.jsp" />
+    </definition>
+
+    <definition name="users/findPw" extends="base-Template">
+        <put-attribute name="title" value="비밀번호 찾기" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="" />
+        <put-attribute name="content" value="/WEB-INF/views/users/findPw.jsp" />
+    </definition>
+
+    <definition name="users/joinUser" extends="base-Template">
+        <put-attribute name="title" value="회원 가입" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="" />
+        <put-attribute name="content" value="/WEB-INF/views/users/joinUser.jsp" />
+    </definition>
+
+    <definition name="users/detailUser" extends="base-Template">
+        <put-attribute name="title" value="회원 정보 보기" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="" />
+        <put-attribute name="content" value="/WEB-INF/views/users/detailUser.jsp" />
+    </definition>
+
+    <definition name="users/updateUser" extends="base-Template">
+        <put-attribute name="title" value="회원 정보 수정" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="" />
+        <put-attribute name="content" value="/WEB-INF/views/users/updateUser.jsp" />
+    </definition>
+
+    <definition name="users/updatePw" extends="base-Template">
+        <put-attribute name="title" value="비밀번호 수정" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="" />
+        <put-attribute name="content" value="/WEB-INF/views/users/updatePw.jsp" />
+    </definition>
+
+    <definition name="users/listUsers" extends="base-Template">
+        <put-attribute name="title" value="회원 목록 보기" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="" />
+        <put-attribute name="content" value="/WEB-INF/views/users/listUsers.jsp" />
+    </definition>
+
+    <definition name="notice/listNotice" extends="base-Template">
+        <put-attribute name="title" value="교회 소식" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="" />
+        <put-attribute name="content" value="/WEB-INF/views/notice/listNotice.jsp" />
+    </definition>
+
+    <definition name="notice/addNotice" extends="base-Template">
+        <put-attribute name="title" value="소식 등록" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="" />
+        <put-attribute name="content" value="/WEB-INF/views/notice/addNotice.jsp" />
+    </definition>
+
+    <definition name="notice/notice" extends="base-Template">
+        <put-attribute name="title" value="교회 소식" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="" />
+        <put-attribute name="content" value="/WEB-INF/views/notice/notice.jsp" />
+    </definition>
+
+    <definition name="notice/editNotice" extends="base-Template">
+        <put-attribute name="title" value="소식 수정" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="" />
+        <put-attribute name="content" value="/WEB-INF/views/notice/editNotice.jsp" />
+    </definition>
+
+    <definition name="schedule/schedule" extends="base-Template">
+        <put-attribute name="title" value="일정 보기" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="" />
+        <put-attribute name="content" value="/WEB-INF/views/schedule/schedule.jsp" />
+    </definition>
+    <definition name="schedule/list" extends="base-Template">
+        <put-attribute name="title" value="일정 목록" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="" />
+        <put-attribute name="content" value="/WEB-INF/views/schedule/list.jsp" />
+    </definition>
+    <definition name="praise/praise" extends="base-Template">
+        <put-attribute name="title" value="찬양 보기" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="" />
+        <put-attribute name="content" value="/WEB-INF/views/praise/praise.jsp" />
+    </definition>
+    <definition name="praise/list" extends="base-Template">
+        <put-attribute name="title" value="찬양 목록" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="" />
+        <put-attribute name="content" value="/WEB-INF/views/praise/list.jsp" />
+    </definition>
+    <definition name="worship/worship" extends="base-Template">
+        <put-attribute name="title" value="예배 보기" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="" />
+        <put-attribute name="content" value="/WEB-INF/views/worship/worship.jsp" />
+    </definition>
+    <definition name="worship/list" extends="base-Template">
+        <put-attribute name="title" value="예배 목록" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="" />
+        <put-attribute name="content" value="/WEB-INF/views/worship/list.jsp" />
+    </definition>
+    <definition name="event/event" extends="base-Template">
+        <put-attribute name="title" value="행사 보기" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="" />
+        <put-attribute name="content" value="/WEB-INF/views/event/event.jsp" />
+    </definition>
+    <definition name="event/list" extends="base-Template">
+        <put-attribute name="title" value="행사 목록" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="" />
+        <put-attribute name="content" value="/WEB-INF/views/event/list.jsp" />
+    </definition>
+
+</tiles-definitions>
