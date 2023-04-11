@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public interface ScheduleReplyService {
     int replyCount(int sno) throws Exception;
-    int remove(int rno, String rwriter, int sno) throws Exception;
+    int remove(int rno, int sno) throws Exception;
     int register(ScheduleReply scheduleReply) throws Exception;
     List<ScheduleReply> list(int sno) throws Exception;
     ScheduleReply view(int rno) throws Exception;
