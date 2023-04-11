@@ -21,6 +21,7 @@
 		</security:session-management>
 		<security:csrf/>
 		<security:logout logout-success-url="/"/>
+		<security:logout logout-url="/logout"/>
 	</security:http>
 
 	<bean id="loginFailureHandler" class="com.church.handler.LoginFailureHandler" />
