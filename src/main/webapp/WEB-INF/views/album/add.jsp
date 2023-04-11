@@ -365,9 +365,13 @@
 		});//END each()
 			
 		console.log(tag);
-
 		
+	if ($('.uploadResult ul')[0].innerText === "" || $('#atitle').val() === "") {
+		alert("제목과 이미지를 정확히 입력해주세요.");
+	}else{
 		$("form[role='form']").append(tag).submit(); //폼 전송
+	}
+
 
 		
 		

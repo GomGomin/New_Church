@@ -109,11 +109,12 @@
 		</div>
 		<!-- END paging -->
 
-
+        <sec:authorize access="isAuthenticated()">
 	<div class="text-end">
 		<a href="/album/add" style="margin-right: 10px; margin-bottom: 200px;"
 			class="btn btn-success">게시물 등록</a>
 	</div>
+	</sec:authorize>
 
 		</div>
 

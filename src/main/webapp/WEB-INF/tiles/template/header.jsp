@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/resources/css/header.css" type="text/css">
-    <script>
+
 
 
 
@@ -249,6 +249,7 @@ function w3_close() {
 </div>
 
 <script type="text/javascript">
+
 
 var stmnLEFT = -30; // 오른쪽 여백
 var stmnGAP1 = 30; // 위쪽 여백
