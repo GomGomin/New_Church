@@ -70,7 +70,7 @@
 				<c:if test="${mode ne 'new'}">
 				<div id="hideReply">
 					<div>
-						<h2>댓글</h2>
+						<h2>댓글(${schedule.replyCount})</h2>
 					</div>
 					<br>
 					<!-- 댓글 등록 -->
