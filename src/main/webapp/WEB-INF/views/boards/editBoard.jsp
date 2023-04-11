@@ -19,6 +19,7 @@
 <body>
 <!-- 로그인 정보 받기 -->
 <sec:authentication property="principal" var="user" />
+<br>
 	<!-- 메인 -->
 	<div class="container">
 		<form:form modelAttribute="EditBoard" action="./edit?${_csrf.parameterName}=${_csrf.token}" method="post">

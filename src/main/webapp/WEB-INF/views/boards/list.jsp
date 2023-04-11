@@ -21,8 +21,10 @@ body{font-family: 'Noto Sans KR', sans-serif}
 <body>
 <!-- 로그인 정보 받기 -->
 <sec:authentication property="principal" var="user" />
+<br>
 	<!-- 메인 -->
 	<div class="container">
+	<h3>게시물</h3>
 		<!-- 게시물 목록 -->
 		<table class="table">
 			<thead class="table-light">
@@ -89,8 +91,8 @@ body{font-family: 'Noto Sans KR', sans-serif}
 			</div>
 			<!-- END 검색 -->
 			<!-- 글작성버튼 -->
-			<div class="col-6"></div>
-			<div class="col">
+			<div class="col-5"></div>
+			<div class="col-2">
 			<sec:authorize access="isAuthenticated()" >
 				<button onclick="location.href='/boards/setNewBoard'" class="form-control">글작성</button>
 			</sec:authorize>

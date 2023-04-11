@@ -20,6 +20,7 @@
 <body>
 <!-- 로그인 정보 받기 -->
 <sec:authentication property="principal" var="user" />
+<br>
 	<!-- 메인 -->
 	<div class="container">
 		<!-- 게시물 등록 폼 -->
