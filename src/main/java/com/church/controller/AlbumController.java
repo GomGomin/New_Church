@@ -98,8 +98,7 @@ public class AlbumController {
 		
 		if(principal != null) {
 		String userId = principal.getName();
-		Users user = usersService.detailUser(userId);
-		albums.put("awriter", user.getName());
+		albums.put("awriter", userId);
 		}
 		
 		albumsService.insert(albums);

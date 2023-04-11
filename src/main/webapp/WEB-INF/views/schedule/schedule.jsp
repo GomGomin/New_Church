@@ -126,7 +126,7 @@
                 return false;
             }
             let register = {
-                rwriter : 'asdf',
+                rwriter : 'aaaa',
                 sno : '${schedule.sno}',
                 rcontents : $("#rcontents").val()
             };
@@ -165,7 +165,7 @@
 			}
 			let rno = $(this).parent().attr("data-rno");
 			let modify = {
-				rwriter : 'asdf',
+				rwriter : 'aaaa',
 				rno : rno,
 				rcontents : $("#modify_contents").val()
 			};
