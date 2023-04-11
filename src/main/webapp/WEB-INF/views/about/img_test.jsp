@@ -1,3 +1,7 @@
+<!-- 작업자 :김남훈 -->
+<!-- 작업내용 : 각 페이지 이미지 -->
+<!-- 최근 수정 내용 : 이미지 더 찾아서 적용해봐야함  -->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>

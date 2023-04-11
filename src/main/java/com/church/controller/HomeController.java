@@ -25,40 +25,16 @@ public class HomeController {
 		return "home";
 	}
 
-	@RequestMapping(value = "/notice", method = RequestMethod.GET)
+	@RequestMapping(value = "/vision", method = RequestMethod.GET)
 	public String notice(Locale locale, Model model) {
 	
-		return "home";
+		return "vision";
 	}
 	
-	@RequestMapping(value = "/header", method = RequestMethod.GET)
+	@RequestMapping(value = "/map", method = RequestMethod.GET)
 	public String header(Locale locale, Model model) {
 
-		return "header";
+		return "map";
 	}
 
-	@RequestMapping(value = "/vision", method = RequestMethod.GET)
-	public String vision(Locale locale, Model model) {
-
-		return "/about/vision";
-	}
-
-	@RequestMapping(value = "/history", method = RequestMethod.GET)
-	public String history(Locale locale, Model model) {
-
-		return "/about/history";
-	}
-
-
-	@RequestMapping(value = "/map", method = RequestMethod.GET)
-	public String map(Locale locale, Model model) {
-
-		return "/about/map";
-	}
-	
-	@RequestMapping(value = "/time", method = RequestMethod.GET)
-	public String time(Locale locale, Model model) {
-
-		return "/about/time";
-	}
 }

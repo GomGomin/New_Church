@@ -1,3 +1,8 @@
+<!-- 작업자 : 김남훈 -->
+<!-- 작업 내용 : 메인 화면 -->
+<!-- 최근 수정 내용 : 아이콘 링크 추가 -->
+
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -13,7 +18,7 @@
 .icon{
 text-align: center;
 width: 100%;
-height: 300px;
+height: 220px;
 display: inline-block;
 }
 
@@ -34,12 +39,15 @@ font-size: 30px;
 width: 100%;
 height: 100%;
 list-style: none;
+display:flex;
+justify-content: center;
 }
 
 .icon li{
 text-align:center;
+margin-left: 3%;
+margin-right:3%;
 float: left;
-margin: 5%;
 width:15%;
 height: 150px;
 }
@@ -48,11 +56,19 @@ height: 150px;
   .icon {
     display: none;
   }
-} 
+  
 </style>
 </head>
 <body>
 <section id="vision">
+	<div class ="icon">
+		<ul>
+		<li><a href="#"><i class="fa-solid fa-cross"><p>교회소개</p></i></a></li>	
+		<li><a href="#"><i class="fa-solid fa-book-bible"><p>예배와 말씀</p></i></a></li>	
+		<li><a href="#"><i class="fa-solid fa-chalkboard-user"><p>게시판</p></i></a></li>	
+		<li><a href="#"><i class="fa-solid fa-newspaper"><p>공지사항</p></i></a></li>	
+		</ul>		
+	</div>
 	<div class="welcome">
 			<h1>환영합니다!</h1>
 			<hr>
@@ -61,14 +77,6 @@ height: 150px;
 			<p>	계정교회는 또한 다양한 세대와 문화를 아우르는 교회로서 성장하고, 예배와 봉사, 교육 등의 다양한 분야에서 지속적인 변화와 발전을 추구합니다. 이를 위해 교육적, 문화적, 사회적인 프로그램을 제공하고, 지속적인 리더십 개발과 전문성을 향상시키는 노력을 기울입니다.</p>
 			<br>
 			<p>	이러한 방식으로 계정교회는 하나님의 나라를 넓히기 위해 새로운 교회를 세우고, 지역사회와 교류하며, 세계적인 미션 활동을 전개하는 일에 힘쓰며, 하나님의 사랑과 더 나은 세상을 만드는 일에 동참합니다.</p>
-	</div>
-	<div class ="icon">
-		<ul>
-		<li><a href="#"><i class="fa-solid fa-cross"><p>교회소개</p></i></a></li>	
-		<li><a href="#"><i class="fa-solid fa-book-bible"><p>예배와 말씀</p></i></a></li>	
-		<li><a href="#"><i class="fa-solid fa-chalkboard-user"><p>게시판</p></i></a></li>	
-		<li><a href="#"><i class="fa-solid fa-newspaper"><p>공지사항</p></i></a></li>	
-		</ul>	
 	</div>
 </section>
 </body>

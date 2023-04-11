@@ -1,3 +1,7 @@
+<!-- 작업자 : 김남훈 -->
+<!-- 작업 내용 : 교회소개 -->
+<!-- 최근 수정 내용 : 끝 -->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 

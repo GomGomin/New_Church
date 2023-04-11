@@ -10,27 +10,24 @@
     </definition> 
     
     <definition name="home" extends="base-Template"> 
-        <put-attribute name="title" value="Home" />
-        <put-attribute name="heading" value="홈" /> 
+        <put-attribute name="title" value="계정교회" />
+        <put-attribute name="main_slide" value="/WEB-INF/views/home.jsp" />
+        <put-attribute name="image" value="" />
+        <put-attribute name="content" value="/WEB-INF/views/main.jsp" />
+    </definition>
+    
+    <definition name="vision" extends="base-Template"> 
+        <put-attribute name="title" value="교회소개" />
         <put-attribute name="main_slide" value="" />
         <put-attribute name="image" value="/WEB-INF/views/about/img_test.jsp" />
         <put-attribute name="content" value="/WEB-INF/views/about/vision.jsp" />
     </definition>
-    
-    <definition name="notice" extends="base-Template"> 
-        <put-attribute name="title" value="Home" />
-        <put-attribute name="side" value="Home" />
-        <put-attribute name="heading" value="홈" />
-        <put-attribute name="side" value="/WEB-INF/tiles/template/side.jsp"/>
-        <put-attribute name="subheading" value="Welcome" />
-        <put-attribute name="content" value="/WEB-INF/views/home.jsp" />
-    </definition>
 	
-    <definition name="main" extends="base-Template"> 
-        <put-attribute name="title" value="Welcome" />
-        <put-attribute name="heading" value="자동차 쇼핑몰" />
-        <put-attribute name="subheading" value="Welcome to CarShop" />
-        <put-attribute name="content" value="/WEB-INF/views//main.jsp" />
+    <definition name="map" extends="base-Template"> 
+        <put-attribute name="title" value="찾아오시는 길" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="/WEB-INF/views/about/img_test.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/about/maptest.jsp" />
     </definition>
 
     <definition name="cars" extends="base-Template">

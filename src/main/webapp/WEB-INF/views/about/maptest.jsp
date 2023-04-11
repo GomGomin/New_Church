@@ -1,3 +1,7 @@
+<!-- 작업자 : 김남훈 -->
+<!-- 작업내용 : 교회약도 예배시간 -->
+<!-- 최근 수정 내역 : map이 잘 안되서 이걸로 옮김 예배시간 추가해야됨 -->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
