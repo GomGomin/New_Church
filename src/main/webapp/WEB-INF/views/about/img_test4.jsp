@@ -14,10 +14,10 @@
 .image{
 width : 100%;
 height: 300px;
-background-image: url("/resources/img/church4.jpg");
+background-image: url("/resources/img/church7.jpg");
 background-size: auto;
 background-repeat: no-repeat;
-background-position: 20% 38%;
+background-position: 10% 23%;
 }
 
 </style>
