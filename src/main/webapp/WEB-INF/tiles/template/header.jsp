@@ -24,8 +24,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/resources/css/header.css" type="text/css">
-    <script>
-
 
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
@@ -133,8 +131,8 @@ function w3_close() {
             <div class="dropdown w3-bar-item w3-button">
                 <button>예배와 말씀</button>
                 <div class="dropdown-content">
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
+                    <a href="/worship/list">예배 목록</a>
+                    <a href="/praise/list">찬양 목록</a>
                     <a href="#">Link 3</a>
                 </div>
             </div>
@@ -143,34 +141,27 @@ function w3_close() {
                 <div class="dropdown-content">
                     <a href="/boards/list">목록</a>
                     <a href="/album/list">포토 갤러리</a>
-                    <a href="#">Link 3</a>
+                    <a href="/schedule/list">일정</a>
                 </div>
             </div>
             <div class="dropdown w3-bar-item w3-button">
                 <button>공지사항</button>
                 <div class="dropdown-content">
                     <a href="/notice/list">공지사항 목록</a>
-                    <a href="#">Link 2</a>
+                    <a href="/event/list">행사</a>
                     <a href="#">Link 3</a>
                 </div>
             </div>
-            <div class="dropdown w3-bar-item w3-button" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-                <button>픽업</button>
-                <div class="dropdown-content">
-                    <a href="/pickup/list">픽업 리스트</a>
-<!--                     <a href="#"></a> -->
-<!--                     <a href="#"></a> -->
-                </div>
-            </div>
-            <sec:authentication property="name" var="username"/>
-            <div class="dropdown w3-bar-item w3-button" sec:authorize="hasAnyAuthority('ROLE_USER')">
-                <button>픽업</button>
-                <div class="dropdown-content">
-                    <a href="/pickup/add">픽업 신청</a>
-                    <a href="/pickup/detail?pbwriter=${username}">내 픽업 보기</a>
-                    <a href="#"></a>
-                </div>
-            </div>
+
+            <sec:authorize access="isAuthenticated()">
+	            <div class="dropdown w3-bar-item w3-button">
+	               <button>픽업</button>
+	               <div class="dropdown-content">
+	                   <a href="/pickup/add">픽업 신청</a>
+	                   <a href="/pickup/detail?pbwriter=${username}">내 픽업 보기</a>
+	               </div>
+	            </div>
+           </sec:authorize>
         </div>
 
         <div class="w3-left" style="height: auto;">
@@ -249,6 +240,7 @@ function w3_close() {
 </div>
 
 <script type="text/javascript">
+
 
 var stmnLEFT = -30; // 오른쪽 여백
 var stmnGAP1 = 30; // 위쪽 여백

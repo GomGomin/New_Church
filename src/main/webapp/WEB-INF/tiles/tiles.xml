@@ -66,66 +66,59 @@
     </definition>
     
     <definition name="/album/add" extends="base-Template">
-        <put-attribute name="title" value="add" />
+        <put-attribute name="title" value="앨범 등록" />
         <put-attribute name="main_slide" value="" />
         <put-attribute name="image" value="/WEB-INF/views/about/img_test.jsp" />
         <put-attribute name="content" value="/WEB-INF/views/album/add.jsp" />
     </definition>
 
     <definition name="/album/detail" extends="base-Template">
-        <put-attribute name="title" value="detail" />
+        <put-attribute name="title" value="앨범 상세보기" />
         <put-attribute name="main_slide" value="" />
         <put-attribute name="image" value="/WEB-INF/views/about/img_test.jsp" />
         <put-attribute name="content" value="/WEB-INF/views/album/detail.jsp" />
     </definition>
 
     <definition name="/album/list" extends="base-Template">
-        <put-attribute name="title" value="list" />
+        <put-attribute name="title" value="앨범 목록" />
         <put-attribute name="main_slide" value="/WEB-INF/views/home.jsp" />
         <put-attribute name="image" value="" />
         <put-attribute name="content" value="/WEB-INF/views/album/list.jsp" />
     </definition>
 
     <definition name="/album/modify" extends="base-Template">
-        <put-attribute name="title" value="modify" />
+        <put-attribute name="title" value="앨범 수정" />
         <put-attribute name="main_slide" value="" />
         <put-attribute name="image" value="/WEB-INF/views/about/img_test.jsp" />
         <put-attribute name="content" value="/WEB-INF/views/album/modify.jsp" />
     </definition>
 
         <definition name="/pickUp/add" extends="base-Template">
-        <put-attribute name="title" value="add" />
+        <put-attribute name="title" value="픽업 등록" />
         <put-attribute name="main_slide" value="" />
         <put-attribute name="image" value="/WEB-INF/views/about/img_test.jsp" />
         <put-attribute name="content" value="/WEB-INF/views/pickUp/add.jsp" />
     </definition>
 
     <definition name="/pickUp/detail" extends="base-Template">
-        <put-attribute name="title" value="detail" />
+        <put-attribute name="title" value="픽업 상세보기" />
         <put-attribute name="main_slide" value="" />
         <put-attribute name="image" value="/WEB-INF/views/about/img_test.jsp" />
         <put-attribute name="content" value="/WEB-INF/views/pickUp/detail.jsp" />
     </definition>
 
     <definition name="/pickUp/list" extends="base-Template">
-        <put-attribute name="title" value="list" />
+        <put-attribute name="title" value="픽업 목록" />
         <put-attribute name="main_slide" value="/WEB-INF/views/home.jsp" />
         <put-attribute name="image" value="" />
         <put-attribute name="content" value="/WEB-INF/views/pickUp/list.jsp" />
     </definition>
 
     <definition name="/pickUp/modify" extends="base-Template">
-        <put-attribute name="title" value="modify" />
+        <put-attribute name="title" value="픽업 수정" />
         <put-attribute name="main_slide" value="" />
         <put-attribute name="image" value="/WEB-INF/views/about/img_test.jsp" />
         <put-attribute name="content" value="/WEB-INF/views/pickUp/modify.jsp" />
-    </definition>
-
-    <definition name="orderCartWarning" extends="base-Template">
-        <put-attribute name="title" value="Order" />
-        <put-attribute name="heading" value="주문 취소" />
-        <put-attribute name="subheading" value="Invalid Cart" />
-        <put-attribute name="content" value="/WEB-INF/flows/order/orderCartWarning.jsp" />
     </definition>
 
     <definition name="users/login" extends="base-Template">
@@ -210,6 +203,55 @@
         <put-attribute name="main_slide" value="" />
         <put-attribute name="image" value="" />
         <put-attribute name="content" value="/WEB-INF/views/notice/editNotice.jsp" />
+    </definition>
+
+    <definition name="schedule/schedule" extends="base-Template">
+        <put-attribute name="title" value="일정 보기" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="" />
+        <put-attribute name="content" value="/WEB-INF/views/schedule/schedule.jsp" />
+    </definition>
+    <definition name="schedule/list" extends="base-Template">
+        <put-attribute name="title" value="일정 목록" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="" />
+        <put-attribute name="content" value="/WEB-INF/views/schedule/list.jsp" />
+    </definition>
+    <definition name="praise/praise" extends="base-Template">
+        <put-attribute name="title" value="찬양 보기" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="" />
+        <put-attribute name="content" value="/WEB-INF/views/praise/praise.jsp" />
+    </definition>
+    <definition name="praise/list" extends="base-Template">
+        <put-attribute name="title" value="찬양 목록" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="" />
+        <put-attribute name="content" value="/WEB-INF/views/praise/list.jsp" />
+    </definition>
+    <definition name="worship/worship" extends="base-Template">
+        <put-attribute name="title" value="예배 보기" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="" />
+        <put-attribute name="content" value="/WEB-INF/views/worship/worship.jsp" />
+    </definition>
+    <definition name="worship/list" extends="base-Template">
+        <put-attribute name="title" value="예배 목록" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="" />
+        <put-attribute name="content" value="/WEB-INF/views/worship/list.jsp" />
+    </definition>
+    <definition name="event/event" extends="base-Template">
+        <put-attribute name="title" value="행사 보기" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="" />
+        <put-attribute name="content" value="/WEB-INF/views/event/event.jsp" />
+    </definition>
+    <definition name="event/list" extends="base-Template">
+        <put-attribute name="title" value="행사 목록" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="" />
+        <put-attribute name="content" value="/WEB-INF/views/event/list.jsp" />
     </definition>
 
 </tiles-definitions>

@@ -287,7 +287,6 @@
 					
 					var originalImg = obj.upFolder + "\\" + obj.uuid + "_" + obj.fileName;
 					originalImg = originalImg.replace(new RegExp(/\\/g), "/");
-
 					tag += "<img style='width:100px; height:100px;' class='original' src='/album/display?fileName=" + thumbImg + "'><br>" + obj.fileName + " <span class='btn btn-warning btn-circle'  data-file='" + thumbImg + "' data-type='image'><i class='fa fa-times'></i></span></li>";		
 
 					
@@ -365,9 +364,13 @@
 		});//END each()
 			
 		console.log(tag);
-
 		
+	if ($('.uploadResult ul')[0].innerText === "" || $('#atitle').val() === "") {
+		alert("제목과 이미지를 정확히 입력해주세요.");
+	}else{
 		$("form[role='form']").append(tag).submit(); //폼 전송
+	}
+
 
 		
 		
