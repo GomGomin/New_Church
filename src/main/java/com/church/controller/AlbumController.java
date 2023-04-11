@@ -53,6 +53,7 @@ import com.church.service.AttachFileService;
 import com.church.service.ChatGPTService;
 
 import net.coobird.thumbnailator.Thumbnailator;
+import net.coobird.thumbnailator.Thumbnails;
 
 @Controller
 @RequestMapping("/album")
@@ -410,10 +411,15 @@ public class AlbumController {
 					
 					adto.setImage(true);
 					
+					Thumbnails.of(new File(upFolder, "s_" + upFileName))
+				    .size(800, 600) // 이미지 크기를 800x600으로 설정
+				    .toFile(new File(upFolder, "s_" + upFileName));
+					
 					FileOutputStream fos = new FileOutputStream(new File(upFolder, "s_" + upFileName));
 				
 						
-						
+
+			
 						
 					
 				Thumbnailator.createThumbnail( //섬네일 이미지 생성
