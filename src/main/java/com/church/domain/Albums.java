@@ -12,7 +12,7 @@ import lombok.Setter;
 public class Albums {
 	
 	private int ano, aview;
-	private String atitle, acontents, awriter, date;
+	private String atitle, awriter, date;
 	
 	
 	

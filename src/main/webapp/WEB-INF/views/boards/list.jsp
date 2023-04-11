@@ -19,6 +19,7 @@
 body{font-family: 'Noto Sans KR', sans-serif}
 </style>
 <body>
+<!-- 로그인 정보 받기 -->
 <sec:authentication property="principal" var="user" />
 	<!-- 메인 -->
 	<div class="container">
@@ -36,7 +37,12 @@ body{font-family: 'Noto Sans KR', sans-serif}
 				<c:forEach items="${list }" var="board">
 				<tr>
 					<td>${board.bno }</td>
-					<td><a href="/boards/detail?bno=${board.bno }&username=${user.username}">${board.btitle }</a></td>
+					<sec:authorize access="isAuthenticated()">
+						<td><a href="/boards/detail?bno=${board.bno }&username=${user.username}">${board.btitle }</a></td>
+					</sec:authorize>
+					<sec:authorize access="isAnonymous()" >
+						<td><a href="/boards/detail?bno=${board.bno }&username=${user }">${board.btitle }</a></td>
+					</sec:authorize>
 					<td>${fn:split(board.date,' ')[0] }</td>
 					<td>${board.bview }</td>
 				</tr>
@@ -85,7 +91,9 @@ body{font-family: 'Noto Sans KR', sans-serif}
 			<!-- 글작성버튼 -->
 			<div class="col-6"></div>
 			<div class="col">
+			<sec:authorize access="isAuthenticated()" >
 				<button onclick="location.href='/boards/setNewBoard'" class="form-control">글작성</button>
+			</sec:authorize>
 			</div>
 			<!-- END 글작성버튼 -->
 		</div>

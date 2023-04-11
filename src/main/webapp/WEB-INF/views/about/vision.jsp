@@ -1,3 +1,7 @@
+<!-- 작업자 : 김남훈 -->
+<!-- 작업 내용 : 교회소개 -->
+<!-- 최근 수정 내용 : 끝 -->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 
@@ -10,35 +14,52 @@
     <title>교회 소개</title>
     <meta charset="UTF-8">
 
-    <style>
-    </style>
+<style>
+
+</style>
 </head>
 <body>
-<main>
-    <div id="header">
-        <div id="hcontents">
-            <h1>마가복음</h1>
-            <p>누가누가 그리 말하였다.</p>
-        </div>
-    </div>
-
-    <section>
-        <div class="about">
-            <div class="title">
-                <h2>환영합니다</h2>
-            </div>
-            <div class="about-self">
-                <div class="contents">
-                    <h3>Hello,<strong>I'm Sucoding</strong></h3>
-                    <p>I`m Web Publisher And Web Front-End Developer.</p>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe veritatis aperiam accusantium.</p>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit praesentium doloremque quos quis est officiis.</p>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Autem, omnis quibusdam.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-</main>
+<section id="vision">
+	<div class="welcome">
+			<h1>계정교회</h1>
+			<hr>
+			<p>계정교회는 예수 그리스도를 중심으로한 교회로, 모든 사람들에게 열려있는 평화로운 공동체입니다.<br>저희 교회는 예배, 기도, 성경공부 등을 중심으로 다양한 프로그램을 제공하며, 성도들이 서로 사랑과 배려로 함께 성장하는 모습을 보여줍니다.</p>
+			<br>
+			<p>계정교회는 또한, 교육을 중요하게 여기며, 다양한 신학교육 프로그램을 제공하고 있습니다.<br> 이를 통해 교인들의 영성적인 성장과 교회 사역의 발전을 도모하고 지역사회와의 교류를 중요시하며, 다양한 봉사활동을 통해 사랑과 봉사의 가치를 실천합니다.</p>
+			<br>
+			<p>모든 사람들이 서로 다른 문화와 배경을 가지고 있지만, 예수 그리스도의 사랑 아래 함께 모여 하나님의 나라를 선교하는 것이 계정교회의 목적입니다.</p>
+	</div>
+	<div class ="vision">
+		<div class="title">
+		<h1>신앙지도원칙 </h1>
+		</div>
+		<div class="contents">
+		<h2>복음 전파와 사랑의 실천</h2>
+		<p>하나님의 나라를 세우는 교회
+		이 교회는 복음을 전하며, 사랑으로 이웃을 섬겨 하나님의 나라를 세우는 것을 목표로 합니다.
+		</p>
+		<hr>
+		<h2>제자훈련과 전인적 섬김</h2>
+		<p>예수 그리스도의 제자를 만들어 세상에 보내는 교회
+		이 교회는 예수 그리스도의 모습을 따르며, 제자들을 양육하여 예수님의 사랑을 나누고 세상에 보내는 것을 목표로 합니다.
+		</p>
+		<hr>
+		<h2>가족의 성장과 섬김</h2>
+		<p>가족이 하나되어 하나님의 나라를 세우는 교회
+		이 교회는 가족을 중심으로한 섬김을 강조하며, 가족들이 함께 하나님을 섬기며 하나가 되어 하나님의 나라를 세우는 것을 목표로 합니다.
+		</p>
+		<hr>
+		<h2>사회적 책임과 공동체 섬김</h2>
+		<p>사회적 책임을 다하고 공동체를 섬기는 교회
+		이 교회는 사회의 문제와 고통을 함께 나누며, 공동체를 섬기는 것을 목표로 합니다.
+		</p>
+		<hr>
+		<h2>예배와 목양</h2>
+		<p>하나님의 영광을 위한 예배와 영혼의 목양을 하는 교회
+		이 교회는 하나님의 영광을 위한 예배와 영혼의 목양을 중요시하며, 예수 그리스도를 향한 성령의 동기를 가진 교회를 목표로 합니다.
+		</p>
+		</div>
+	</div>
+</section>
 </body>
 </html>

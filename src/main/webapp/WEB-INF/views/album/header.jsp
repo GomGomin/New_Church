@@ -25,7 +25,7 @@
 <body class="text-center" onload="InitializeStaticMenu()">
 
 
-<img data-bs-toggle="offcanvas" aria-expanded="false"  data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" id="STATICMENU" style="width: 100px; height: 80px;" src="/resources/images/GPT.png">
+<img data-bs-toggle="offcanvas" aria-expanded="false"  data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" id="STATICMENU" style="width: 100px; height: 80px;" src="/resources/img/GPT.png">
 
 
 <div class="offcanvas offcanvas-end" tabindex="-1"  data-bs-scroll="true" data-bs-backdrop="false" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
@@ -34,7 +34,7 @@
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">
-  <img style="width: 110px; height: 80px;" src="/resources/images/GPT2.jpg">
+  <img style="width: 110px; height: 80px;" src="/resources/img/GPT2.jpg">
   <br><br>	
     <div id="body">
     <br>
@@ -46,7 +46,7 @@
                   <br><br>	
           </div>
 
-                    <img style="width: 100px; height: 120px; display: none;" id="loading" src="/resources/images/Loading.gif">
+                    <img style="width: 100px; height: 120px; display: none;" id="loading" src="/resources/img/Loading.gif">
 
                   
   </div>

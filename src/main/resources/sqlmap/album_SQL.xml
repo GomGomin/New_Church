@@ -4,10 +4,10 @@
 
 
 <insert id="insert"
-	parameterType="com.church.domain.Albums" useGeneratedKeys="true" keyProperty="ano">
+	parameterType="HashMap" useGeneratedKeys="true" keyProperty="ano">
 	<![CDATA[
 		INSERT INTO album
-		(atitle, acontents, awriter) VALUES (#{atitle}, #{acontents}, #{awriter})
+		(atitle, awriter) VALUES (#{atitle}, #{awriter})
 	]]>
 </insert>
 
@@ -17,15 +17,50 @@
 	]]>
 </select>
 
-<select id="list" resultType="com.church.domain.Albums">
+<select id="recent" resultType="com.church.domain.Albums">
 <![CDATA[
-	SELECT * FROM album ORDER BY ano DESC
+SELECT * FROM album ORDER BY ano DESC LIMIT 1;
 	]]>
 </select>
 
+<!-- <select id="list" resultType="com.church.domain.Albums"> -->
+<!-- <![CDATA[ -->
+<!-- 	SELECT * FROM album ORDER BY ano DESC -->
+<!-- 	]]> -->
+<!-- </select> -->
+
+	<select id="list" parameterType="hashMap" resultType="com.church.domain.Albums">
+		SELECT *
+		FROM album
+		<if test='searchType.equals("title")'>
+			WHERE atitle LIKE concat('%', #{keyword}, '%')
+		</if>
+		<if test='searchType.equals("title_awriter")'>
+			WHERE atitle LIKE concat('%', #{keyword}, '%') OR awriter LIKE concat('%', #{keyword}, '%')
+		</if>
+		<if test='searchType.equals("writer")'>
+			WHERE awriter LIKE concat('%', #{keyword}, '%')
+		</if>
+		ORDER BY ano DESC, date DESC
+		LIMIT #{displayPost}, #{postNum}
+	</select> 
+	<select id="searchCount" parameterType="hashMap" resultType="int">
+		SELECT COUNT(ano)
+		FROM album
+		<if test='searchType.equals("title")'>
+			WHERE atitle LIKE concat('%', #{keyword}, '%')
+		</if>
+		<if test='searchType.equals("title_awriter")'>
+			WHERE atitle LIKE concat('%', #{keyword}, '%') OR awriter LIKE concat('%', #{keyword}, '%')
+		</if>
+		<if test='searchType.equals("writer")'>
+			WHERE awriter LIKE concat('%', #{keyword}, '%')
+		</if>
+	</select>
+
 <update id="update" parameterType="HashMap">
 
-	UPDATE album SET atitle=#{atitle}, acontents=#{acontents} WHERE ano = #{ano}
+	UPDATE album SET atitle=#{atitle} WHERE ano = #{ano}
 
 </update>
 

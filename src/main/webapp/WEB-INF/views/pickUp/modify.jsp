@@ -16,6 +16,9 @@
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"
 	integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
 	crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+	
 <title>계정 교회</title>
 </head>
 <body>
@@ -32,46 +35,125 @@
     <p class="w3-text-blue-black w3-large"><b>※ 유아 및 어린이 회원은 승.하차가 익숙해질 때까지 보호자께서 동승하여 주시기 바랍니다.</b></p>
     <p class="w3-text-blue-black w3-large"><b>※ 교회버스 승.하차 시 시간보다 10분 정도 일찍 나와주시기 바라며, 손을 흔들어 탑승 의사를 표현해 주시기 바랍니다.</b></p>
     <p class="w3-text-blue-black w3-large"><b>※ 교회버스 도착시간 보다 지연될 경우 도로사정, 차량정체 등으로 인한 지연이오니 다른 교통수단을 이용해 주시기 바랍니다.</b></p>
-	<form:form modelAttribute="pickBoard" id="form" action="/pickup/add?${_csrf.parameterName}=${_csrf.token}" class="form-horizontal" method="post">
-
-	
-<form:input path="pbname" class="w3-input w3-padding-16" id="uname" placeholder="성명" value="${uname}" type="text" />
+	<form id="form" action="/pickup/formModify?${_csrf.parameterName}=${_csrf.token}" class="form-horizontal" method="post">
 
 
-	
-	<form:input path="pbtel" class="w3-input w3-padding-16" placeholder="전화번호" type="text" />
-	<br>
+<br><br>
 
-	
-
-	
-	<div class="w3-third" style="width: 15%;">
-		  <label class="w3-text-teal"><b>주소</b></label>
-  	<form:input path="pbaddress" id="pbaddress" type="hidden" />
-	<input class="w3-border w3-light-grey" id="sample6_postcode" placeholder="우편번호" type="text" />
+		<div>
+			<div class="w3-third" style="width: 7%; padding-top: 5px;">
+				<h5>
+					<b><label for="inputDescription">신청인</label></b>
+				</h5>
+			</div>
+			<div class="w3-third" style="width: 10%; margin-right: 1200px; margin-bottom: 10px;">
+				<input class="form-control" value="${pickBoard.pbname}" id="uname" name="pbname"
+					  type="text" />
+			</div>
+		</div>
+		<div>
+			<div class="w3-third" style="width: 7%; padding-top: 5px;">
+				<h5>
+					<b><label for="inputDescription">아이디</label></b>
+				</h5>
+			</div>
+			<div class="w3-third" style="width: 15%; margin-right: 1100px; margin-bottom: 10px;">
+				<input class="form-control" value="${pickBoard.pbwriter}" id="uname"
+					 disabled="disabled" type="text" />
+			</div>
+		</div>
+		<div>
+			<div class="w3-third" style="width: 7%; padding-top: 5px;">
+				<h5>
+					<b><label for="inputDescription">전화번호</label></b>
+				</h5>
+			</div>
+			<div class="w3-third" style="width: 15%; margin-right: 1100px; margin-bottom: 10px;">
+				<input class="form-control" value="${pickBoard.pbtel}" id="uname" name="pbtel"
+					  type="text" />
+			</div>
+		</div>
+		<div>
+			<div class="w3-third" style="width: 7%; padding-top: 5px;">
+				<h5>
+					<b><label for="inputDescription">신청 날짜</label></b>
+				</h5>
+			</div>
+			<div class="w3-third" style="width: 20%; margin-right: 1000px; margin-bottom: 10px;">
+				<input class="form-control" value="${pickBoard.date}" id="date"
+					 disabled="disabled" type="text" />
+			</div>
+		</div>
+		<div>
+			<div class="w3-third" style="width: 7%; padding-top: 5px;">
+				<h5>
+					<b><label for="inputDescription">승인 여부</label></b>
+				</h5>
+			</div>
+			<div class="w3-third" style="width: 5%; margin-right: 1250px; margin-bottom: 10px;">
+				<input class="form-control" value="${pickBoard.pbstate}" id="pbstate"
+					 type="text" disabled="disabled"/>
+			</div>
+		</div>
+		<div>
+			<div class="w3-third" style="width: 7%; padding-top: 5px;">
+				<h5>
+					<b><label for="inputDescription">주소</label></b>
+				</h5>
+			</div>
+			<div class="w3-third" style="width: 100%;">
+	<div class="w3-third" style="width: 10%;">
+  	<input name="pbno" value="${pickBoard.pbno}" type="hidden" />
+  	<input name="pbaddress" id="pbaddress" value="${pickBoard.pbaddress}" type="hidden" />
+	<input class="form-control" id="sample6_postcode" placeholder="우편번호" type="text" />
 	</div>
 
 
-	<button type="button" class="w3-aqua" onclick="sample6_execDaumPostcode()" style="margin-top: 20px;">우편번호 찾기</button>
-	 		<div style="width: 30%; padding-top: 10px;">
-	<input style="width: 100%;" class="w3-border" id="sample6_address" placeholder="주소" type="text" />
+	<button type="button" class="w3-aqua w3-large" onclick="sample6_execDaumPostcode()" style="margin-left: 10px;">우편번호 찾기</button>
+	 		<div style="width: 33%; padding-top: 10px;">
+	<input style="width: 100%;" class="form-control" id="sample6_address" placeholder="주소" type="text" />
 	</div>
-	 	 		<div style="width: 50%; padding-top: 10px;">
-<input type="text" id="sample6_detailAddress" style="width: 30%;" class="w3-border" placeholder="상세주소">
-<input type="text" id="sample6_extraAddress" style="width: 30%;" class="w3-border" placeholder="참고항목">
+	 	 		<div class="w3-third" style="width: 15%; padding-top: 10px;">
+<input type="text" id="sample6_detailAddress" style="width: 100%;" class="form-control" placeholder="상세주소">
+
 
 	</div>
-	  <br>
-<!-- 	  <div class="w3-half" style="padding-top: 10px;"> -->
-<!-- 		<input id="addr2" class="w3-input w3-border" placeholder="" type="text" /> -->
-<!-- 		<input id="addr3" class="w3-input w3-border" placeholder="" type="text" /> -->
-<!-- 		</div> -->
-	  <div style="margin-top: 30px;">
-	<button type="button" onclick="check()" style="margin-top: 30px;" class="w3-button w3-black w3-margin-bottom"><i class="fa fa-paper-plane w3-margin-right"></i>신청</button>
+	<div class="w3-third" style="width: 15%; padding-top: 10px; padding-left: 10px;">
+	<input type="text" id="sample6_extraAddress" style="width: 100%;" class="form-control" placeholder="참고항목">
+			</div>
+		</div>
+		
 </div>
-  </form:form>
+	
+
+
+	  <div style=" padding-top: 500px;">
+	<button type="button" onclick="history.back()" class="btn btn-secondary">이전으로</button>
+	<button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary">수정</button>
+
+</div>
+
+  </form>
   </div>
-  
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">계정교회</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>해당 픽업을 수정하시겠습니까?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" onclick="check()" class="btn btn-primary">확인</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
 
   
 </body>
@@ -84,10 +166,38 @@
 <script type="text/javascript">
 
 
+var inputDate = $("#date").val();
+var date = new Date(inputDate);
+var year = date.getFullYear();
+var month = ("0" + (date.getMonth() + 1)).slice(-2);
+var day = ("0" + date.getDate()).slice(-2);
+var hour = ("0" + date.getHours()).slice(-2);
+var minute = ("0" + date.getMinutes()).slice(-2);
+var second = ("0" + date.getSeconds()).slice(-2);
+var ampm = hour < 12 ? "오전" : "오후";
+hour = hour % 12;
+hour = hour ? hour : 12;
+
+var outputDate = year + "년 " + month + "월 " + day + "일 " + ampm + " " + hour + "시 " + minute + "분 " + second + "초";
+
+$("#date").val(outputDate);
+
+var pbaddress = $("#pbaddress").val();
+var parts = pbaddress.split("/");
+$("#sample6_postcode").val(parts[0]);
+$("#sample6_address").val(parts[1]);
+$("#sample6_extraAddress").val(parts[2]);
+$("#sample6_detailAddress").val(parts[3]);
+
+if ($("#pbstate").val() == '1') {
+	$("#pbstate").val("승인");
+}else{
+	$("#pbstate").val("신청중");
+}
 
 
 function check() {
-	$("#pbaddress").val($("#sample6_address").val() + $("#sample6_extraAddress").val() + $("#sample6_detailAddress").val());
+	$("#pbaddress").val($("#sample6_postcode").val() + "/" + $("#sample6_address").val() + "/" + $("#sample6_extraAddress").val() + "/" + $("#sample6_detailAddress").val());
 	$("#form").submit();
 }
 

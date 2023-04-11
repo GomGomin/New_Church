@@ -16,11 +16,11 @@ public interface BoardService {
 	
 	public int searchCount(String searchType, String keyword) throws Exception;
 	
-	Board boardById(String bno);
+	Board boardById(int bno);
 
 	void editBoard(Board board);
 	
-	void updateView(String bno);
+	void updateView(int bno);
 	
 	void updateReplyCnt(Object reply);
 	
