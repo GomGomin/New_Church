@@ -23,7 +23,7 @@
 	<!-- 메인 -->
 	<br><h1>게시물 등록</h1><br>
 	<!-- 게시물 등록 폼 -->
-	<form:form modelAttribute="NewBoard" action="./setNewBoard?${_csrf.parameterName}=${_csrf.token}" method="post">
+	<form:form modelAttribute="NewBoard" action="./setNewBoard?${_csrf.parameterName}=${_csrf.token}" method="post" id="check">
 		<div class="mb-3">
 			<label class="form-label">작성자</label> 
 			<form:input type="text" class="form-control" readonly="true" value="${user.username}" path="bwriter"/>
@@ -34,7 +34,7 @@
 		</div>
 		<div class="mb-3">
 			<label class="form-label">내용</label>
-			<form:textarea class="form-control" id="summernote" rows="3" path="bcontents" required="true" ></form:textarea>
+			<textarea class="form-control" id="summernote" rows="3" name="bcontents"></textarea>
 		</div>
 		<div class="row">
 			<div class="col-10"></div>
@@ -66,6 +66,15 @@
 	    ['view', ['fullscreen', 'codeview', 'help']]
 	  ]
 	});
+	
+	$('#check').on('submit', function(e) {
+		  if($('#summernote').summernote('isEmpty')) {
+			  alert("내용이 비었습니다.");
+		    e.preventDefault();
+		  }
+		  else {
+		  }
+	})
 </script>	
 </body>
 </html>
