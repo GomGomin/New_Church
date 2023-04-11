@@ -106,7 +106,7 @@
                     newReply += '<p class="reply-content">' + result[i].rcontents + '</p>'
                     newReply += '<div data-rno=' + result[i].rno + ' data-sno=' + result[i].sno + ' data-rwriter=' + result[i].rwriter + '>'
                     newReply += '<span class="reply-writer">' + "작성자 : " + result[i].rwriter + '</span>'
-                    newReply += '<span class="reply-date">' + "&nbsp;&nbsp;&nbsp;" + result[i].date + '</span>'
+                    newReply += '<span class="reply-date">' + "&nbsp;&nbsp;&nbsp;" + result[i].date + result[i].rupdate + '</span>'
                     newReply += '<button class="mx-3 btn-sm float-right replyModifyBtn">수정</button>'
                     newReply += '<button class="mx-3 btn-sm float-right replyRemoveBtn">삭제</button>'
 					newReply += '<textarea style="display: none" name="rcontents" id="modify_contents" class="form-control" cols="12" rows="1" placeholder="새로운 댓글을 입력해주세요."></textarea>'

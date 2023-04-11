@@ -17,9 +17,9 @@
 
     <insert id="insert">
         INSERT INTO reply
-            (sno, rcontents, rwriter)
+            (sno, rcontents, rwriter, rupdate)
         VALUES
-            (#{sno}, #{rcontents}, #{rwriter})
+            (#{sno}, #{rcontents}, #{rwriter}, '')
     </insert>
 
     <select id="selectAll" resultType="com.church.domain.ScheduleReply">
@@ -38,7 +38,7 @@
     <update id="update">
         UPDATE reply
         SET rcontents = #{rcontents}
-          , rupdate = '수정됨'
+          , rupdate = '(수정됨)'
         WHERE rno = #{rno} and rwriter = #{rwriter}
     </update>
 </mapper>
