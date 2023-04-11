@@ -3,7 +3,9 @@
 최초 작성일 : 23.04.04
  -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%> 
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,9 +17,10 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
+<sec:authentication property="principal" var="user" />
 	<!-- 메인 -->
 	<div class="container">
-		<form:form modelAttribute="EditBoard" action="./edit" method="post">
+		<form:form modelAttribute="EditBoard" action="./edit?${_csrf.parameterName}=${_csrf.token}" method="post">
 			<div class="mb-3">
 				<label class="form-label">작성자</label> 
 				<form:input type="text" class="form-control" readonly="true" path="bwriter" value="${board.bwriter }" />
@@ -27,12 +30,8 @@
 				<form:input type="text" class="form-control" path="btitle" value="${board.btitle }" />
 			</div>
 			<div class="mb-3">
-				<label class="form-label">이전 내용</label>
-				<br>${board.bcontents }
-			</div>
-			<div class="mb-3">
 				<label class="form-label">내용</label>
-				<form:textarea class="form-control" id="summernote" rows="3" path="bcontents"></form:textarea>
+				<textarea class="form-control" id="summernote" rows="3" name="bcontents">${board.bcontents }</textarea>
 			</div>
 			<input type="hidden" name="bno" value="${board.bno }" />
 			<div class="row">
@@ -41,7 +40,7 @@
 					<button type="submit" class="form-control" >등록</button>
 				</div>
 				<div class="col">
-					<input type="button" onclick="location.href='/boards/detail?bno=${board.bno}&username=abc'" class="form-control" value="취소" />
+					<input type="button" onclick="location.href='/boards/detail?bno=${board.bno}&username=${user.username}'" class="form-control" value="취소" />
 				</div>
 			</div>
 		</form:form>

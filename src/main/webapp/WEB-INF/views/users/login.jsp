@@ -53,7 +53,8 @@
                         <a href="/findPw" style="float: right">비밀번호 찾기</a>
                     </div>
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                    <button class="submit" id="loginBtn">로그인</button>
+                    <a class="submit" id="loginBtn"  href="javascript:$('#loginForm').submit();">로그인</a>
+                    <a href="/joinUser" class="button">회원가입</a>
                 </form>
             </div>
         </div>

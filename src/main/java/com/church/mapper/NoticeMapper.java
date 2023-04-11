@@ -15,7 +15,7 @@ import com.church.domain.Notice;
 public interface NoticeMapper {
 
     @Insert("INSERT INTO notice (ntitle, ncontents, nwriter) VALUES (#{ntitle}, #{ncontents}, #{nwriter})")
-    void newNotice(Notice board);
+    void newNotice(Notice notice);
 
     @Select("SELECT count(*) FROM notice")
     int count();
@@ -25,13 +25,13 @@ public interface NoticeMapper {
     int searchCount(@Param("searchType") String searchType, @Param("keyword") String keyword);
 
     @Select("SELECT * FROM notice WHERE nno = #{nno}")
-    Notice noticeById(String bno);
+    Notice noticeById(int nno);
 
     @Update("UPDATE notice SET ntitle = #{ntitle}, ncontents = #{ncontents} WHERE nno = #{nno}")
     void editNotice(Notice notice);
 
     @Update("UPDATE notice SET nview = nview + 1 WHERE nno = #{nno}")
-    void updateView(String nno);
+    void updateView(int nno);
 
     @Delete("DELETE FROM notice WHERE nno = #{nno}")
     void removeNotice(String nno);

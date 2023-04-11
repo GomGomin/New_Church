@@ -44,6 +44,7 @@ $('#findPwBtn').on('click', function(){
         }, //spring security 로 인한 csrf token 전송
         success : function(result) {
             if (result != null && result != ""){
+                //Modal 내용을 form으로 생성
                 $("#modalContent").html("<form id=\"pwUpdateForm\">\n" +
                                             "<div>새로 사용할 비밀번호를 입력해주세요.</div>" +
                                             "<input name=\"password\" type=\"password\" id=\"password\" placeholder=\"비밀번호\"><br>" +
@@ -53,10 +54,11 @@ $('#findPwBtn').on('click', function(){
                 $("#modalBtn").html("<button type=\"button\" class=\"btn btn-secondary\" id=\"updatePwBtn\">비밀번호 변경</button>\n" +
                                     "<button type=\"button\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\">닫기</button>");
             } else {
+                //비밀번호 변경 실패 시
                 $("#modalContent").html("<p>잘못된 정보를 입력하였습니다.<br>다시 입력해주세요.</p>");
                 $("#modalBtn").html("<button type=\"button\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\">닫기</button>");
             }
-            $('#findPwModal').modal('show');
+            $('#findPwModal').modal('show'); //생성한 모달 띄우기
 
             $('#updatePwBtn').on('click', function(){
                 var password = $('#password').val();
@@ -75,8 +77,10 @@ $('#findPwBtn').on('click', function(){
                     },
                     success : function(result) {
                         if (password == ChkPassword) {
+                            //비밀 번호 변경 성공시 login 페이지로 이동
                             location.replace("/login")
                         } else {
+                            //비밀번호 다시 입력받기
                             $("#modalContent").html("<form id=\"pwUpdateForm\">\n" +
                                                         "<div>새로 사용할 비밀번호를 입력해주세요.</div>" +
                                                         "<input name=\"password\" type=\"password\" id=\"password\" placeholder=\"비밀번호\"><br>" +
