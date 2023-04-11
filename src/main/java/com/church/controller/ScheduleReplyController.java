@@ -19,7 +19,7 @@ public class ScheduleReplyController {
     private final ScheduleReplyService scheduleReplyService;
 
     @GetMapping("/reply")
-    public ResponseEntity<List<ScheduleReply>> list(int sno) {
+    public ResponseEntity<List<ScheduleReply>> list(@RequestParam("sno") int sno) {
         try {
             List<ScheduleReply> list = scheduleReplyService.list(sno);
             return new ResponseEntity<>(list, HttpStatus.OK);
@@ -28,23 +28,25 @@ public class ScheduleReplyController {
             return new ResponseEntity<>(HttpStatus.OK);
         }
     }
-    @PostMapping("/reply/{rno}")
-    public ResponseEntity<String> remove(@PathVariable("rno") int rno, @RequestParam("sno") int sno, @RequestParam("rwriter") String rwriter){
+    @DeleteMapping("/reply")
+    public ResponseEntity<String> remove(@RequestBody ScheduleReply scheduleReply){
         try {
-            if(scheduleReplyService.remove(rno, rwriter, sno)!=1){
+            int cnt = scheduleReplyService.remove(scheduleReply.getRno(), scheduleReply.getSno());
+            if(cnt!=1){
                 throw new Exception("Delete Failed");
             }
-            return new ResponseEntity<>("deleteOk",HttpStatus.OK);
+                return new ResponseEntity<>("deleteOk",HttpStatus.OK);
+
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("exception : " + e.getMessage());
-            return new ResponseEntity<>("deleteError",HttpStatus.BAD_REQUEST);
-
+            return new ResponseEntity<>("deleteError", HttpStatus.BAD_REQUEST);
         }
+
     }
+
     @PostMapping("/reply")
     public ResponseEntity<ScheduleReply> register(@RequestBody ScheduleReply scheduleReply){
-        System.out.println("ASfdasfd : " + scheduleReply);
         try {
             if(scheduleReplyService.register(scheduleReply)!=1){
                 throw new Exception("Register Failed");
@@ -56,7 +58,7 @@ public class ScheduleReplyController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
-    @PatchMapping("/reply/{rno}")
+    @PatchMapping("/reply")
     public ResponseEntity<ScheduleReply> update(@RequestBody ScheduleReply scheduleReply){
         try {
             if(scheduleReplyService.modify(scheduleReply)!=1){

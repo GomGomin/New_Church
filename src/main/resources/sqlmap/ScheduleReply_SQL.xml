@@ -12,7 +12,7 @@
     </select>
 
     <delete id="delete">
-        DELETE FROM reply WHERE rno = #{rno} AND rwriter = #{rwriter}
+        DELETE FROM reply WHERE rno = #{rno}
     </delete>
 
     <insert id="insert">

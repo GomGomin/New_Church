@@ -65,22 +65,29 @@
 							</div>
 						</div>
 				</form>
-				<div>
-					<h2>댓글</h2>
-				</div>
 				<br>
-				<!-- 댓글 등록 -->
-				<div class="row">
-					<div class="col-10">
-						<textarea name="rcontents" id="rcontents" class="form-control" cols="20" rows="5" placeholder="댓글을 입력해주세요."></textarea>
-					</div>
-					<div class="col-2">
-						<button id="replyAddBtn" class="form-control">등록</button>
-					</div>
-				</div>
 				<br>
-				<div id="reply_list"></div>
-				<!-- END 댓글 등록 -->
+				<c:if test="${mode ne 'new'}">
+				<div id="hideReply">
+					<div>
+						<h2>댓글</h2>
+					</div>
+					<br>
+					<!-- 댓글 등록 -->
+					<div class="row">
+						<div class="col-sm-8">
+							<textarea name="rcontents" id="rcontents" class="form-control" cols="12" rows="1" placeholder="댓글을 입력해주세요."></textarea>
+						</div>
+						<div class="col-2">
+							<button id="replyAddBtn" class="form-control">등록</button>
+						</div>
+					</div>
+					<br>
+					<input type="test" style="display: none" id = "hidden" readonly>
+					<div id="reply_list"></div>
+					<!-- END 댓글 등록 -->
+				</c:if>
+				</div>
 			</div>
 		<!-- END paging & 글작성버튼 -->
 		</div>
@@ -88,93 +95,126 @@
 	</div>
 <script>
 	/*댓글 ajax START*/
+    let showList = function() {
+        $.ajax({
+            type: 'GET',
+            url: '/reply',
+            data: { sno: '${schedule.sno}' },
+            success: function (result) {
+                for (var i = 0; i < result.length; i++) {
+                    var newReply = '<div class="reply">';
+                    newReply += '<p class="reply-content">' + result[i].rcontents + '</p>'
+                    newReply += '<div data-rno=' + result[i].rno + ' data-sno=' + result[i].sno + ' data-rwriter=' + result[i].rwriter + '>'
+                    newReply += '<span class="reply-writer">' + "작성자 : " + result[i].rwriter + '</span>'
+                    newReply += '<span class="reply-date">' + "&nbsp;&nbsp;&nbsp;" + result[i].date + '</span>'
+                    newReply += '<button class="mx-3 btn-sm float-right replyModifyBtn">수정</button>'
+                    newReply += '<button class="mx-3 btn-sm float-right replyRemoveBtn">삭제</button>'
+					newReply += '<textarea style="display: none" name="rcontents" id="modify_contents" class="form-control" cols="12" rows="1" placeholder="새로운 댓글을 입력해주세요."></textarea>'
+                    newReply += '</div></div><br><br><br>'
+                    $('#reply_list').append(newReply);
+                }
+            }
+        })
+    }
 	$(document).ready(function(){
-		$.ajax({
-			type: 'GET',
-			url: '/reply',
-			data: { sno: '${schedule.sno}' },
-			success: function (result) {
-				for (var i = 0; i < result.length; i++) {
-					var newReply = '<div class="reply">';
-					newReply += '<p class="reply-content">' + result[i].rcontents + '</p>';
-					newReply += '<div class="reply-info">';
-					newReply += '<span class="reply-writer">' + "작성자 : " + result[i].rwriter + '</span>';
-					newReply += '<span class="reply-date">' + "&nbsp;&nbsp;&nbsp;" + result[i].date + '</span>';
-					newReply += '<button data-rno="' + result[i].rno + '" class="btn btn-danger btn-sm float-right replyModifyBtn">수정</button>';
-					newReply += '<button data-rno="' + result[i].rno + '" class="btn btn-danger btn-sm float-right replyRemoveBtn">삭제</button>';
-					newReply += '</div></div><br><br><br>';
-					$('#reply_list').append(newReply);
-				}
-			},
-			error: function () {
-				alert("댓글 목록을 가져오는데 실패하였습니다.");
-			}
-		});
-		/*rwriter : '${user.username}',*/
-		$(document).on('click', '.replyRemoveBtn', function() 	{
-			var rno = $(this).data("rno");
-			$.ajax({
-				type:'POST',
-				url:'/reply/' + rno,
-				data: {
-					sno: '${schedule.sno}',
-					rwriter: 'asdf'
-				},
-				headers : { "content-type": "application/json"},
-				dataType : 'json',
-				beforeSend : function(xhr) {
-					xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-				},
-				success : function (result){
-					console.log(result)
-					alert("댓글이 삭제되었습니다.")
-					location.reload();
-				},
-				error : function(){
-					alert("존재하지 않는 댓글입니다.")
-				}
+		showList();
 
-			});
-		});
-		$("#replyAddBtn").click(function(){
-			if($("#rcontents").val()=="") {
+        $("#replyAddBtn").click(function(){
+            if($("#rcontents").val()=="") {
+                alert("댓글을 입력해 주세요.");
+                $("#rcontents").focus();
+                return false;
+            }
+            let register = {
+                rwriter : 'asdf',
+                sno : '${schedule.sno}',
+                rcontents : $("#rcontents").val()
+            };
+            $.ajax({
+                type:'POST',
+                url: '/reply',
+                data : JSON.stringify(register),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
+                headers : { "content-type": "application/json"},
+                dataType : 'json',
+                beforeSend : function(xhr) {
+                    xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+                },
+                success : function(result){
+					location.reload();
+                },
+                error  : function() {
+                    alert("댓글 등록에 실패하였습니다.");
+                }
+            });
+        });
+		$("#reply_list").on('click', '.replyModifyBtn', function() 	{
+			const isReadOnlyReply = $("#hidden").attr('readonly');
+			if(isReadOnlyReply=='readonly'){
+				$("#hidden").attr('readonly', false);
+				$("#replyAddBtn").hide()
+				$("#modify_contents").show();
+				$("#rcontents").hide();
+				$(".replyRemoveBtn").hide();
+				$(".replyModifyBtn").html("수정완료");
+				return;
+			}
+			if($("#modify_contents").val()=="") {
 				alert("댓글을 입력해 주세요.");
-				$("#rcontents").focus();
+				$("#modify_contents").focus();
 				return false;
 			}
-			let register = {
-				/*rwriter : '${user.username}',*/
+			let rno = $(this).parent().attr("data-rno");
+			let modify = {
 				rwriter : 'asdf',
-				sno : '${schedule.sno}',
-				rcontents : $("#rcontents").val()
+				rno : rno,
+				rcontents : $("#modify_contents").val()
 			};
 			$.ajax({
-				type:'POST',
+				type:'PATCH',
 				url: '/reply',
-				data : JSON.stringify(register),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
+				data : JSON.stringify(modify),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
 				headers : { "content-type": "application/json"},
 				dataType : 'json',
 				beforeSend : function(xhr) {
 					xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
 				},
 				success : function(result){
-					var newReply = '<div class="reply">';
-					newReply += '<p class="reply-content">' + result.rcontents + '</p>';
-					newReply += '<div class="reply-info">';
-					newReply += '<span class="reply-writer">'+ "작성자 : " + result.rwriter + '</span>';
-					newReply += '<span class="reply-date">'+ "&nbsp;&nbsp;&nbsp;" + '(방금)' + '</span>';
-					newReply += '<button data-rno="' + result.rno + '" class="btn btn-danger btn-sm float-right replyModifyBtn">수정</button>';
-					newReply += '<button data-rno="' + result.rno + '" class="btn btn-danger btn-sm float-right replyRemoveBtn">삭제</button>';
-					newReply += '</div></div><br><br><br>';
-					$('#reply_list').prepend(newReply);
-					$('#rcontents').val('');
+					alert("댓글 수정 완료");
+					location.reload();
 				},
 				error  : function() {
-					alert("댓글 등록에 실패하였습니다.");
+					alert("댓글 수정에 실패하였습니다.");
 				}
 			});
 		});
+		$("#reply_list").on('click', '.replyRemoveBtn', function() 	{
+			if(!confirm("정말로 삭제하시겠습니까?")) return;
+			let rno = $(this).parent().attr("data-rno");
+			let sno = $(this).parent().attr("data-sno");
+			let remove = {
+				sno : sno,
+				rno : rno
+			};
+			$.ajax({
+				type:'DELETE',
+				url:'/reply',
+				data: JSON.stringify(remove),
+				headers : { "content-type": "application/json"},
+				dataType : 'json',
+				beforeSend : function(xhr) {
+					xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+				},
+				success : function (result){
+					alert("댓글이 삭제되었습니다.")
+				},
+			});
+			location.reload();
+		});
+
 	});
+
+
+
 	/*댓글 ajax END*/
 
 	let formCheck = function() {
@@ -217,6 +257,7 @@
 			$("#modifyBtn").html("등록");
 			$("h4").html("일정 수정");
 			$("#view_only").hide();
+			$("#hideReply").hide();
 			return;
 		}
 		form.attr('action', '/schedule/modify${searchCondition.queryString}');

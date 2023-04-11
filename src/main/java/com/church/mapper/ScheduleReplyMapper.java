@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface ScheduleReplyMapper {
-    int delete(@Param("rno") int rno, @Param("rwriter") String rwriter) throws Exception;
+    int delete(@Param("rno") int rno) throws Exception;
     int deleteAll(int sno) throws Exception;
     ScheduleReply select(int rno) throws Exception;
     List<ScheduleReply> selectAll(int sno) throws Exception;
