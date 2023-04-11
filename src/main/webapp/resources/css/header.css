@@ -1,3 +1,7 @@
+/* 작업자 : 김남훈 */
+/* 작업내용 : 헤더 스타일 */
+/* 최근 수정 내역 : 헤더 스타일 변경 */
+
 @charset "UTF-8";
 /* body, h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif} */
 body, h1,h2,h3,h4,h5,h6 {font-family: 'Noto Sans KR', sans-serif}
@@ -22,12 +26,16 @@ body, html {
 @font-face {
     font-family: 'TheJamsil5Bold';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
-    font-weight: 700;
+    font-weight: 300;
     font-style: normal;
 }
 
 .w3-top{
 font-family:'TheJamsil5Bold';
 font-size:18px;
+font-style: normal;
+position: relative;
+z-index: 1;
+/* position: fixed */
 }
 
