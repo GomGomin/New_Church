@@ -39,7 +39,7 @@
 <!-- Navbar (sit on top) -->
 <div class="w3-top">
     <div class="w3-bar w3-white w3-card" id="myNavbar">
-        <a href="#home" class="w3-bar-item w3-button w3-wide w3-hide-medium w3-hide-small logo"></a>
+        <a href="/" class="w3-bar-item w3-button w3-wide">LOGO</a>
         <!-- Right-sided navbar links -->
         <div class="w3-left w3-hide-small w3-hide-medium">
             <div class="dropdown w3-bar-item w3-button">
@@ -61,7 +61,7 @@
             <div class="dropdown w3-bar-item w3-button">
                 <button>게시판</button>
                 <div class="dropdown-content">
-                    <a href="#">Link 1</a>
+                    <a href="/boards/list">목록</a>
                     <a href="#">Link 2</a>
                     <a href="#">Link 3</a>
                 </div>

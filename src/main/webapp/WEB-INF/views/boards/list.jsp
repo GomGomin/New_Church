@@ -18,6 +18,7 @@
 </head>
 <style>
 body{font-family: 'Noto Sans KR', sans-serif}
+a{text-decoration:none}
 </style>
 <body>
 <!-- 로그인 정보 받기 -->

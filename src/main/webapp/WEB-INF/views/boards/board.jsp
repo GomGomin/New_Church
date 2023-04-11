@@ -20,6 +20,7 @@
 <body>
 <!-- 로그인 정보 받기 -->
 <sec:authentication property="principal" var="user" />
+<br>
 	<!-- 댓글 수정 Modal -->
 	<div class="modal fade" id="modal" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog">
