@@ -63,7 +63,7 @@
                         <a href="/detailUser" type="button" class="button">취소</a>
                     </div>
                 </div>
-            </form:form>
+            </form>
         </div>
     </div>
 </section>
