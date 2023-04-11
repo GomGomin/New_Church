@@ -1,3 +1,5 @@
+//작성자 : 김도영
+//최초 작성일 : 23.04.04
 package com.church.controller;
 
 import java.io.File;
@@ -10,6 +12,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -19,6 +25,7 @@ import java.util.UUID;
 import java.util.stream.Stream;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -131,10 +138,11 @@ public class AlbumController {
 	}
 	
 	@GetMapping("/detail")
-	public String detail(@RequestParam("ano") String ano, Model model) {
+	public String detail(@RequestParam("ano") String ano, Model model,
+			HttpServletRequest request,
+			HttpServletResponse response, Principal principal) {
 		
-		//조회수 증가
-		albumsService.updateView(ano);
+
 		
 		//주 게시물
 		Albums albumsById = albumsService.detail(ano);
@@ -156,7 +164,63 @@ public class AlbumController {
 		
 		model.addAttribute("attachPaths", attachPaths);
 		
+		String username = null;
+		
+		if(principal != null) {
+		String userId = principal.getName();
+		username = userId;
+		}
+		
+		
+		//조회수 증가
+		viewCountValidation(albumsById, ano, username, request, response);
+		
 		return "/album/detail";
+	}
+	
+		private void viewCountValidation(Albums albums, 
+				String ano,
+				String username,
+				HttpServletRequest request, 
+				HttpServletResponse response) {
+				try {
+				Cookie[] cookies = request.getCookies();
+				
+				Cookie cookie = null;
+				boolean isCookie = false;
+				
+				// request에 쿠키들이 있을 때
+				for (int i = 0; cookies != null && i < cookies.length; i++) {
+				// 사용자명_board 쿠키가 있을 때
+				if (cookies[i].getName().equals(username + "_album")) {//다른 게시판은 "_album" 변경 
+				// cookie 변수에 저장
+				cookie = cookies[i];
+				// 만약 cookie 값에 현재 게시글 번호가 없을 때
+				if (!cookie.getValue().contains("[" + albums.getAno() + "]")) {
+				// 해당 게시글 조회수를 증가시키고, 쿠키 값에 해당 게시글 번호를 추가
+				albumsService.updateView(ano);
+				cookie.setValue(cookie.getValue() + "[" + albums.getAno() + "]");
+				}
+				isCookie = true;
+				break;
+				}
+				}
+				
+				// 만약 사용자명_board라는 쿠키가 없으면 처음 접속한 것이므로 새로 생성
+				if (!isCookie) { 
+					albumsService.updateView(ano);
+				cookie = new Cookie(username + "_album", "[" + albums.getAno() + "]"); // oldCookie에 새 쿠키 생성
+				}
+				
+				// 쿠키 유지시간을 오늘 하루 자정까지로 설정
+				long todayEndSecond = LocalDate.now().atTime(LocalTime.MAX).toEpochSecond(ZoneOffset.UTC);
+				long currentSecond = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
+				cookie.setPath("/"); // 모든 경로에서 접근 가능
+				cookie.setMaxAge((int) (todayEndSecond - currentSecond + 32400));//크롬 UTC 기준 +9시간(32400초) 필요 
+				response.addCookie(cookie);
+				} catch(Exception e) {
+				e.printStackTrace();
+				}
 	}
 	
 	@GetMapping("/list")

@@ -93,11 +93,60 @@
         <put-attribute name="content" value="/WEB-INF/flows/order/orderFinished.jsp" />
     </definition>
 
-    <definition name="orderCartWarning" extends="base-Template">
-        <put-attribute name="title" value="Order" />
-        <put-attribute name="heading" value="주문 취소" />
-        <put-attribute name="subheading" value="Invalid Cart" />
-        <put-attribute name="content" value="/WEB-INF/flows/order/orderCartWarning.jsp" />
-    </definition>   
+    <definition name="/album/add" extends="base-Template">
+        <put-attribute name="title" value="add" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="/WEB-INF/views/about/img_test.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/album/add.jsp" />
+    </definition>
+    
+    <definition name="/album/detail" extends="base-Template">
+        <put-attribute name="title" value="detail" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="/WEB-INF/views/about/img_test.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/album/detail.jsp" />
+    </definition>
+    
+    <definition name="/album/list" extends="base-Template">
+        <put-attribute name="title" value="list" />
+        <put-attribute name="main_slide" value="/WEB-INF/views/home.jsp" />
+        <put-attribute name="image" value="" />
+        <put-attribute name="content" value="/WEB-INF/views/album/list.jsp" />
+    </definition>
+    
+    <definition name="/album/modify" extends="base-Template">
+        <put-attribute name="title" value="modify" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="/WEB-INF/views/about/img_test.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/album/modify.jsp" />
+    </definition>
+    
+        <definition name="/pickUp/add" extends="base-Template">
+        <put-attribute name="title" value="add" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="/WEB-INF/views/about/img_test.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/pickUp/add.jsp" />
+    </definition>
+    
+    <definition name="/pickUp/detail" extends="base-Template">
+        <put-attribute name="title" value="detail" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="/WEB-INF/views/about/img_test.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/pickUp/detail.jsp" />
+    </definition>
+    
+    <definition name="/pickUp/list" extends="base-Template">
+        <put-attribute name="title" value="list" />
+        <put-attribute name="main_slide" value="/WEB-INF/views/home.jsp" />
+        <put-attribute name="image" value="" />
+        <put-attribute name="content" value="/WEB-INF/views/pickUp/list.jsp" />
+    </definition>
+    
+    <definition name="/pickUp/modify" extends="base-Template">
+        <put-attribute name="title" value="modify" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="/WEB-INF/views/about/img_test.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/pickUp/modify.jsp" />
+    </definition>
      
 </tiles-definitions>
