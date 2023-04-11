@@ -287,7 +287,6 @@
 					
 					var originalImg = obj.upFolder + "\\" + obj.uuid + "_" + obj.fileName;
 					originalImg = originalImg.replace(new RegExp(/\\/g), "/");
-
 					tag += "<img style='width:100px; height:100px;' class='original' src='/album/display?fileName=" + thumbImg + "'><br>" + obj.fileName + " <span class='btn btn-warning btn-circle'  data-file='" + thumbImg + "' data-type='image'><i class='fa fa-times'></i></span></li>";		
 
 					

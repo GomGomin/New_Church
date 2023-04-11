@@ -33,7 +33,7 @@
 
 <c:forEach items="${attachPaths}" var="attachPaths">
 
-				<img src="/resources/images/${attachPaths}" style="width: 1200px; height: 800px;" alt="album image"><br><br>
+				<img src="/resources/images/${attachPaths}" style="width: 100%; height: 80%;" alt="album image"><br><br>
 				
 </c:forEach>	
 
