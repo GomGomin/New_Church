@@ -46,11 +46,11 @@ $('#username').on("focusout", function(e) {
                 $('#validId').html("<div style='color:green;'>사용가능한 아이디입니다.</div>");
                 idChk = true;
             } else if(!idValidator(username)) { //id가 유효값이 아니라면
-                $('#validId').html("사용 할 수 없는 아이디입니다. 아이디는 영어, 숫자의 조합만 가능합니다.");
+                $('#validId').html("잘못된 아이디입니다.<br>아이디는 영어, 숫자만 사용 가능합니다.");
                 idChk = false;
             }
             else { //중복 아이디가 존재한다면
-                $('#validId').html("중복된 아이디입니다. 다른 아이디를 입력해주세요.");
+                $('#validId').html("중복된 아이디입니다.<br> 다른 아이디를 입력해주세요.");
                 idChk = false;
             }
         },
@@ -86,7 +86,7 @@ $('#email').on("focusout", function(e){
         emailChk = true;
     } else{
         //유효하지 않은 값이면 메시지를 출력해준다.
-        $('#validEmail').html("유효하지 않은 이메일입니다.");
+        $('#validEmail').html("잘못된 이메일입니다.");
         emailChk = false;
     }
 });
@@ -101,7 +101,7 @@ $('#tel').on("focusout", function(e){
         telChk = true;
     } else{
         //유효하지 않은 값이면 msg를 출력해준다.
-        $('#validTel').html("유효하지 않은 전화번호입니다.");
+        $('#validTel').html("잘못된 전화번호입니다.<br>010-000-0000의 형식으로 입력해주세요");
         telChk = false;
     }
 });
@@ -110,7 +110,7 @@ $('#tel').on("focusout", function(e){
 $('.submit').on('click', function(e) {
     if (!idChk) { //아이디 오류 모달
         $('#modalTitle').html('아이디 사용 불가');
-        $('#modalContent').html('<p>사용할 수 없는 아이디 입니다.<br>아이디가 사용 중 이거나 영어, 숫자 외의 값이 들어있습니다.</p>');
+        $('#modalContent').html('<p>사용할 수 없는 아이디 입니다.<br>아이디가 사용 중이거나 영어, 숫자 외의 값이 들어있습니다.</p>');
         $('#errorModal').modal('show');
     } else if(!pwChk) { //비밀번호 오류 모달
         $('#modalTitle').html('비밀번호가 일치하지 않습니다.');
@@ -126,6 +126,6 @@ $('.submit').on('click', function(e) {
         $('#errorModal').modal('show');
     } else { //유효성이 통과하면 제출
         $('#validate').attr('value', true);
-        $('#joinForm').submit();
+        $('#submitForm').submit();
     }
 })

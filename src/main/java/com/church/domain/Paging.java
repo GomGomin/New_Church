@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class Paging {
-	
+
 	// 현재 페이지 번호
 	private int num;
 
@@ -32,45 +32,48 @@ public class Paging {
 	private int startPageNum;
 
 	// 다음/이전 표시 여부
-	private boolean prev, next;
-	
-	private String searchType, keyword;
-	
+	private boolean prev;
+	private boolean next;
+
 	public void setCount(int count) {
 		this.count = count;
-		
+
 		dataCalc();
 	}
 
 	private void dataCalc() {
-		 
+
 		// 마지막 번호
 		endPageNum = (int)(Math.ceil((double)num / (double)pageNumCnt) * pageNumCnt);
-		
+
 		// 시작 번호
 		startPageNum = endPageNum - (pageNumCnt - 1);
-		 
+
 		// 마지막 번호 재계산
 		int endPageNum_tmp = (int)(Math.ceil((double)count / (double)pageNumCnt));
-		 
+
 		if(endPageNum > endPageNum_tmp) {
 		endPageNum = endPageNum_tmp;
 		}
-		 
+
 		prev = startPageNum == 1 ? false : true;
 		next = endPageNum * pageNumCnt >= count ? false : true;
-		 
+
 		displayPost = (num - 1) * postNum;
-		 
+
 	}
 	
 	public String getSearchTypeKeyword() {
-		 
+
 		if(searchType.equals("") || keyword.equals("")) {
-			return ""; 
+			return "";
 		} else {
-			return "&amp;searchType=" + searchType + "&amp;keyword=" + keyword; 
+			return "&amp;searchType=" + searchType + "&amp;keyword=" + keyword;
 		}
 	}
+
+	private String searchType, keyword;
+
+	
 
 }

@@ -2,7 +2,7 @@
     작성자 : 강세빈
     작성일 : 2023-04-04
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
@@ -27,24 +27,77 @@
             <div class="left-text">
                 <h2>계정 교회</h2>
                 <h5>교회 간단한 소개</h5>
-                교회 사진이 들어갈 공간입니다.
             </div>
         </div>
         <%-- 오른쪽 입력하는 부분 --%>
         <div class="right">
             <div class="contact">
-                <form:form modelAttribute="JoinUser" id="joinForm" action="./joinUser?${_csrf.parameterName}=${_csrf.token}" method="post">
+                <form:form modelAttribute="JoinUser" id="submitForm" action="./joinUser?${_csrf.parameterName}=${_csrf.token}" method="post">
                     <h3>회원가입</h3>
-                    <form:input path="username" id="username" placeholder="아이디"/>
-                    <div id="validId" class="valid"></div>
-                    <form:input path="password" id="password" type="password" placeholder="비밀번호"/>
-                    <input id="ChkPassword" type="password" placeholder="비밀번호 확인"/>
-                    <div id="validPassword" class="valid"></div>
-                    <form:input path="name" placeholder="이름"/>
-                    <form:input path="email" id="email" placeholder="이메일"/>
-                    <div id="validEmail" class="valid"></div>
-                    <form:input path="tel" id="tel" placeholder="전화번호 (010-0000-0000)"/>
-                    <div id="validTel" class="valid"></div>
+                    <div class="row g-3 align-items-center">
+                        <div class="col">
+                            <label for="username" class="col-form-label">아이디 : </label>
+                        </div>
+                        <div class="col-6">
+                            <form:input path="username" id="username" placeholder="아이디"/>
+                        </div>
+                        <div class="col">
+                            <div id="validId" class="valid"></div>
+                        </div>
+                    </div>
+                    <div class="row g-3 align-items-center">
+                        <div class="col">
+                            <label for="password" class="col-form-label">비밀번호 : </label>
+                        </div>
+                        <div class="col-6">
+                            <form:input path="password" id="password" type="password" placeholder="비밀번호"/>
+                        </div>
+                        <div class="col">
+                        </div>
+                    </div>
+                    <div class="row g-3 align-items-center">
+                        <div class="col">
+                            <label for="ChkPassword" class="col-form-label">비밀번호 확인: </label>
+                        </div>
+                        <div class="col-6">
+                            <input id="ChkPassword" type="password" placeholder="비밀번호 확인"/>
+                        </div>
+                        <div class="col">
+                            <div id="validPassword" class="valid"></div>
+                        </div>
+                    </div>
+                    <div class="row g-3 align-items-center">
+                        <div class="col">
+                            <label for="name" class="col-form-label">이름: </label>
+                        </div>
+                        <div class="col-6">
+                            <form:input path="name" id="name" placeholder="이름"/>
+                        </div>
+                        <div class="col">
+                        </div>
+                    </div>
+                    <div class="row g-3 align-items-center">
+                        <div class="col">
+                            <label for="email" class="col-form-label">이메일: </label>
+                        </div>
+                        <div class="col-6">
+                            <form:input path="email" id="email" placeholder="이메일"/>
+                        </div>
+                        <div class="col">
+                            <div id="validEmail" class="valid"></div>
+                        </div>
+                    </div>
+                    <div class="row g-3 align-items-center">
+                        <div class="col">
+                            <label for="tel" class="col-form-label">전화번호: </label>
+                        </div>
+                        <div class="col-6">
+                            <form:input path="tel" id="tel" placeholder="전화번호 (010-0000-0000)"/>
+                        </div>
+                        <div class="col">
+                            <div id="validTel" class="valid"></div>
+                        </div>
+                    </div>
                     <div class="buttonGroup">
                         <button type="button" class="submit">회원 가입</button>
                         <a href="/main" type="button" class="button">취소</a>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.church.mapper.AttachFileMapper">
+
+		<!-- 어제 날짜 폴더의 첨부파일 목록 조회 -->
+<!-- 		<select id="yesterdayFiles" -->
+<!-- 		resultType="com.church.domain.AttachFile"> -->
+		
+
+<!--     SELECT * FROM tbl_attach WHERE up_folder = TO_CHAR(SYSDATE - 1, 'yyyy\MM\dd')  -->
+
+<!-- 		</select> -->
+		<select id="allFiles"
+		resultType="com.church.domain.AttachFile">
+		
+
+SELECT * FROM attachfile
+
+
+		</select>
+		
+		<select id="todayFiles"
+		resultType="com.church.domain.AttachFile">
+		
+
+SELECT * FROM attachfile WHERE upFolder = DATE_FORMAT(CURDATE(), '%Y\\%m\\%d')
+
+
+		</select>
+
+		<select id="oneAttach"
+		resultType="com.church.domain.AttachFile">
+		
+
+SELECT * FROM attachfile WHERE ano = #{ano} ORDER BY fileName DESC LIMIT 1;
+
+
+		</select>
+
+
+
+
+	<delete id="deleteAttach" parameterType="String">
+		DELETE FROM attachfile WHERE ano = #{ano}
+	</delete>
+
+
+
+	<insert id="insertAttach" parameterType="HashMap">
+		INSERT INTO attachfile
+		VALUES(#{fileName}, #{upFolder}, #{uuid}, #{image}, #{ano})
+	</insert>
+
+
+		<select id="selectAttachAll"
+		resultType="com.church.domain.AttachFile" parameterType="String">
+		
+
+    SELECT * FROM attachfile WHERE ano = #{ano}
+
+		</select>
+<!-- 		<![CDATA[ -->
+     
+<!--     	SELECT uuid, up_folder, file_name, replyer, regDate, updateDate -->
+<!--     	 FROM ( SELECT /*+INDEX(tbl_reply idx_tbl_reply) */ -->
+<!--     	 rownum rn, rno, bno, reply, replyer, reg_date as regDate, update_date as updateDate FROM tbl_reply -->
+<!--     	 WHERE  bno = #{bno} -->
+<!--     	 AND	rno > 0  -->
+<!--     	 AND	rownum <= #{cri.amount} * #{cri.pageNum} ) -->
+<!--      WHERE rn > #{cri.amount} * (#{cri.pageNum} - 1) -->
+<!--     ]]>		 -->
+    	 
+
+    	
+    	
+    	
+	
+
+</mapper>
