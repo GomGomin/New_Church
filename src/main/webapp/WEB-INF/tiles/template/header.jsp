@@ -141,7 +141,7 @@ function w3_close() {
                 <button>게시판</button>
                 <div class="dropdown-content">
                     <a href="/boards/list">목록</a>
-                    <a href="#">Link 2</a>
+                    <a href="/album/list">포토 갤러리</a>
                     <a href="#">Link 3</a>
                 </div>
             </div>
@@ -156,9 +156,18 @@ function w3_close() {
             <div class="dropdown w3-bar-item w3-button" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
                 <button>픽업</button>
                 <div class="dropdown-content">
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
+                    <a href="/pickup/list">픽업 리스트</a>
+<!--                     <a href="#"></a> -->
+<!--                     <a href="#"></a> -->
+                </div>
+            </div>
+            <sec:authentication property="name" var="username"/>
+            <div class="dropdown w3-bar-item w3-button" sec:authorize="hasAnyAuthority('ROLE_USER')">
+                <button>픽업</button>
+                <div class="dropdown-content">
+                    <a href="/pickup/add">픽업 신청</a>
+                    <a href="/pickup/detail?pbwriter=${username}">내 픽업 보기</a>
+                    <a href="#"></a>
                 </div>
             </div>
         </div>
