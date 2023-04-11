@@ -12,6 +12,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -196,7 +197,9 @@ function w3_close() {
                 <a href="/joinUser" class="w3-bar-item w3-button">회원가입</a>
             </sec:authorize>
             <sec:authorize access="isAuthenticated()">
-                <a href="/logout" class="w3-bar-item w3-button">로그아웃 </a>
+                <form:form method="post" action="/logout">
+                    <button type="submit" class="w3-bar-item w3-button">로그아웃 </button>
+                </form:form>
             </sec:authorize>
         </div>
 

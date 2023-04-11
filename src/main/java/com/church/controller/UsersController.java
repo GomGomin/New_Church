@@ -280,13 +280,4 @@ public class UsersController {
 		}
 	}
 
-	@GetMapping(value="/logout")
-	public String logout(HttpServletRequest request, HttpServletResponse response) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (auth != null && auth.isAuthenticated()) {
-			new SecurityContextLogoutHandler().logout(request, response, auth);
-		}
-		return "redirect:/";
-	}
-
 }
