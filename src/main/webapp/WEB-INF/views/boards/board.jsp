@@ -121,11 +121,17 @@
 						<!-- 댓글 등록 시간 -->
 						<fmt:parseDate value="${reply.date}" pattern="yyyy-MM-dd" var="date" /><!-- String > Date -->
 						<fmt:parseNumber value="${date.time / (1000*60*60*24)}" integerOnly="true" var="date" /><!-- Date > Number -->
+						<fmt:parseNumber var="week" integerOnly="true" value="${(now-date)/7 }"/>
 						<!-- END 댓글 등록 시간 -->
-						<c:if test="${now-date!=0 }">
-							<b>${reply.rwriter }</b> ${now-date }일 전<br>
+						<c:if test="${now-date!=0 }"><!-- 하루 이상 -->
+							<c:if test="${now-date>=7 }"><!-- 일주 이상 -->
+								<b>${reply.rwriter }</b> ${week }주 전<br>
+							</c:if>
+							<c:if test="${now-date<7 }"><!-- 일주 미만 -->
+								<b>${reply.rwriter }</b> ${(now-date) }일 전<br>
+							</c:if>
 						</c:if>
-						<c:if test="${now-date==0 }">
+						<c:if test="${now-date==0 }"><!-- 하루 미만 -->
 							<b>${reply.rwriter }</b> ${fn:split(reply.date, ' ')[1] }<br>
 						</c:if>
 							${reply.rcontents }<c:if test="${reply.rupdate!=null }">(${reply.rupdate })</c:if>
