@@ -411,20 +411,22 @@ public class AlbumController {
 					
 					adto.setImage(true);
 					
-					Thumbnails.of(new File(upFolder, "s_" + upFileName))
-				    .size(800, 600) // 이미지 크기를 800x600으로 설정
-				    .toFile(new File(upFolder, "s_" + upFileName));
-					
 					FileOutputStream fos = new FileOutputStream(new File(upFolder, "s_" + upFileName));
 				
-						
-
-			
-						
 					
-				Thumbnailator.createThumbnail( //섬네일 이미지 생성
-						multi.getInputStream(), fos, 100, 100);
-					fos.close();
+					Thumbnailator.createThumbnail( //섬네일 이미지 생성
+							multi.getInputStream(), fos, 100, 100);
+						fos.close();
+					
+					File thumbnailFile = new File(upFolder, "s_" + upFileName);
+					
+					   // 썸네일 이미지 압축
+				    Thumbnails.of(new File(upFolder, "s_" + upFileName))
+				              .size(100, 100)
+				              .outputQuality(1.0)
+				              .toFile(thumbnailFile);
+				    
+				    
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

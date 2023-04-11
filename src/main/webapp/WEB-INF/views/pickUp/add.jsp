@@ -45,32 +45,38 @@
 	<form:input path="pbtel" class="w3-input w3-padding-16" placeholder="전화번호" type="text" />
 	<br>
 
-	
-
-	
-	<div class="w3-third" style="width: 15%;">
-		  <label class="w3-text-teal"><b>주소</b></label>
-  	<form:input path="pbaddress" id="pbaddress" type="hidden" />
-	<input class="w3-border w3-light-grey" id="sample6_postcode" placeholder="우편번호" readonly="readonly" type="text" />
+			<div class="w3-third" style="width: 8%; padding-top: 5px;">
+				<h5>
+					<b><label for="inputDescription">주소</label></b>
+				</h5>
+			</div>
+			<div class="w3-third" style="width: 100%;">
+	<div class="w3-third" style="width: 10%;">
+	  	<input name="pbaddress" id="pbaddress" type="hidden" />
+	<input class="form-control" id="sample6_postcode" placeholder="우편번호" readonly="readonly" type="text" />
 	</div>
 
 
-	<button type="button" class="w3-aqua" onclick="sample6_execDaumPostcode()" style="margin-top: 20px;">우편번호 찾기</button>
-	 		<div style="width: 30%; padding-top: 10px;">
-	<input style="width: 100%;" class="w3-border" id="sample6_address" placeholder="주소" type="text" readonly="readonly" />
+	<button type="button" class="w3-aqua w3-large" onclick="sample6_execDaumPostcode()" style="margin-left: 10px;">우편번호 찾기</button>
+	 		<div style="width: 33%; padding-top: 10px;">
+	<input style="width: 100%;" class="form-control" id="sample6_address" readonly="readonly" placeholder="주소" type="text" />
 	</div>
-	 	 		<div style="width: 50%; padding-top: 10px;">
-<input type="text" id="sample6_detailAddress" style="width: 30%;" class="w3-border" placeholder="상세주소">
-<input type="text" id="sample6_extraAddress" style="width: 30%;" class="w3-border" placeholder="참고항목" readonly="readonly">
+	 	 		<div class="w3-third" style="width: 15%; padding-top: 10px;">
+<input type="text" id="sample6_detailAddress" style="width: 100%;" class="form-control" placeholder="상세주소">
+
 
 	</div>
+	<div class="w3-third" style="width: 15%; padding-top: 10px; padding-left: 10px;">
+	<input type="text" id="sample6_extraAddress" style="width: 100%;" class="form-control" readonly="readonly" placeholder="참고항목">
+			</div>
+		</div>
+
+
+
 	  <br>
-<!-- 	  <div class="w3-half" style="padding-top: 10px;"> -->
-<!-- 		<input id="addr2" class="w3-input w3-border" placeholder="" type="text" /> -->
-<!-- 		<input id="addr3" class="w3-input w3-border" placeholder="" type="text" /> -->
-<!-- 		</div> -->
 	  <div style="margin-top: 30px;">
-	<button type="button" onclick="check()" style="margin-top: 30px;" class="w3-button w3-black w3-margin-bottom"><i class="fa fa-paper-plane w3-margin-right"></i>신청</button>
+  	<button type="button" style="margin-top: 30px;" onclick="history.back()" class="btn btn-secondary">이전으로</button>
+	<button type="button" onclick="check()" style="margin-top: 30px;" class="btn btn-primary"><i class="fa fa-paper-plane w3-margin-right"></i>신청</button>
 </div>
   </form:form>
   </div>
@@ -90,8 +96,8 @@
 
 
 function check() {
-	$("#pbaddress").val($("#sample6_postcode").val() + "/" + $("#sample6_address").val() + "/" + $("#sample6_extraAddress").val() + "/" + $("#sample6_detailAddress").val());
-	$("#form").submit();
+	$("#pbaddress").val($("#sample6_postcode").val() + "/" + $("#sample6_address").val() + "/" + $("#sample6_extraAddress").val() + "/" + $("#sample6_detailAddress").val());	
+		$("#form").submit();
 }
 
     function sample6_execDaumPostcode() {

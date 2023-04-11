@@ -9,10 +9,16 @@
 최초 작성일 : 23.04.04
 -->
 
+<%@page import="com.church.controller.PickUpController"%>
+<%@page import="org.springframework.beans.factory.annotation.Autowired"%>
+<%@page import="com.church.service.PickUpsService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -153,13 +159,37 @@ function w3_close() {
                 </div>
             </div>
 
-            <sec:authorize access="isAuthenticated()">
+
+
+
+
+
+
+
+
+
+
+
+
+            <sec:authorize access="hasRole('ROLE_USER')">
 	            <div class="dropdown w3-bar-item w3-button">
 	               <button>픽업</button>
+				   <c:set var="username" value="${SecurityContextHolder.getContext().getAuthentication().getName()}" />
 	               <div class="dropdown-content">
-	                   <a href="/pickup/add">픽업 신청</a>
-	                   <a href="/pickup/detail?pbwriter=${username}">내 픽업 보기</a>
+				   <spring:eval expression="@pickUpController.hasPickupHistory(username)" var="hasPickup" />
+				  <c:if test="${!hasPickup}">
+				    <a href="/pickup/add">픽업 신청</a>
+				  </c:if>
+				  <c:if test="${hasPickup}">
+				    <a href="/pickup/detail?pbwriter=${username}">내 픽업 보기</a>
+				  </c:if>
 	               </div>
+	            </div>
+           </sec:authorize>
+           
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+	            <div class="dropdown w3-bar-item w3-button">
+	               <a href="/pickup/list"><button>픽업 리스트</button></a>
 	            </div>
            </sec:authorize>
         </div>

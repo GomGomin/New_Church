@@ -41,62 +41,63 @@
 <br><br>
 
 		<div>
-			<div class="w3-third" style="width: 7%; padding-top: 5px;">
+			<div class="w3-third" style="width: 8%; padding-top: 5px;">
 				<h5>
 					<b><label for="inputDescription">신청인</label></b>
 				</h5>
 			</div>
-			<div class="w3-third" style="width: 10%; margin-right: 1200px; margin-bottom: 10px;">
+			<div class="w3-third" style="width: 10%; margin-right: 900px; margin-bottom: 10px;">
 				<input class="form-control" value="${pickBoard.pbname}" id="uname" name="pbname"
 					  type="text" />
 			</div>
 		</div>
 		<div>
-			<div class="w3-third" style="width: 7%; padding-top: 5px;">
+			<div class="w3-third" style="width: 8%; padding-top: 5px;">
 				<h5>
 					<b><label for="inputDescription">아이디</label></b>
 				</h5>
 			</div>
-			<div class="w3-third" style="width: 15%; margin-right: 1100px; margin-bottom: 10px;">
-				<input class="form-control" value="${pickBoard.pbwriter}" id="uname"
+			<input type="hidden" name="pbwriter" value="${pickBoard.pbwriter}">
+			<div class="w3-third" style="width: 15%; margin-right: 900px; margin-bottom: 10px;">
+				<input class="form-control" value="${pickBoard.pbwriter}"
 					 disabled="disabled" type="text" />
 			</div>
 		</div>
 		<div>
-			<div class="w3-third" style="width: 7%; padding-top: 5px;">
+			<div class="w3-third" style="width: 8%; padding-top: 5px;">
 				<h5>
 					<b><label for="inputDescription">전화번호</label></b>
 				</h5>
 			</div>
-			<div class="w3-third" style="width: 15%; margin-right: 1100px; margin-bottom: 10px;">
+			<div class="w3-third" style="width: 15%; margin-right: 900px; margin-bottom: 10px;">
 				<input class="form-control" value="${pickBoard.pbtel}" id="uname" name="pbtel"
 					  type="text" />
 			</div>
 		</div>
 		<div>
-			<div class="w3-third" style="width: 7%; padding-top: 5px;">
+			<div class="w3-third" style="width: 8%; padding-top: 5px;">
 				<h5>
-					<b><label for="inputDescription">신청 날짜</label></b>
+					<b><label for="inputDescription">신청일</label></b>
 				</h5>
 			</div>
-			<div class="w3-third" style="width: 20%; margin-right: 1000px; margin-bottom: 10px;">
+			<div class="w3-third" style="width: 25%; margin-right: 700px; margin-bottom: 10px;">
 				<input class="form-control" value="${pickBoard.date}" id="date"
 					 disabled="disabled" type="text" />
 			</div>
 		</div>
 		<div>
-			<div class="w3-third" style="width: 7%; padding-top: 5px;">
+			<div class="w3-third" style="width: 8%; padding-top: 5px;">
 				<h5>
 					<b><label for="inputDescription">승인 여부</label></b>
 				</h5>
 			</div>
-			<div class="w3-third" style="width: 5%; margin-right: 1250px; margin-bottom: 10px;">
+			<div class="w3-third" style="width: 10%; margin-right: 900px; margin-bottom: 20px;">
 				<input class="form-control" value="${pickBoard.pbstate}" id="pbstate"
 					 type="text" disabled="disabled"/>
 			</div>
 		</div>
 		<div>
-			<div class="w3-third" style="width: 7%; padding-top: 5px;">
+			<div class="w3-third" style="width: 8%; padding-top: 5px;">
 				<h5>
 					<b><label for="inputDescription">주소</label></b>
 				</h5>
@@ -105,13 +106,13 @@
 	<div class="w3-third" style="width: 10%;">
   	<input name="pbno" value="${pickBoard.pbno}" type="hidden" />
   	<input name="pbaddress" id="pbaddress" value="${pickBoard.pbaddress}" type="hidden" />
-	<input class="form-control" id="sample6_postcode" placeholder="우편번호" type="text" />
+	<input class="form-control" id="sample6_postcode" placeholder="우편번호" readonly="readonly" type="text" />
 	</div>
 
 
 	<button type="button" class="w3-aqua w3-large" onclick="sample6_execDaumPostcode()" style="margin-left: 10px;">우편번호 찾기</button>
 	 		<div style="width: 33%; padding-top: 10px;">
-	<input style="width: 100%;" class="form-control" id="sample6_address" placeholder="주소" type="text" />
+	<input style="width: 100%;" class="form-control" id="sample6_address" readonly="readonly" placeholder="주소" type="text" />
 	</div>
 	 	 		<div class="w3-third" style="width: 15%; padding-top: 10px;">
 <input type="text" id="sample6_detailAddress" style="width: 100%;" class="form-control" placeholder="상세주소">
@@ -119,7 +120,7 @@
 
 	</div>
 	<div class="w3-third" style="width: 15%; padding-top: 10px; padding-left: 10px;">
-	<input type="text" id="sample6_extraAddress" style="width: 100%;" class="form-control" placeholder="참고항목">
+	<input type="text" id="sample6_extraAddress" style="width: 100%;" class="form-control" readonly="readonly" placeholder="참고항목">
 			</div>
 		</div>
 		
