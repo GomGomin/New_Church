@@ -20,35 +20,33 @@
 <body>
 <!-- 로그인 정보 받기 -->
 <sec:authentication property="principal" var="user" />
-<br>
 	<!-- 메인 -->
-	<div class="container">
-		<!-- 게시물 등록 폼 -->
-		<form:form modelAttribute="NewBoard" action="./setNewBoard?${_csrf.parameterName}=${_csrf.token}" method="post">
-			<div class="mb-3">
-				<label class="form-label">작성자</label> 
-				<form:input type="text" class="form-control" readonly="true" value="${user.username}" path="bwriter"/>
+	<br><h1>게시물 등록</h1><br>
+	<!-- 게시물 등록 폼 -->
+	<form:form modelAttribute="NewBoard" action="./setNewBoard?${_csrf.parameterName}=${_csrf.token}" method="post">
+		<div class="mb-3">
+			<label class="form-label">작성자</label> 
+			<form:input type="text" class="form-control" readonly="true" value="${user.username}" path="bwriter"/>
+		</div>
+		<div class="mb-3">
+			<label class="form-label">제목</label> 
+			<form:input type="text" class="form-control" path="btitle" required="true" />
+		</div>
+		<div class="mb-3">
+			<label class="form-label">내용</label>
+			<form:textarea class="form-control" id="summernote" rows="3" path="bcontents" required="true" ></form:textarea>
+		</div>
+		<div class="row">
+			<div class="col-10"></div>
+			<div class="col">
+				<button type="submit" class="form-control">등록</button>
 			</div>
-			<div class="mb-3">
-				<label class="form-label">제목</label> 
-				<form:input type="text" class="form-control" path="btitle" required="true" />
+			<div class="col">
+				<button onclick="location.href='/boards/list'" class="form-control">취소</button>
 			</div>
-			<div class="mb-3">
-				<label class="form-label">내용</label>
-				<form:textarea class="form-control" id="summernote" rows="3" path="bcontents" required="true" ></form:textarea>
-			</div>
-			<div class="row">
-				<div class="col-10"></div>
-				<div class="col">
-					<button type="submit" class="form-control">등록</button>
-				</div>
-				<div class="col">
-					<button onclick="location.href='/boards/list'" class="form-control">취소</button>
-				</div>
-			</div>
-		</form:form>
-		<!-- END 게시물 등록 폼 -->
-	</div>
+		</div>
+	</form:form><br>
+	<!-- END 게시물 등록 폼 -->
 	<!-- END 메인 -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>

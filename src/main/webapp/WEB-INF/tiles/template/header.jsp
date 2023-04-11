@@ -17,56 +17,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href = "/resources/css/header.css" type="text/css">
 
-<style>
-
-
-
-
-.dropdown {
-  overflow: hidden;
-}
-
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  border-radius: 10px;
-
-}
-
-.dropdown-content a {
-  float: none;
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
-  border-radius: inherit;
-  
-}
-
-.dropdown-content a:hover {
-  background-color: #ddd;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-#dropdown:hover .dropdown-content {
-  display: block;
-}
-
-.w3-top button{
-border: none;
-background-color: inherit;
-}
-
-</style>
-
 <script>
 
 function w3_open() {
@@ -90,7 +40,7 @@ function w3_close() {
 <!-- Navbar (sit on top) -->
 <div class="w3-top fixed-top">
   <div class="w3-bar w3-white w3-card" id="myNavbar">
-    <a href="#home" class="w3-bar-item w3-button w3-wide">LOGO</a>
+    <a href="/" class="w3-bar-item w3-button w3-wide">LOGO</a>
     <!-- Right-sided navbar links -->
     <div class="w3-left w3-hide-small w3-hide-medium">
      	  <div class="dropdown w3-bar-item w3-button">
@@ -112,7 +62,7 @@ function w3_close() {
        	  <div class="dropdown w3-bar-item w3-button">
            	<button>게시판</button>
    	    	<div class="dropdown-content">
-		      <a href="#">Link 1</a>
+		      <a href="/boards/list">자유게시판</a>
 		      <a href="#">Link 2</a>
 		      <a href="#">Link 3</a>
   			</div>
