@@ -33,7 +33,7 @@
 <img data-bs-toggle="offcanvas" aria-expanded="false"  data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" id="STATICMENU" style="width: 100px; height: 80px;" src="/resources/img/GPT.png">
 
 
-<div class="offcanvas offcanvas-end" tabindex="-1"  data-bs-scroll="true" data-bs-backdrop="false" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+<div class="offcanvas offcanvas-end" tabindex="-1"  data-bs-scroll="true" data-bs-backdrop="false" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" style="z-index: 5">
   <div class="offcanvas-header">
     <h3 class="offcanvas-title" id="offcanvasRightLabel">Church AI[CHAT GPT]</h3>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>

@@ -158,17 +158,14 @@ function w3_close() {
 
             <sec:authorize access="hasRole('ROLE_USER')">
 	            <div class="dropdown w3-bar-item w3-button">
-	               <button>픽업</button>
 				   <c:set var="username" value="${SecurityContextHolder.getContext().getAuthentication().getName()}" />
-	               <div class="dropdown-content">
 				   <spring:eval expression="@pickUpController.hasPickupHistory(username)" var="hasPickup" />
 				  <c:if test="${!hasPickup}">
-				    <a href="/pickup/add">픽업 신청</a>
+				    <a href="/pickup/add"><button>픽업 신청</button></a>
 				  </c:if>
 				  <c:if test="${hasPickup}">
-				    <a href="/pickup/detail?pbwriter=${username}">내 픽업 보기</a>
+				    <a href="/pickup/detail?pbwriter=${username}"><button>내 픽업 보기</button></a>
 				  </c:if>
-	               </div>
 	            </div>
            </sec:authorize>
            
@@ -199,13 +196,15 @@ function w3_close() {
         <!-- Right-sided navbar links -->
         <div class="w3-right">
             <sec:authorize access="isAnonymous()">
-                <a href="/login" class="w3-bar-item w3-button">로그인 </a>
+                <a href="/login" class="w3-bar-item w3-button">로그인</a>
                 <a href="/joinUser" class="w3-bar-item w3-button">회원가입</a>
             </sec:authorize>
             <sec:authorize access="isAuthenticated()">
-                <form:form method="post" action="/logout">
-                	<a href="/detailUser" class="w3-bar-item w3-button">내 정보 보기 </a>
-                    <button type="submit" class="w3-bar-item w3-button">로그아웃 </button>
+
+                <a href="/detailUser" class="w3-bar-item w3-button">내 정보</a>
+                <form:form method="post" action="/logout" cssStyle="display: inline-block;">
+                    <button type="submit" class="w3-bar-item w3-button">로그아웃</button>
+
                 </form:form>
             </sec:authorize>
         </div>
@@ -231,7 +230,7 @@ function w3_close() {
 <img data-bs-toggle="offcanvas" aria-expanded="false"  data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" id="STATICMENU" style="width: 180px; height: 150px;" src="/resources/img/GPT.png">
 
 
-<div class="offcanvas offcanvas-end text-center" tabindex="-1"  data-bs-scroll="true" data-bs-backdrop="false" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+<div class="offcanvas offcanvas-end text-center" tabindex="-1"  data-bs-scroll="true" data-bs-backdrop="false" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" style="z-index: 10000;">
   <div class="offcanvas-header">
     <h3 class="offcanvas-title" id="offcanvasRightLabel">Church AI[CHAT GPT]</h3>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
