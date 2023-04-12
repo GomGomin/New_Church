@@ -24,26 +24,8 @@ a{text-decoration:none}
 <!-- 로그인 정보 받기 -->
 <sec:authentication property="principal" var="user" />
 	<!-- 메인 -->
-	<br><h1>자유게시판</h1>
-	<div class="row">
-		<!-- 검색 -->
-		<div class="col-7"></div>
-		<div class="col-2">
-			<select name="searchType" class="form-select">
-				<option value="title" <c:if test="${page.searchType eq 'title'}">selected</c:if>>제목</option>
-				<option value="content" <c:if test="${page.searchType eq 'content'}">selected</c:if>>내용</option>
-				<option value="title_content" <c:if test="${page.searchType eq 'title_content'}">selected</c:if>>제목+내용</option>
-				<option value="writer" <c:if test="${page.searchType eq 'writer'}">selected</c:if>>작성자</option>
-			</select> 
-		</div>
-		<div class="col-2">
-			<input type="text" name="keyword" class="form-control" value="${page.keyword}" placeholder="검색어를 입력해주세요."/>
-		</div>
-		<div class="col">
-			<button type="button" class="form-control" id="searchBtn">검색</button>
-		</div>
-		<!-- END 검색 -->
-		</div><br>
+	<br><h1>자유게시판</h1><br>
+	
 	<!-- 게시물 목록 -->
 	<table class="table">
 		<thead class="table-light">
@@ -93,13 +75,28 @@ a{text-decoration:none}
 	<!-- END paging -->
 	<br>
 	<div class="row">
+		<!-- 검색 -->
+		<div class="col-2">
+			<select name="searchType" class="form-select">
+				<option value="title" <c:if test="${page.searchType eq 'title'}">selected</c:if>>제목</option>
+				<option value="content" <c:if test="${page.searchType eq 'content'}">selected</c:if>>내용</option>
+				<option value="title_content" <c:if test="${page.searchType eq 'title_content'}">selected</c:if>>제목+내용</option>
+				<option value="writer" <c:if test="${page.searchType eq 'writer'}">selected</c:if>>작성자</option>
+			</select> 
+		</div>
+		<div class="col-2">
+			<input type="text" name="keyword" class="form-control" value="${page.keyword}" placeholder="검색어를 입력해주세요."/>
+		</div>
+		<div class="col">
+			<button type="button" class="form-control" id="searchBtn">검색</button>
+		</div>
+		<!-- END 검색 -->
 		<!-- 글작성버튼 -->
-		<div class="col-10"></div>
+		<div class="col-5"></div>
 		<div class="col-2">
 		<sec:authorize access="isAuthenticated()" >
 			<button onclick="location.href='/boards/setNewBoard'" class="form-control">글작성</button>
-		</sec:authorize>
-		</div>
+		</sec:authorize></div>
 		<!-- END 글작성버튼 -->
 	</div><br>
 	<!-- END 메인 -->
