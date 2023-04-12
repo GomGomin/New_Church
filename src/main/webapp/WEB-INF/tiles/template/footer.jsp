@@ -12,7 +12,7 @@
 <!-- CSS only -->
 <style>
 .blog-footer{
-background-color: #5B5B5B;
+background-color: #2E2E2E;
 height: 100%;
 text-align: left;
 vertical-align: center;
@@ -22,26 +22,24 @@ vertical-align: center;
 
 .blog-footer h3{
 color:white;
-font-family: TheJamsil5Bold;
-font-size: 30px;
+font-family: BookkMyungjo-Bd;
+font-size: 23px;
 display: inline;
 }
 
 .blog-footer p{
 color:white;
-font-family: TheJamsil5Bold;
-font-size: 20px;
+font-family: BookkMyungjo-Bd;
+font-size: 15px;
 display: inline;
 }
 
 .info{
 width: 80%;
 margin: 0 auto;
-padding: 10px 0;
+padding: 15px 0;
 }
 
-.logo{
-}
 
 @font-face {
     font-family: 'TheJamsil5Bold';
@@ -50,20 +48,29 @@ padding: 10px 0;
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'BookkMyungjo-Bd';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/BookkMyungjo-Bd.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
 .footer_content{
 display: inline;
 text-align: right;
 float: right;
 }
+
+
 </style>
 </head>
 <body>
 
 <footer class="blog-footer">
 	<div class="info">
-	<h3>계정교회</h3>	
+	<h3>계정교회</h3>
 	<div class="footer_content">
-	<p>주소 : 경기 양평군 양동면 양서북로 490</p>
+	<p>주소 : 경기 양평군 양동면 양서북로 490 /</p>
 	<p>전화번호 : 010-1234-1234</p>
 	</div>
 	</div>

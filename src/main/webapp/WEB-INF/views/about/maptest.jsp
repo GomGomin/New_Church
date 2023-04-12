@@ -20,6 +20,7 @@ margin: 0 auto;
 board:1px solid light grey;
 border-radius: 10px;
 box-shadow: 1px 1px 2px 4px grey;
+margin-top: 20px;
 }
 
 @font-face {
@@ -31,6 +32,7 @@ box-shadow: 1px 1px 2px 4px grey;
 
 .map_title{
 text-align: center;
+margin-top: 20px;
 }
 
 
@@ -60,13 +62,64 @@ font-family : "TAEBAEKmilkyway";
 font-size: 20px;
 font-weight: bold;
 }
+
+table{
+	margin: 0 auto;
+    border-collapse: collapse;
+    width: 80%;
+    height: 300px;
+    text-align: center;
+}
+
+th, td{
+    width: 40%;
+    border: 1px solid rgb(235, 235, 235);
+}
+
+th{
+    background-color: rgb(216, 216, 216);
+    height: 50px;
+    font-family: S-CoreDream-3Light;
+    font-size: 30px;
+    font-weight: 400;
+}
+
+td{
+    background-color: rgb(242, 249, 253);
+    font-family: S-CoreDream-3Light;
+    font-size: 30px;
+    font-weight: 900;
+    color: rgb(73, 99, 170);
+    
+}
+
+tr h1{
+display: inline;
+background-color: rgb(242, 249, 253);
+font-family: S-CoreDream-3Light;
+font-size: 30px;
+font-weight: 900;
+}
+
+.wednesday{
+color: rgb(253, 200, 53);
+}
+
+.weekday{
+color: rgb(253, 53, 53);
+}
+@font-face {
+     font-family: 'S-CoreDream-3Light';
+     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+     font-weight: normal;
+     font-style: normal;
+}
 </style>
 </head>
 <body>
 
 	<div class="map_title">
 	<h1>약도</h1>
-	<hr>
 <!-- 	지도 영역 -->
     <div id="map"></div>
 <!--     지도 영역 END -->
@@ -80,6 +133,25 @@ font-weight: bold;
 		<br>
 		<h2>예배시간</h2>
 		<hr>
+		    <table>
+	            <thead>
+	                <tr>
+	                    <th>예배</th>
+	                    <th>시간</th>
+	                </tr>
+	            </thead>
+	
+	            <tbody>
+	                <tr>
+	                    <td>수요 예배</td>
+	                    <td><h1 class="wednesday">수요일</h1> 18시 30분</td>
+	                </tr>
+	                <tr>
+	                    <td>주말 예배</td>
+	                    <td><h1 class="weekday">주일</h1>11시 30분</td>
+	                </tr>
+	            </tbody>
+		    </table>
 	</div>
 <!-- 	주소와 시간 글 END -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=91966b94c8dcb08be4fe8c7e60e81bb2"></script>
