@@ -95,14 +95,18 @@ display: inline;
 </style>
 </head>
 <body>
+<!-- 슬라이더 구간 -->
 <div class="slider">
 <ul class="bxslider">
+<!-- 메인 슬라이더 이미지 -->
 	<li><div class="image_text"><h4>새로운 시작,</h4>
 	<p>지역사회와 함께하는</p>
 	<h2>계정</h2><h1>교회</h1>
 	</div>
 	<img src="/resources/img/church1.jpg" /></li>
 	<li>
+<!-- 	메인 슬라이더 이미지 END -->
+<!-- 슬라이더 이미지 2  -->
 	<div class="image_text2">
 	<p>"그러므로 너희는 새로운 것이 된 것이라 그가 부르심을 받은 자로서 하나님의 성도들과 함께
 	<br>
@@ -112,6 +116,8 @@ display: inline;
 	</div>
 	<img src="/resources/img/church3.jpg" /></li>
 	<li>
+<!-- 	슬라이더 이미지2 END -->
+<!-- 슬라이더 이미지 3 -->
 	<div class="image_text3">
 	<p>"믿음은 바라는 것들의 실상이요, 보지 못하는 것들의 증거니"
 	</p>
@@ -119,9 +125,10 @@ display: inline;
 	</p>
 	</div>
 	<img src="/resources/img/church5.jpg" /></li>
+<!-- 	슬라이더 이미지 END -->
 </ul>
 </div>
-
+<!-- 슬라이더 END -->
 <script type="text/javascript">
 //<![CDATA[
 	$(document).ready(function(){

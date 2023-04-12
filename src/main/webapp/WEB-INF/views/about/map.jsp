@@ -18,8 +18,11 @@
 <section>
 	<div class="map_div">
 	<h1>지도</h1>
+<!-- 	지도 영역 -->
     <div id="map"></div>
+<!--     지도영역 END -->
     </div>
+    주소
 		<div class="map-container">
 			<h2>계정교회</h2><hr>
 			<p>주소 : 경기도 김포시 통진읍 
