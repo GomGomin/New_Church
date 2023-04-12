@@ -89,14 +89,14 @@ img{
 .left .left-text{
     height: 100%;
     position: relative;
-    transform: translate(0%, 45%);
+    transform: translate(0%, 35%);
 }
 .left-text h2{
     display: block;
     width: 100%;
     text-align: center;
     font-size: 50px;
-    font-weight: 500;
+    font-weight: bold;
 }
 .left-text h5{
     display: block;
