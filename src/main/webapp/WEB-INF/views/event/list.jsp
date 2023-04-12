@@ -40,70 +40,67 @@
 </script>
 <!-- 메인 -->
 <div class="container">
-	<!-- 검색 -->
-	<div class="row">
-		<form action="/event/list">
-			<div class="row g-0">
-				<div class="col-2">
-					<select name="option" class="form-select">
-						<option value="all" ${sph.sc.option eq "all" || sph.sc.option eq '' ? "selected" : ""}>제목+내용</option>
-						<option value="title" ${sph.sc.option eq "title" ? "selected" : ""}>제목</option>
-					</select>
-				</div>
-				<div class="col-3">
-					<input type="text" class="form-control" placeholder="검색어를 입력해주세요." value="${sph.sc.keyword}" id="keyword" name="keyword">
-				</div>
-				<div class="col-1">
-					<input type="submit" class="btn btn-dark form-control" value="검색">
-				</div>
-			</div>
-		</form>
-		<!-- END 검색 -->
-		<!-- 게시물 목록 -->
-		<div>
-			<table class="table table-hover">
+	<!-- 게시물 목록 -->
+	<div>
+		<table class="table table-hover">
+			<tr>
+				<th>번호</th>
+				<th>사진</th>
+				<th>찬양제목</th>
+				<th>작성일</th>
+				<th>조회수</th>
+			</tr>
+			<c:forEach items="${eventList }" var="list">
 				<tr>
-					<th>번호</th>
-					<th>사진</th>
-					<th>찬양제목</th>
-					<th>작성일</th>
-					<th>조회수</th>
+					<td>${list.eno }</td>
+					<td><a href="/event/view${sph.sc.getQueryString()}&eno=${list.eno }"><img src="${list.eimg}" alt="동영상이 없습니다." width="100px", height="80px"></a></td>
+					<td><a href="/event/view${sph.sc.getQueryString()}&eno=${list.eno }">${list.etitle }</a></td>
+					<td>${list.date }</td>
+					<td>${list.eview}</td>
 				</tr>
-				<c:forEach items="${eventList }" var="list">
-					<tr>
-						<td>${list.eno }</td>
-						<td><a href="/event/view${sph.sc.getQueryString()}&eno=${list.eno }"><img src="${list.eimg}" alt="동영상이 없습니다." width="100px", height="80px"></a></td>
-						<td><a href="/event/view${sph.sc.getQueryString()}&eno=${list.eno }">${list.etitle }</a></td>
-						<td>${list.date }</td>
-						<td>${list.eview}</td>
-					</tr>
-				</c:forEach>
-			</table>
-		</div>
-		<!-- END 게시물 목록 -->
-
-		<!-- paging & 글작성버튼 -->
-		<div class = "text-center">
-			<c:if test="${sph.showPrev}">
-				<a href="/event/list${sph.sc.getQueryString(sph.beginPage-1)}"class = "fs-3 text-dark">&lt;</a>
-			</c:if>
-			<c:forEach var="i" begin="${sph.beginPage}" end="${sph.endPage}">
-				<a style="font-size: 28px" href="/event/list${sph.sc.getQueryString(i)}" class = ${i eq sph.sc.page ? "text-primary"  : "text-dark" }>${i}&nbsp;</a>
 			</c:forEach>
-			<c:if test="${sph.showNext}">
-				<a href="/event/list${sph.sc.getQueryString(sph.endPage+1)}" class = "fs-3 text-dark">&gt;</a>
-			</c:if>
-		</div>
-
-		<div class="col-11"></div>
-		<div class="col">
-		<sec:authentication property="principal" var="user"/>
-		<%--<sec:authorize access="hasRole('ADMIN')">--%>
-			<button onclick="location.href='/event/register'" class="form-control">글작성</button>
-		<%--</sec:authorize>--%>
-		</div>
+		</table>
 	</div>
-	<!-- END paging & 글작성버튼 -->
+	<!-- END 게시물 목록 -->
+
+	<!-- paging & 글작성버튼 -->
+	<div class = "text-center mb-5">
+		<c:if test="${sph.showPrev}">
+			<a href="/event/list${sph.sc.getQueryString(sph.beginPage-1)}"class = "fs-3 text-dark">&lt;</a>
+		</c:if>
+		<c:forEach var="i" begin="${sph.beginPage}" end="${sph.endPage}">
+			<a style="font-size: 28px" href="/event/list${sph.sc.getQueryString(i)}" class = ${i eq sph.sc.page ? "text-primary"  : "text-dark" }>${i}&nbsp;</a>
+		</c:forEach>
+		<c:if test="${sph.showNext}">
+			<a href="/event/list${sph.sc.getQueryString(sph.endPage+1)}" class = "fs-3 text-dark">&gt;</a>
+		</c:if>
+	</div>
+	<!-- 검색 -->
+	<form action="/event/list">
+		<div class="row g-3">
+			<div class="col-2">
+				<select name="option" class="form-select">
+					<option value="all" ${sph.sc.option eq "all" || sph.sc.option eq '' ? "selected" : ""}>제목+내용</option>
+					<option value="title" ${sph.sc.option eq "title" ? "selected" : ""}>제목</option>
+				</select>
+			</div>
+			<div class="col-3">
+				<input type="text" class="form-control" placeholder="검색어를 입력해주세요." value="${sph.sc.keyword}" id="keyword" name="keyword">
+			</div>
+			<div class="col">
+				<input type="submit" class="form-control" value="검색">
+			</div>
+			<!-- END 검색 -->
+			<!-- 글작성버튼 -->
+			<div class="col-5"></div>
+			<div class="col">
+				<sec:authorize access="hasRole('ADMIN')">
+					<input type="submit" formaction="/event/register" class="form-control" value="작성">
+				</sec:authorize>
+			</div>
+			<!-- END 글작성버튼 -->
+		</div>
+	</form>
 </div>
 <!-- END 메인 -->
 </body>
