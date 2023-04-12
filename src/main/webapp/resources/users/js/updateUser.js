@@ -40,18 +40,29 @@ $('#email').on("focusout", function(e){
 });
 
 //전화번호 입력 후 다른 곳 클릭시 이벤트 실행
-$('#tel').on("focusout", function(e){
-    var tel = $(this).val(); //전화번호 입력 값 저장
-    var validate = telValidator(tel); //validate에 전화번호가 유효한 값이면 true를 아니면 false를 저장한다.
-    if(validate == true) {
-        //유효한 값이면
-        $('#validTel').html("<div style='color:green;'>사용가능한 전화번호입니다.</div>");
-        telChk = true;
-    } else{
-        //유효하지 않은 값이면 msg를 출력해준다.
-        $('#validTel').html("잘못된 전화번호입니다.<br>010-000-0000의 형식으로 입력해주세요");
-        telChk = false;
-    }
+$('#tel').on("focusout", function(e) {
+    var username = $('#username').val();
+    var tel = $(this).val();
+    $.ajax({
+        type : "GET",
+        url : "/TelChk",
+        data : { tel : tel,
+                username : username },
+        success : function(result) {
+            if(result && telValidator(tel)) { //중복 아이디가 없고, id가 유효값이 라면
+                $('#validTel').html("<div style='color:green;'>사용가능한 전화번호입니다.</div>");
+                telChk = true;
+            } else if(!telValidator(tel)) { //tel이 유효값이 아니라면
+                $('#validTel').html("잘못된 전화번호입니다.<br>010-000-0000의 형식으로 입력해주세요");
+                telChk = false;
+            } else { //중복 전화번호가 존재한다면
+                $('#validTel').html("중복된 전화번호입니다..<br> 다른 전화번호를 입력해주세요.");
+                telChk = false;
+            }
+        }, error : function(request, status, error) {
+            console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        }
+    });
 });
 
 //정보 수정 폼 작성 후 제출 시 실행되는 함수

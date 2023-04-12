@@ -6,6 +6,9 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
+    <!-- Spring security로 인한 csrf 토큰 -->
+    <meta id="_csrf" name="_csrf" content="${_csrf.token}" />
+    <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
     <title>회원 가입</title>
 
     <!-- 부트스트랩 -->
@@ -26,7 +29,8 @@
         <div class="left">
             <div class="left-text">
                 <h2>계정 교회</h2>
-                <h5>교회 간단한 소개</h5>
+                <br><br>
+                <h5>계정교회는 예수 그리스도를 중심으로한 교회로,<br> 모든 사람들에게 열려있는 평화로운 공동체입니다.</h5>
             </div>
         </div>
         <%-- 오른쪽 입력하는 부분 --%>

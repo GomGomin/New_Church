@@ -129,8 +129,8 @@ function w3_close() {
             <div class="dropdown w3-bar-item w3-button">
                 <button>교회소개</button>
                 <div class="dropdown-content">
-                    <a href="vision">교회소개</a>
-                    <a href="map">오시는 길</a>
+                    <a href="/vision">교회소개</a>
+                    <a href="/map">오시는 길</a>
                 </div>
             </div>
             <div class="dropdown w3-bar-item w3-button">
@@ -158,17 +158,14 @@ function w3_close() {
 
             <sec:authorize access="hasRole('ROLE_USER')">
 	            <div class="dropdown w3-bar-item w3-button">
-	               <button>픽업</button>
 				   <c:set var="username" value="${SecurityContextHolder.getContext().getAuthentication().getName()}" />
-	               <div class="dropdown-content">
 				   <spring:eval expression="@pickUpController.hasPickupHistory(username)" var="hasPickup" />
 				  <c:if test="${!hasPickup}">
-				    <a href="/pickup/add">픽업 신청</a>
+				    <a href="/pickup/add"><button>픽업 신청</button></a>
 				  </c:if>
 				  <c:if test="${hasPickup}">
-				    <a href="/pickup/detail?pbwriter=${username}">내 픽업 보기</a>
+				    <a href="/pickup/detail?pbwriter=${username}"><button>내 픽업 보기</button></a>
 				  </c:if>
-	               </div>
 	            </div>
            </sec:authorize>
            
@@ -199,12 +196,15 @@ function w3_close() {
         <!-- Right-sided navbar links -->
         <div class="w3-right">
             <sec:authorize access="isAnonymous()">
-                <a href="/login" class="w3-bar-item w3-button">로그인 </a>
+                <a href="/login" class="w3-bar-item w3-button">로그인</a>
                 <a href="/joinUser" class="w3-bar-item w3-button">회원가입</a>
             </sec:authorize>
             <sec:authorize access="isAuthenticated()">
-                <form:form method="post" action="/logout">
-                    <button type="submit" class="w3-bar-item w3-button">로그아웃 </button>
+
+                <a href="/detailUser" class="w3-bar-item w3-button">내 정보</a>
+                <form:form method="post" action="/logout" cssStyle="display: inline-block;">
+                    <button type="submit" class="w3-bar-item w3-button">로그아웃</button>
+
                 </form:form>
             </sec:authorize>
         </div>
@@ -230,7 +230,7 @@ function w3_close() {
 <img data-bs-toggle="offcanvas" aria-expanded="false"  data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" id="STATICMENU" style="width: 180px; height: 150px;" src="/resources/img/GPT.png">
 
 
-<div class="offcanvas offcanvas-end text-center" tabindex="-1"  data-bs-scroll="true" data-bs-backdrop="false" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+<div class="offcanvas offcanvas-end text-center" tabindex="-1"  data-bs-scroll="true" data-bs-backdrop="false" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" style="z-index: 10000;">
   <div class="offcanvas-header">
     <h3 class="offcanvas-title" id="offcanvasRightLabel">Church AI[CHAT GPT]</h3>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -261,7 +261,7 @@ var stmnLEFT = -30; // 오른쪽 여백
 var stmnGAP1 = 30; // 위쪽 여백
 var stmnGAP2 = 250; // 스크롤시 브라우저 위쪽과 떨어지는 거리
 var stmnBASE = 60; // 스크롤 시작위치
-var stmnActivateSpeed = 20; //스크롤을 인식하는 딜레이 (숫자가 클수록 느리게 인식)
+var stmnActivateSpeed = 10; //스크롤을 인식하는 딜레이 (숫자가 클수록 느리게 인식)
 var stmnScrollSpeed = 20; //스크롤 속도 (클수록 느림)var stmnTimer;
 
 function RefreshStaticMenu() {

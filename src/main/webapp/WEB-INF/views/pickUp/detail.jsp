@@ -103,7 +103,7 @@
 					<b><label for="inputDescription">주소</label></b>
 				</h5>
 			</div>
-			<div class="w3-third" style="width: 33%; margin-right: 600px; margin-bottom: 10px;">
+			<div class="w3-third" style="width: 40%; margin-right: 600px; margin-bottom: 10px;">
 				<input name="pbaddress" class="form-control" id="pbaddress" value="${pickBoard.pbaddress}"
 					 disabled="disabled" type="text" />
 			</div>
@@ -112,7 +112,7 @@
 
   </form>
 	  </div>
-	  <div style="margin-left: 10px;">
+	  <div style="margin-left: 10px; padding-bottom: 100px;">
 	<button type="button" onclick="location.href='./modify?pbwriter=${pickBoard.pbwriter}'" class="btn btn-primary">수정</button>
 	<button type="button" onclick="remove('${pickBoard.pbno}')" class="btn btn-danger">삭제</button>
 

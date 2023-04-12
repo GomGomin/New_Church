@@ -18,7 +18,7 @@
 </head>
 <style>
 body{font-family: 'Noto Sans KR', sans-serif}
-a{text-decoration:none}
+a{text-decoration:none; color:black }
 </style>
 <body>
 <!-- 로그인 정보 받기 -->
@@ -64,7 +64,7 @@ a{text-decoration:none}
 				&nbsp;<a href="/boards/list?num=${num}${page.searchTypeKeyword}">${num}</a>&nbsp;
 			</c:if> 
 			<c:if test="${select == num}">
-				&nbsp;<b>${num}</b>&nbsp;
+				&nbsp;<u>${num}</u>&nbsp;
 			</c:if>
 		</span>
 	</c:forEach>
@@ -84,7 +84,7 @@ a{text-decoration:none}
 				<option value="writer" <c:if test="${page.searchType eq 'writer'}">selected</c:if>>작성자</option>
 			</select> 
 		</div>
-		<div class="col-2">
+		<div class="col-3">
 			<input type="text" name="keyword" class="form-control" value="${page.keyword}" placeholder="검색어를 입력해주세요."/>
 		</div>
 		<div class="col">
@@ -92,7 +92,7 @@ a{text-decoration:none}
 		</div>
 		<!-- END 검색 -->
 		<!-- 글작성버튼 -->
-		<div class="col-5"></div>
+		<div class="col-4"></div>
 		<div class="col-2">
 		<sec:authorize access="isAuthenticated()" >
 			<button onclick="location.href='/boards/setNewBoard'" class="form-control">글작성</button>

@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,12 +39,42 @@ public class UsersController {
 	@Autowired
 	BCryptPasswordEncoder bcryptPasswordEncoder;
 
-
 	@Autowired
 	MailService mailService;
 
 	@Autowired
 	ServletContext context;
+
+	@ResponseBody
+	@PostMapping("/sendEmail")
+	public void SendEmail(@RequestParam String email, @RequestParam String name) {
+		//email을 채워서 가입했다면 메일을 전송한다.
+		if (email != null && !email.equals("")) {
+			String to = email;
+			String subject = "교회에 오신 것을 환영합니다.";
+
+			String body = ""; //전체 내용을 html 형식으로 바꾸어 저장할 변수
+			try {
+				String templatePath = context.getRealPath("/WEB-INF/views/users/Welcome.html");//jsp 메일 템플릿 파일 읽어오기
+				System.out.println(templatePath);
+				BufferedReader br = new BufferedReader(new FileReader(templatePath));
+
+				String oneLine;
+				while ((oneLine = br.readLine()) != null) { //한 줄씩 Enter 넣기
+					body += oneLine + "\n";
+				}
+
+				br.close(); //BufferedReader 닫기
+				//읽어온 템플릿의 자리표시자인 __NAME__ 부분을 회원의 이름으로 대체
+				body = body.replace("__NAME__", name);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			mailService.sendMail(to, subject, body);
+		}
+	}
+
+
 
 	@GetMapping("/joinUser") //회원가입 페이지
 	public String JoinUser(@ModelAttribute("JoinUser") Users user) {
@@ -60,34 +91,6 @@ public class UsersController {
 
 			//비밀번호 암호화가 끝난 user 객체를 DB에 저장 (UserService의 joinUser 함수)
 			usersService.joinUser(user);
-
-
-			//email을 채워서 가입했다면 메일을 전송한다.
-			if(user.getEmail() != null && !user.getEmail().equals("")) {
-				String to = user.getEmail();
-				String subject = "교회에 오신 것을 환영합니다.";
-
-				String body = ""; //전체 내용을 html 형식으로 바꾸어 저장할 변수
-
-				try {
-					String templatePath = context.getRealPath("/WEB-INF/views/users/Welcome.html");//jsp 메일 템플릿 파일 읽어오기
-					System.out.println(templatePath);
-					BufferedReader br = new BufferedReader(new FileReader(templatePath));
-
-					String oneLine;
-					while ((oneLine = br.readLine()) != null) { //한 줄씩 Enter 넣기
-						body += oneLine + "\n";
-					}
-
-					br.close(); //BufferedReader 닫기
-
-					//읽어온 템플릿의 자리표시자인 __NAME__ 부분을 회원의 이름으로 대체
-					body = body.replace("__NAME__", user.getName());
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				mailService.sendMail(to, subject, body);
-			}
 
 			return "redirect:/login";
 
@@ -206,17 +209,19 @@ public class UsersController {
 		//Parameter가 있고 로그인한 계정이 admin 일 때
 		if(username != null && authority.equals("ROLE_ADMIN")) {
 			if (username.equals(loginUsername)){ // ADMIN 계정 삭제시 logout 처리
+				SecurityContextHolder.clearContext();
 				usersService.deleteUser(username);
-				return "/logout";
+				return "/login";
 			} else { //ADMIN이 아닌 그 외 유저 삭제 시 다시 list로 이동
 				usersService.deleteUser(username);
 				return "/listUsers";
 			}
 		} else { //유저 개인별 삭제 (로그인한 계정 삭제)
+			SecurityContextHolder.clearContext();
 			usersService.deleteUser(loginUsername);
 		}
 
-		return "/logout";
+		return "/login";
 	}
 
 
@@ -278,6 +283,23 @@ public class UsersController {
 		} else {
 			return false; //select한 값이 존재하면
 		}
+	}
+
+	@ResponseBody
+	@RequestMapping("/TelChk") //아이디 중복 확인
+	public Boolean TelChk(@RequestParam String tel, @RequestParam(value = "username",required = false) String username) {
+		if (username != null) { //기존 회원의 회원정보 수정일 경우
+			Users user = usersService.detailUser(username); //기존 회원의 username으로 DB의 정보를 받아온다.
+			String oldTel = user.getTel(); //DB에 저장된 번호를 oldTel에 저장
+			if(oldTel.equals(tel)){ //DB에 저장된 번호와 새로 입력된 전화번호가 같으면
+				return true; //가능한 아이디로 취급
+			}
+		}
+
+		Users user = usersService.telChk(tel); //tel로 users를 select한다.
+
+		//select한 값이 없으면 true
+		return user == null;
 	}
 
 }
