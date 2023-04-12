@@ -158,17 +158,14 @@ function w3_close() {
 
             <sec:authorize access="hasRole('ROLE_USER')">
 	            <div class="dropdown w3-bar-item w3-button">
-	               <button>픽업</button>
 				   <c:set var="username" value="${SecurityContextHolder.getContext().getAuthentication().getName()}" />
-	               <div class="dropdown-content">
 				   <spring:eval expression="@pickUpController.hasPickupHistory(username)" var="hasPickup" />
 				  <c:if test="${!hasPickup}">
-				    <a href="/pickup/add">픽업 신청</a>
+				    <a href="/pickup/add"><button>픽업 신청</button></a>
 				  </c:if>
 				  <c:if test="${hasPickup}">
-				    <a href="/pickup/detail?pbwriter=${username}">내 픽업 보기</a>
+				    <a href="/pickup/detail?pbwriter=${username}"><button>내 픽업 보기</button></a>
 				  </c:if>
-	               </div>
 	            </div>
            </sec:authorize>
            
