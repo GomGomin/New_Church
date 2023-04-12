@@ -64,7 +64,7 @@ a{text-decoration:none; color:black }
 				&nbsp;<a href="/boards/list?num=${num}${page.searchTypeKeyword}">${num}</a>&nbsp;
 			</c:if> 
 			<c:if test="${select == num}">
-				&nbsp;<b>${num}</b>&nbsp;
+				&nbsp;<u>${num}</u>&nbsp;
 			</c:if>
 		</span>
 	</c:forEach>
