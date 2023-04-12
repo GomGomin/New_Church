@@ -20,6 +20,7 @@
 </head>
 <body>
 <section id="vision">
+<!-- 환영글 -->
 	<div class="welcome">
 			<h1>계정교회</h1>
 			<hr>
@@ -30,6 +31,8 @@
 			<p>모든 사람들이 서로 다른 문화와 배경을 가지고 있지만, 예수 그리스도의 사랑 아래 함께 모여 하나님의 나라를 선교하는 것이 계정교회의 목적입니다.</p>
 			<hr>
 	</div>
+<!-- 	환영글 END -->
+<!-- 교회 비전 -->
 	<div class ="vision">
 		<div class="title">
 		<h1>신앙지도원칙 </h1>
@@ -61,6 +64,7 @@
 		</p>
 		</div>
 	</div>
+<!-- 교회 비전 END -->
 </section>
 </body>
 </html>

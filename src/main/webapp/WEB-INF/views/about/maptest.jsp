@@ -67,8 +67,11 @@ font-weight: bold;
 	<div class="map_title">
 	<h1>약도</h1>
 	<hr>
+<!-- 	지도 영역 -->
     <div id="map"></div>
+<!--     지도 영역 END -->
     </div>
+<!--     주소와 시간 글 -->
 	<div class="map-container">
 		<h2>계정교회</h2><hr>
 		<p>주소 : 경기도 양평군 양동면 양서북로 490 <p>	
@@ -77,7 +80,8 @@ font-weight: bold;
 		<br>
 		<h2>예배시간</h2>
 		<hr>
-</div>
+	</div>
+<!-- 	주소와 시간 글 END -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=91966b94c8dcb08be4fe8c7e60e81bb2"></script>
 <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 

@@ -30,17 +30,7 @@
 	<hr class="featurette-divider">
 
 	<br>
-			<!-- 검색 -->
-			<div style=" display: flex; justify-content: flex-end; margin-right: 20px;">
-				<select name="searchType" class="form-select" style="width: 150px; margin-right: 10px;">
-					<option value="title" <c:if test="${page.searchType eq 'title'}">selected</c:if>>제목</option>
-					<option value="title_awriter" <c:if test="${page.searchType eq 'title_awriter'}">selected</c:if>>제목 & 작성자</option>
-					<option value="writer" <c:if test="${page.searchType eq 'writer'}">selected</c:if>>작성자</option>
-				</select> 
-								<input type="text" name="keyword" class="form-control" style="width: 200px;" value="${page.keyword}" placeholder="Search"/>
-								<button type="button" class="btn btn-success" id="searchBtn" style="margin-left: 10px;">검색</button>
-			</div>
-			<!-- END 검색 -->
+
 	<hr class="featurette-divider">
 
 	<div class="w3-container" id="menu">
@@ -110,9 +100,25 @@
 		<!-- END paging -->
 
         <sec:authorize access="isAuthenticated()">
+        			<!-- 검색 -->
+			<div style=" display: flex; justify-content: flex-start; margin-right: 20px; padding-bottom: 100px;">
+				<select name="searchType" class="form-select" style="width: 150px; margin-right: 10px;">
+					<option value="title" <c:if test="${page.searchType eq 'title'}">selected</c:if>>제목</option>
+					<option value="title_awriter" <c:if test="${page.searchType eq 'title_awriter'}">selected</c:if>>제목 & 작성자</option>
+					<option value="writer" <c:if test="${page.searchType eq 'writer'}">selected</c:if>>작성자</option>
+				</select> 
+								<input type="text" name="keyword" class="form-control" style="width: 200px;" value="${page.keyword}" placeholder="Search"/>
+								<button type="button" class="btn btn-light border-dark" id="searchBtn" style="margin-left: 10px;">검색</button>
+			
+					<a href="/album/add" style="margin-left: 650px;"
+			class="btn btn-light border-dark">게시물 등록</a>
+			
+			
+			</div>
+			<!-- END 검색 -->
+        
 	<div class="text-end">
-		<a href="/album/add" style="margin-right: 10px; margin-bottom: 200px;"
-			class="btn btn-success">게시물 등록</a>
+
 	</div>
 	</sec:authorize>
 
