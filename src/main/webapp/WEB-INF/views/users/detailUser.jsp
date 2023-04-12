@@ -94,7 +94,7 @@
                 정말 탈퇴 하시겠습니까?
             </div>
             <div class="modal-footer">
-                <button type="button" id="deleteUserBtn" class="btn btn-secondary" data-bs-dismiss="modal">네</button>
+                <button type="button" id="deleteUserBtn" class="btn btn-secondary">네</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>
             </div>
         </div>

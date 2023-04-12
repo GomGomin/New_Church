@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,7 +38,6 @@ public class UsersController {
 
 	@Autowired
 	BCryptPasswordEncoder bcryptPasswordEncoder;
-
 
 	@Autowired
 	MailService mailService;
@@ -206,17 +206,19 @@ public class UsersController {
 		//Parameter가 있고 로그인한 계정이 admin 일 때
 		if(username != null && authority.equals("ROLE_ADMIN")) {
 			if (username.equals(loginUsername)){ // ADMIN 계정 삭제시 logout 처리
+				SecurityContextHolder.clearContext();
 				usersService.deleteUser(username);
-				return "/logout";
+				return "/login";
 			} else { //ADMIN이 아닌 그 외 유저 삭제 시 다시 list로 이동
 				usersService.deleteUser(username);
 				return "/listUsers";
 			}
 		} else { //유저 개인별 삭제 (로그인한 계정 삭제)
+			SecurityContextHolder.clearContext();
 			usersService.deleteUser(loginUsername);
 		}
 
-		return "/logout";
+		return "/login";
 	}
 
 
