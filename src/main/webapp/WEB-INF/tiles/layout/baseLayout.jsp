@@ -88,7 +88,7 @@ transform : translateY(-100%);
 .wrapper{
 height: auto;
 min-height: 100%;
-padding-bottom: 60px;
+padding-bottom: 200px;
 }
 </style>
 <title><tiles:insertAttribute name="title" /></title>  

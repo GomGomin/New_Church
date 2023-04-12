@@ -60,17 +60,17 @@
 						<div class="row my-5">
 							<div class="col">
 								<button type="button" id="listBtn" class="btn btn-secondary">목록</button>
-								<%--<sec:authentication property="principal" var="user"/>--%>
-								<%--<sec:authorize access="hasRole('ADMIN')">--%>
+								<sec:authentication property="principal" var="user"/>
+								<sec:authorize access="hasRole('ADMIN')">
 									<c:if test="${mode eq 'new'}">
-										<%--<input type="hidden" value="${user.username}" name="wwriter">--%>
+										<input type="hidden" value="${user.username}" name="wwriter">
 										<button type="button" id="writeBtn" class="btn btn-secondary mx-3">등록</button>
 									</c:if>
 									<c:if test="${mode ne 'new'}">
 										<button type="button" id="modifyBtn" class="btn btn-secondary">수정</button>
 										<button type="button" id="removeBtn" class="btn btn-secondary"> 삭제</button>
 									</c:if>
-								<%--</sec:authorize>--%>
+								</sec:authorize>
 							</div>
 						</div>
 				</form>
