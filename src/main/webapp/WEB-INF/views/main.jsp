@@ -61,14 +61,17 @@ height: 150px;
 </head>
 <body>
 <section id="vision">
+<!-- 아이콘 구간 -->
 	<div class ="icon">
 		<ul>
-		<li><a href="#"><i class="fa-solid fa-cross"><p>교회소개</p></i></a></li>	
-		<li><a href="#"><i class="fa-solid fa-book-bible"><p>예배와 말씀</p></i></a></li>	
-		<li><a href="#"><i class="fa-solid fa-chalkboard-user"><p>게시판</p></i></a></li>	
-		<li><a href="#"><i class="fa-solid fa-newspaper"><p>공지사항</p></i></a></li>	
+		<li><a href="/vision"><i class="fa-solid fa-cross"><p>교회소개</p></i></a></li>	
+		<li><a href="/worship/list"><i class="fa-solid fa-book-bible"><p>예배와 말씀</p></i></a></li>	
+		<li><a href="/boards/list"><i class="fa-solid fa-chalkboard-user"><p>게시판</p></i></a></li>	
+		<li><a href="/notice/list"><i class="fa-solid fa-newspaper"><p>공지사항</p></i></a></li>	
 		</ul>		
 	</div>
+<!-- 	아이콘 구간 END -->
+<!-- 환영글 -->
 	<div class="welcome">
 			<h1>환영합니다!</h1>
 			<hr>
@@ -78,6 +81,7 @@ height: 150px;
 			<br>
 			<p>	이러한 방식으로 계정교회는 하나님의 나라를 넓히기 위해 새로운 교회를 세우고, 지역사회와 교류하며, 세계적인 미션 활동을 전개하는 일에 힘쓰며, 하나님의 사랑과 더 나은 세상을 만드는 일에 동참합니다.</p>
 	</div>
+<!-- 	환영글 END -->
 </section>
 </body>
 </html>

@@ -30,10 +30,9 @@ margin: 0;
 padding: 0;
 }
 
-body{
-display: block;
-margin: 0 auto;
+body, html{
 width: 100%;
+height: 100%;
 }
 
 .header{
@@ -59,15 +58,14 @@ width: 80%;
 margin: 0 auto;
 margin-bottom: 30px;
 min-width: 780px;
+flex:1;
 }
 
 .footer{
 width: 100%;
 min-width: 780px;
-margin: 0;
+margin-bottom: 0;
 height: 70px;
-position : relative;
-transform : translateY(-100%);
 }
 
 .btn_gotop {
@@ -86,31 +84,40 @@ transform : translateY(-100%);
 }
 
 .wrapper{
-height: auto;
-min-height: 100%;
-padding-bottom: 60px;
+display:flex;
+flex-direction: column;
+height: 100%;
 }
 </style>
 <title><tiles:insertAttribute name="title" /></title>  
 </head>
 <body>
 <div class="wrapper">
-<div class="header">
-<tiles:insertAttribute name="header" />
+<!-- 헤더 -->
+	<div class="header">
+	<tiles:insertAttribute name="header" />
+	</div>
+<!-- 	헤더 END -->
+<!-- 	슬라이더 -->
+	<section>
+	<tiles:insertAttribute name="main_slide" />  
+	</section>
+<!-- 	슬라이더 END -->
+<!-- 	페이지 이미지 -->
+	<section style="margin-bottom: 15px;">
+	<tiles:insertAttribute name="image" />
+	</section>
+<!-- 	페이지 내용 -->
+	<div class="content">
+	<tiles:insertAttribute name="content" />  
+	</div>
+<!-- 	페이지 내용 END -->
+<!-- 푸터 -->
+	<footer class="footer">
+	<tiles:insertAttribute name="footer" />  
+	</footer>
+<!-- 	푸터 END -->
 </div>
-<section>
-<tiles:insertAttribute name="main_slide" />  
-</section>
-<section style="margin-bottom: 15px;">
-<tiles:insertAttribute name="image" />
-</section>
-<div class="content">
-<tiles:insertAttribute name="content" />  
-</div>
-</div>
-<footer class="footer">
-<tiles:insertAttribute name="footer" />  
-</footer>
 
 <a href="#" class="btn_gotop" id="click">
   <span class="glyphicon glyphicon-chevron-up">

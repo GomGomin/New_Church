@@ -129,8 +129,8 @@ function w3_close() {
             <div class="dropdown w3-bar-item w3-button">
                 <button>교회소개</button>
                 <div class="dropdown-content">
-                    <a href="vision">교회소개</a>
-                    <a href="map">오시는 길</a>
+                    <a href="/vision">교회소개</a>
+                    <a href="/map">오시는 길</a>
                 </div>
             </div>
             <div class="dropdown w3-bar-item w3-button">
@@ -200,9 +200,11 @@ function w3_close() {
                 <a href="/joinUser" class="w3-bar-item w3-button">회원가입</a>
             </sec:authorize>
             <sec:authorize access="isAuthenticated()">
+
                 <a href="/detailUser" class="w3-bar-item w3-button">내 정보</a>
                 <form:form method="post" action="/logout" cssStyle="display: inline-block;">
                     <button type="submit" class="w3-bar-item w3-button">로그아웃</button>
+
                 </form:form>
             </sec:authorize>
         </div>
