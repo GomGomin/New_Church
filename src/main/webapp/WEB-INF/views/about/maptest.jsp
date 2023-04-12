@@ -57,8 +57,8 @@ font-weight: bold;
 }
 
 .map-container p{
-color: #808080;
-font-family : "TAEBAEKmilkyway";
+color: rgb(73, 99, 170);
+font-family : "S-CoreDream-3Light";
 font-size: 20px;
 font-weight: bold;
 }
@@ -129,7 +129,6 @@ color: rgb(253, 53, 53);
 		<h2>계정교회</h2><hr>
 		<p>주소 : 경기도 양평군 양동면 양서북로 490 <p>	
 		<p>전화번호 : 010-1234-1234</p>
-		<hr>
 		<br>
 		<h2>예배시간</h2>
 		<hr>
