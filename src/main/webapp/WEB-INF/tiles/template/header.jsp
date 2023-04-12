@@ -196,12 +196,13 @@ function w3_close() {
         <!-- Right-sided navbar links -->
         <div class="w3-right">
             <sec:authorize access="isAnonymous()">
-                <a href="/login" class="w3-bar-item w3-button">로그인 </a>
+                <a href="/login" class="w3-bar-item w3-button">로그인</a>
                 <a href="/joinUser" class="w3-bar-item w3-button">회원가입</a>
             </sec:authorize>
             <sec:authorize access="isAuthenticated()">
-                <form:form method="post" action="/logout">
-                    <button type="submit" class="w3-bar-item w3-button">로그아웃 </button>
+                <a href="/detailUser" class="w3-bar-item w3-button">내 정보</a>
+                <form:form method="post" action="/logout" cssStyle="display: inline-block;">
+                    <button type="submit" class="w3-bar-item w3-button">로그아웃</button>
                 </form:form>
             </sec:authorize>
         </div>
