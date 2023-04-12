@@ -26,6 +26,7 @@
 </script>
 <!-- 메인 -->
 	<div class="container">
+		<br><h1>행사</h1><br>
 		<!-- 검색 -->
 		<div class="col-lg-8 mx-auto p-4 py-md-5">
 			<header class="d-flex align-items-center pb-3 mb-5 border-bottom">
