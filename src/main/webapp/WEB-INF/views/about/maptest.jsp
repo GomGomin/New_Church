@@ -14,7 +14,7 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=91966b94c8dcb08be4fe8c7e60e81bb2"></script>
 <style>
 #map{
-width: 100%;
+width: 80%;
 height: 400px;
 margin: 0 auto;
 board:1px solid light grey;

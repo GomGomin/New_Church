@@ -48,4 +48,7 @@ public interface UsersMapper {
 	@Select("SELECT COUNT(username) FROM users")
 	int totalCount();
 
+	@Select("SELECT * FROM users WHERE tel = #{tel}")
+	Users telChk(String tel);
+
 }

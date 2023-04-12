@@ -113,7 +113,7 @@
 			
 			
 
-					<a href="/album/add" style="justify-content: flex-end; margin-left: 600px;
+					<a href="/album/add" style="margin-left:55%;
 min-width: 100px;" class="btn btn-light border-dark">게시물 등록</a>
 			
 			

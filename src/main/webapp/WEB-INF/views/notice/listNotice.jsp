@@ -18,8 +18,9 @@
 </head>
 <body>
 <sec:authentication property="principal" var="user" />
-<!-- 메인 -->
 <div class="container">
+    <!-- 메인 -->
+    <br><h1>공지사항</h1><br>
     <!-- 게시물 목록 -->
     <table class="table">
         <thead class="table-light">
@@ -77,7 +78,7 @@
                 <option value="writer" <c:if test="${page.searchType eq 'writer'}">selected</c:if>>작성자</option>
             </select>
         </div>
-        <div class="col-2">
+        <div class="col-3">
             <input type="text" name="keyword" class="form-control" value="${page.keyword}" placeholder="검색어를 입력해주세요."/>
         </div>
         <div class="col">
@@ -85,7 +86,7 @@
         </div>
         <!-- END 검색 -->
         <!-- 글작성버튼 -->
-        <div class="col-7"></div>
+        <div class="col-5"></div>
         <div class="col">
             <sec:authorize access="hasRole('ADMIN')">
                 <button onclick="location.href='/notice/setNewNotice'" class="form-control">작성</button>

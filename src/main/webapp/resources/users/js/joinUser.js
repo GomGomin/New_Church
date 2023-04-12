@@ -60,6 +60,30 @@ $('#username').on("focusout", function(e) {
     });
 });
 
+$('#tel').on("focusout", function(e) {
+    var tel = $(this).val();
+    $.ajax({
+        type : "GET",
+        url : "/TelChk",
+        data : { tel : tel },
+        success : function(result) {
+            if(result && telValidator(tel)) { //중복 아이디가 없고, id가 유효값이 라면
+                $('#validTel').html("<div style='color:green;'>사용가능한 전화번호입니다.</div>");
+                telChk = true;
+            } else if(!telValidator(tel)) { //tel이 유효값이 아니라면
+                $('#validTel').html("잘못된 전화번호입니다.<br>010-000-0000의 형식으로 입력해주세요");
+                telChk = false;
+            } else { //중복 전화번호가 존재한다면
+                $('#validTel').html("중복된 전화번호입니다..<br> 다른 전화번호를 입력해주세요.");
+                telChk = false;
+            }
+        }, error : function(request, status, error) {
+            console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        }
+    });
+});
+
+
 //비밀번호 확인 이벤트(비밀번호 확인 입력 후 다른 곳 클릭시 이벤트 실행)
 $('#ChkPassword').on("keypress keyup", function(e) {
     var password = $('#password').val(); //비밀번호 값
@@ -91,21 +115,6 @@ $('#email').on("focusout", function(e){
     }
 });
 
-//전화번호 입력 후 다른 곳 클릭시 이벤트 실행
-$('#tel').on("focusout", function(e){
-    var tel = $(this).val(); //전화번호 입력 값 저장
-    var validate = telValidator(tel); //validate에 전화번호가 유효한 값이면 true를 아니면 false를 저장한다.
-    if(validate == true) {
-        //유효한 값이면
-        $('#validTel').html("<div style='color:green;'>사용가능한 전화번호입니다.</div>");
-        telChk = true;
-    } else{
-        //유효하지 않은 값이면 msg를 출력해준다.
-        $('#validTel').html("잘못된 전화번호입니다.<br>010-000-0000의 형식으로 입력해주세요");
-        telChk = false;
-    }
-});
-
 //회원 가입 폼 작성 후 제출 시 실행되는 함수
 $('.submit').on('click', function(e) {
     if (!idChk) { //아이디 오류 모달
@@ -125,7 +134,26 @@ $('.submit').on('click', function(e) {
         $('#modalContent').html('<p>올바른 전화번호를 입력해주세요.<br>전화번호는 000-000-0000 형식으로 작성해야합니다.</p>');
         $('#errorModal').modal('show');
     } else { //유효성이 통과하면 제출
+        var email = $('#email').val();
+        var name = $('#name').val();
         $('#validate').attr('value', true);
+        $.ajax({
+            type: "POST",
+            url: "/sendEmail",
+            data: {
+                email: email,
+                name: name
+            },
+            beforeSend: function (jqXHR, settings) {
+                var header = $("meta[name='_csrf_header']").attr("content");
+                var token = $("meta[name='_csrf']").attr("content");
+                jqXHR.setRequestHeader(header, token);
+            },
+            success: function (result) {
+            }, error: function (request, status, error) {
+                console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+            }
+        });
         $('#submitForm').submit();
     }
 })
