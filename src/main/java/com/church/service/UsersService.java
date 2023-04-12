@@ -13,11 +13,9 @@ public interface UsersService {
 
 	List<Users> listUser(int displayPost, int postNum);
 
-
 	void joinUser(Users user);
 
 	Users detailUser(String username);
-
 
 	void deleteUser(String username);
 
@@ -31,5 +29,6 @@ public interface UsersService {
 
 	int totalCount();
 
+	Users telChk(String tel);
 
 }

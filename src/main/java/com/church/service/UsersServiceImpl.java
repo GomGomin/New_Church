@@ -73,4 +73,9 @@ public class UsersServiceImpl implements UsersService {
 		return usersMapper.totalCount();
 	}
 
+	@Override
+	public Users telChk(String tel) {
+		return usersMapper.telChk(tel);
+	}
+
 }
