@@ -25,6 +25,7 @@ a{text-decoration:none}
 <sec:authentication property="principal" var="user" />
 	<!-- 메인 -->
 	<br><h1>자유게시판</h1><br>
+	
 	<!-- 게시물 목록 -->
 	<table class="table">
 		<thead class="table-light">
@@ -95,8 +96,7 @@ a{text-decoration:none}
 		<div class="col-2">
 		<sec:authorize access="isAuthenticated()" >
 			<button onclick="location.href='/boards/setNewBoard'" class="form-control">글작성</button>
-		</sec:authorize>
-		</div>
+		</sec:authorize></div>
 		<!-- END 글작성버튼 -->
 	</div><br>
 	<!-- END 메인 -->

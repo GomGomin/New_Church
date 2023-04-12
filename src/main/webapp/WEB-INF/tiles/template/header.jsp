@@ -123,7 +123,7 @@ function w3_close() {
 <!-- Navbar (sit on top) -->
 <div class="w3-top">
     <div class="w3-bar w3-white w3-card" id="myNavbar">
-        <a href="/" class="w3-bar-item w3-button w3-wide">LOGO</a>
+        <a href="/" class="w3-bar-item w3-button w3-wide logo"></a>
         <!-- Right-sided navbar links -->
         <div class="w3-left w3-hide-small w3-hide-medium">
             <div class="dropdown w3-bar-item w3-button">
@@ -155,18 +155,6 @@ function w3_close() {
                     <a href="/event/list">행사</a>
                 </div>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
             <sec:authorize access="hasRole('ROLE_USER')">
 	            <div class="dropdown w3-bar-item w3-button">
