@@ -20,7 +20,6 @@
 <body>
 <!-- 로그인 정보 받기 -->
 <sec:authentication property="principal" var="user" />
-<br>
 	<!-- 댓글 수정 Modal -->
 	<div class="modal fade" id="modal" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog">
@@ -43,7 +42,7 @@
 	<!-- END 댓글 수정 Modal -->
 	<!-- 메인 -->
 	<!-- 게시물 -->
-	<br><h3>${board.btitle }</h3>
+	<br><h3>${board.btitle }</h3><br>
 	<table class="table">
 		<thead class="table-light">
 			<tr>
@@ -161,7 +160,7 @@
 				</div>
 			</div>
 		</div>
-	</c:forEach>
+	</c:forEach><br>
 	<!-- END 댓글 목록 -->
 	<!-- END 메인 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
