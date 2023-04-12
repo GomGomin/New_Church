@@ -84,7 +84,7 @@ a{text-decoration:none; color:black }
 				<option value="writer" <c:if test="${page.searchType eq 'writer'}">selected</c:if>>작성자</option>
 			</select> 
 		</div>
-		<div class="col-2">
+		<div class="col-3">
 			<input type="text" name="keyword" class="form-control" value="${page.keyword}" placeholder="검색어를 입력해주세요."/>
 		</div>
 		<div class="col">
@@ -92,7 +92,7 @@ a{text-decoration:none; color:black }
 		</div>
 		<!-- END 검색 -->
 		<!-- 글작성버튼 -->
-		<div class="col-5"></div>
+		<div class="col-4"></div>
 		<div class="col-2">
 		<sec:authorize access="isAuthenticated()" >
 			<button onclick="location.href='/boards/setNewBoard'" class="form-control">글작성</button>
