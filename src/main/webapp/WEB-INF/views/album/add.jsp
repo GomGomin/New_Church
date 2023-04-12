@@ -177,8 +177,8 @@
 	
 	//파일 종류(exe, sh, zip) 및 크기(5MB) 제한
 	var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
-	var maxSize = 5242880;
-	
+	var maxSize = 2621440;
+
 	//업로드 제한 확인
 	function uploadCheck(fileName, fileSize) {
 		if(regex.test(fileName)){	//확장자 확인
@@ -187,7 +187,7 @@
 		}
 	
 		if(fileSize >= maxSize) {
-			alert("업로드 허용 크기(5MB) 초과 - 업로드 불가")
+			alert("업로드 허용 크기(2MB) 초과 - 업로드 불가")
 			return false;
 		}
 		return true;
