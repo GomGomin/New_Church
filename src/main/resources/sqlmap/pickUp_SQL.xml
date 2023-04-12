@@ -67,6 +67,12 @@
 
 </delete>
 
+<select id="hasPickupHistory" parameterType="String" resultType="int">
+	SELECT COUNT(*) FROM pickboard WHERE pbwriter = #{pbwriter};
+</select>
+
+
+
 
 
 </mapper>

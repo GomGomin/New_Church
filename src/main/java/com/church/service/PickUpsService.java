@@ -23,5 +23,7 @@ public interface PickUpsService {
 	void access(String pbno);
 	
 	void delete(String pbno);
+	
+	int hasPickupHistory(String pbwriter);
  
 }

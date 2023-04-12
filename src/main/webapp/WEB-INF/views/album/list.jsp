@@ -59,7 +59,7 @@
 			
 			<div class="container" style="width: 50%; padding-bottom: 100px;">
 				<p class="alert alert-danger"
-					style="text-align: center; height: 100px; padding: 40px;">등록된
+					style="text-align: center; height: 200px; padding: 40px; padding-top: 60px; margin-top: 100px;">등록된
 					게시물이 없습니다.</p>
 
 			</div>

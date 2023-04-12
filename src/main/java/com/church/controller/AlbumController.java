@@ -53,6 +53,7 @@ import com.church.service.AttachFileService;
 import com.church.service.ChatGPTService;
 
 import net.coobird.thumbnailator.Thumbnailator;
+import net.coobird.thumbnailator.Thumbnails;
 
 @Controller
 @RequestMapping("/album")
@@ -412,13 +413,20 @@ public class AlbumController {
 					
 					FileOutputStream fos = new FileOutputStream(new File(upFolder, "s_" + upFileName));
 				
-						
-						
-						
 					
-				Thumbnailator.createThumbnail( //섬네일 이미지 생성
-						multi.getInputStream(), fos, 100, 100);
-					fos.close();
+					Thumbnailator.createThumbnail( //섬네일 이미지 생성
+							multi.getInputStream(), fos, 100, 100);
+						fos.close();
+					
+					File thumbnailFile = new File(upFolder, "s_" + upFileName);
+					
+					   // 썸네일 이미지 압축
+				    Thumbnails.of(new File(upFolder, "s_" + upFileName))
+				              .size(100, 100)
+				              .outputQuality(1.0)
+				              .toFile(thumbnailFile);
+				    
+				    
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

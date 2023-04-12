@@ -34,7 +34,6 @@ body{
 display: block;
 margin: 0 auto;
 width: 100%;
-height: 100%;
 }
 
 .header{
@@ -67,6 +66,8 @@ width: 100%;
 min-width: 780px;
 margin: 0;
 height: 70px;
+position : relative;
+transform : translateY(-100%);
 }
 
 .btn_gotop {
@@ -84,10 +85,16 @@ height: 70px;
 	border-radius:100%;
 }
 
+.wrapper{
+height: auto;
+min-height: 100%;
+padding-bottom: 60px;
+}
 </style>
 <title><tiles:insertAttribute name="title" /></title>  
 </head>
 <body>
+<div class="wrapper">
 <div class="header">
 <tiles:insertAttribute name="header" />
 </div>
@@ -100,9 +107,10 @@ height: 70px;
 <div class="content">
 <tiles:insertAttribute name="content" />  
 </div>
-<div class="footer">
-<tiles:insertAttribute name="footer" />  
 </div>
+<footer class="footer">
+<tiles:insertAttribute name="footer" />  
+</footer>
 
 <a href="#" class="btn_gotop" id="click">
   <span class="glyphicon glyphicon-chevron-up">

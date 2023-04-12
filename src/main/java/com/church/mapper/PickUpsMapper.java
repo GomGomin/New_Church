@@ -22,5 +22,7 @@ public interface PickUpsMapper {
 	void access(String pbno);
 	
 	void delete(String pbno);
+	
+	int hasPickupHistory(String pbwriter);
 
 }

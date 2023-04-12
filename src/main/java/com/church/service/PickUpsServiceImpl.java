@@ -51,6 +51,11 @@ public class PickUpsServiceImpl implements PickUpsService {
 	public void delete(String pbno) {
 		pickUpsMapper.delete(pbno);
 	}
+
+	@Override
+	public int hasPickupHistory(String pbwriter) {
+		return pickUpsMapper.hasPickupHistory(pbwriter);
+	}
 	
 	
 }
