@@ -18,9 +18,9 @@
 </head>
 <body>
 <sec:authentication property="principal" var="user" />
-<!-- 메인 -->
-<br><h1>공지사항</h1><br>
 <div class="container">
+    <!-- 메인 -->
+    <br><h1>공지사항</h1><br>
     <!-- 게시물 목록 -->
     <table class="table">
         <thead class="table-light">
