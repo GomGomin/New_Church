@@ -129,9 +129,8 @@ function w3_close() {
             <div class="dropdown w3-bar-item w3-button">
                 <button>교회소개</button>
                 <div class="dropdown-content">
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
+                    <a href="vision">교회소개</a>
+                    <a href="map">오시는 길</a>
                 </div>
             </div>
             <div class="dropdown w3-bar-item w3-button">
@@ -139,7 +138,6 @@ function w3_close() {
                 <div class="dropdown-content">
                     <a href="/worship/list">예배 목록</a>
                     <a href="/praise/list">찬양 목록</a>
-                    <a href="#">Link 3</a>
                 </div>
             </div>
             <div class="dropdown w3-bar-item w3-button">
@@ -155,7 +153,6 @@ function w3_close() {
                 <div class="dropdown-content">
                     <a href="/notice/list">공지사항 목록</a>
                     <a href="/event/list">행사</a>
-                    <a href="#">Link 3</a>
                 </div>
             </div>
 
