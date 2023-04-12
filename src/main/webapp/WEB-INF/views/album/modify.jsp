@@ -114,7 +114,7 @@
 		
 	<!-- 업로드 결과 출력 -->
 	<div class="uploadResult" style="margin-top: 100px; width: 1000px;">
-		<ul>
+		<ul style="display: flex; flex-wrap: wrap;">
 		<c:forEach items="${attachList}" var="attachList">
 		<li data-folder='${attachList.upFolder}' data-uuid='${attachList.uuid}' data-filename='${attachList.fileName}' data-image='${attachList.image}'>
 				<img style='width:100px; height:100px;' class="original" src="/resources/images/${attachList.upFolder}/s_${attachList.uuid}_${attachList.fileName}"><br>

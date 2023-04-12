@@ -2,8 +2,9 @@
 //최초 작성일 : 23.04.04
 package com.church.controller;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -25,6 +26,7 @@ import java.util.UUID;
 import java.util.stream.Stream;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,7 +55,6 @@ import com.church.service.AttachFileService;
 import com.church.service.ChatGPTService;
 
 import net.coobird.thumbnailator.Thumbnailator;
-import net.coobird.thumbnailator.Thumbnails;
 
 @Controller
 @RequestMapping("/album")
@@ -411,20 +412,51 @@ public class AlbumController {
 					
 					adto.setImage(true);
 					
-					FileOutputStream fos = new FileOutputStream(new File(upFolder, "s_" + upFileName));
+//					FileOutputStream fos = new FileOutputStream(new File(upFolder, "s_" + upFileName));
 				
+					// 원본 이미지를 읽어와서 BufferedImage 객체로 변환
+					BufferedImage originalImage = ImageIO.read(multi.getInputStream());
+
+					// 원본 이미지의 크기를 확인하고, 지정한 크기보다 큰 경우에는 축소
+					int originalWidth = originalImage.getWidth();
+					int originalHeight = originalImage.getHeight();
+					if (originalWidth > 100 || originalHeight > 100) {
+					    float scale = Math.min(100f / originalWidth, 100f / originalHeight);
+					    int newWidth = Math.round(originalWidth * scale);
+					    int newHeight = Math.round(originalHeight * scale);
+
+					    BufferedImage resizedImage = new BufferedImage(newWidth, newHeight, originalImage.getType());
+					    Graphics2D g = resizedImage.createGraphics();
+					    g.drawImage(originalImage, 0, 0, newWidth, newHeight, null);
+					    g.dispose();
+
+					    originalImage = resizedImage;
+					}
+
+//
+//					// 썸네일 이미지 생성
+//					File thumbnailFile = new File(upFolder, "s_" + upFileName);
+//					Thumbnailator.createThumbnail(originalImage, thumbnailFile, 100, 100);
 					
-					Thumbnailator.createThumbnail( //섬네일 이미지 생성
-							multi.getInputStream(), fos, 100, 100);
-						fos.close();
 					
+					
+					// 썸네일 이미지 생성
+					BufferedImage thumbnail = Thumbnailator.createThumbnail(originalImage, 100, 100);
 					File thumbnailFile = new File(upFolder, "s_" + upFileName);
+					ImageIO.write(thumbnail, "png", thumbnailFile);
+
 					
-					   // 썸네일 이미지 압축
-				    Thumbnails.of(new File(upFolder, "s_" + upFileName))
-				              .size(100, 100)
-				              .outputQuality(1.0)
-				              .toFile(thumbnailFile);
+					
+					
+//					// 썸네일 이미지 생성
+//					Thumbnailator.createThumbnail(originalImage, fos, 100, 100);
+//					fos.close();
+					
+//					   // 썸네일 이미지 압축
+//				    Thumbnails.of(new File(upFolder, "s_" + upFileName))
+//				              .size(100, 100)
+//				              .outputQuality(1.0)
+//				              .toFile(thumbnailFile);
 				    
 				    
 				}
@@ -530,8 +562,6 @@ public class AlbumController {
 		
 		
 	}
-
-
 	
 
 }
