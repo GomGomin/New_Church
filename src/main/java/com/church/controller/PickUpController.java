@@ -1,3 +1,5 @@
+//작성자 : 김도영
+//최초 작성일 : 23.04.04
 package com.church.controller;
 
 import java.security.Principal;
@@ -44,16 +46,17 @@ public class PickUpController {
 	@PostMapping("/add")
 	public String addPickUp(@ModelAttribute("pickBoard") PickBoard pickBoard, Principal principal) {
 		
+		String userId = null;
+		
 		if(principal != null) {
-		String userId = principal.getName();
+		userId = principal.getName();
 		pickBoard.setPbwriter(userId);
 		}
-		
 		pickUpsService.insert(pickBoard);
 		
 		
 
-		return "redirect:/pickup/list";
+		return "redirect:/pickup/detail?pbwriter=" + userId;
 	}
 	
 	@GetMapping("/delete")
@@ -115,8 +118,11 @@ public class PickUpController {
 	
 	@PostMapping("/formModify")
 	public String modify(@RequestParam Map<String, Object> pickBoard) {
+		
 		pickUpsService.update(pickBoard);
-		return "redirect:/pickup/list";
+		
+		
+		return "redirect:/pickup/detail?pbwriter=" + pickBoard.get("pbwriter");
 	}
 	
 	@ResponseBody
@@ -124,4 +130,18 @@ public class PickUpController {
 	public void access(@RequestParam String pbno) {
 		pickUpsService.access(pbno);
 	}
+	
+	
+	
+	
+	public boolean hasPickupHistory(String username) {
+			int hasPickUp = pickUpsService.hasPickupHistory(username);
+			if (hasPickUp > 0) {
+			    return true;
+			} else {
+				return false;
+			}
+		}
+	
+	
 }

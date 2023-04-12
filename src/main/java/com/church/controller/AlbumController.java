@@ -1,3 +1,5 @@
+//작성자 : 김도영
+//최초 작성일 : 23.04.04
 package com.church.controller;
 
 import java.io.File;
@@ -10,6 +12,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -19,6 +25,7 @@ import java.util.UUID;
 import java.util.stream.Stream;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -41,13 +48,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.church.domain.Albums;
 import com.church.domain.AttachFile;
 import com.church.domain.Paging;
-import com.church.domain.Users;
 import com.church.service.AlbumsService;
 import com.church.service.AttachFileService;
 import com.church.service.ChatGPTService;
-import com.church.service.UsersService;
 
 import net.coobird.thumbnailator.Thumbnailator;
+import net.coobird.thumbnailator.Thumbnails;
 
 @Controller
 @RequestMapping("/album")
@@ -55,9 +61,6 @@ public class AlbumController {
 	
 	@Autowired
 	private AlbumsService albumsService;
-	
-	@Autowired
-	private UsersService usersService;
 	
 	@Autowired
 	private AttachFileService attachFileService;
@@ -87,12 +90,11 @@ public class AlbumController {
 			@RequestParam("fileName") String[] fileNames,
             @RequestParam("upFolder") String[] upFolders,
             @RequestParam("uuid") String[] uuids,
-            @RequestParam("image") String[] images) {
+            @RequestParam("image") String[] images, HttpServletRequest request) {
 		
 		if(principal != null) {
 		String userId = principal.getName();
-		Users user = usersService.detailUser(userId);
-		albums.put("awriter", user.getName());
+		albums.put("awriter", userId);
 		}
 		
 		albumsService.insert(albums);
@@ -112,7 +114,7 @@ public class AlbumController {
 			}
 		  }
 		
-		cleanAttach();
+		cleanAttach(request);
 		
 		return "redirect:/album/list";
 	}
@@ -124,17 +126,18 @@ public class AlbumController {
 	
 	@ResponseBody
 	@PostMapping("/delete")
-	public void deleteAlbums(@RequestParam String ano) {
+	public void deleteAlbums(@RequestParam String ano, HttpServletRequest request) {
 		albumsService.delete(ano);
 		
-		cleanAttach();
+		cleanAttach(request);
 	}
 	
 	@GetMapping("/detail")
-	public String detail(@RequestParam("ano") String ano, Model model) {
+	public String detail(@RequestParam("ano") String ano, Model model,
+			HttpServletRequest request,
+			HttpServletResponse response, Principal principal) {
 		
-		//조회수 증가
-		albumsService.updateView(ano);
+
 		
 		//주 게시물
 		Albums albumsById = albumsService.detail(ano);
@@ -156,7 +159,63 @@ public class AlbumController {
 		
 		model.addAttribute("attachPaths", attachPaths);
 		
+		String username = null;
+		
+		if(principal != null) {
+		String userId = principal.getName();
+		username = userId;
+		}
+		
+		
+		//조회수 증가
+		viewCountValidation(albumsById, ano, username, request, response);
+		
 		return "/album/detail";
+	}
+	
+		private void viewCountValidation(Albums albums, 
+				String ano,
+				String username,
+				HttpServletRequest request, 
+				HttpServletResponse response) {
+				try {
+				Cookie[] cookies = request.getCookies();
+				
+				Cookie cookie = null;
+				boolean isCookie = false;
+				
+				// request에 쿠키들이 있을 때
+				for (int i = 0; cookies != null && i < cookies.length; i++) {
+				// 사용자명_board 쿠키가 있을 때
+				if (cookies[i].getName().equals(username + "_album")) {//다른 게시판은 "_album" 변경 
+				// cookie 변수에 저장
+				cookie = cookies[i];
+				// 만약 cookie 값에 현재 게시글 번호가 없을 때
+				if (!cookie.getValue().contains("[" + albums.getAno() + "]")) {
+				// 해당 게시글 조회수를 증가시키고, 쿠키 값에 해당 게시글 번호를 추가
+				albumsService.updateView(ano);
+				cookie.setValue(cookie.getValue() + "[" + albums.getAno() + "]");
+				}
+				isCookie = true;
+				break;
+				}
+				}
+				
+				// 만약 사용자명_board라는 쿠키가 없으면 처음 접속한 것이므로 새로 생성
+				if (!isCookie) { 
+					albumsService.updateView(ano);
+				cookie = new Cookie(username + "_album", "[" + albums.getAno() + "]"); // oldCookie에 새 쿠키 생성
+				}
+				
+				// 쿠키 유지시간을 오늘 하루 자정까지로 설정
+				long todayEndSecond = LocalDate.now().atTime(LocalTime.MAX).toEpochSecond(ZoneOffset.UTC);
+				long currentSecond = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
+				cookie.setPath("/"); // 모든 경로에서 접근 가능
+				cookie.setMaxAge((int) (todayEndSecond - currentSecond + 32400));//크롬 UTC 기준 +9시간(32400초) 필요 
+				response.addCookie(cookie);
+				} catch(Exception e) {
+				e.printStackTrace();
+				}
 	}
 	
 	@GetMapping("/list")
@@ -231,7 +290,7 @@ public class AlbumController {
 			@RequestParam("fileName") String[] fileNames,
             @RequestParam("upFolder") String[] upFolders,
             @RequestParam("uuid") String[] uuids,
-            @RequestParam("image") String[] images) {
+            @RequestParam("image") String[] images, HttpServletRequest request) {
 		
 			albumsService.update(albums);
 		
@@ -250,15 +309,21 @@ public class AlbumController {
 			}
 		  }
 		
-		cleanAttach();
+		cleanAttach(request);
 		
 		return "redirect:/album/list";
 	}
 	
 	//썸네일 이미지 전송
 	@GetMapping("/display")
-	public ResponseEntity<byte[]> display(String fileName){
-		File file = new File(uploadPath + "\\images\\" + fileName);
+	public ResponseEntity<byte[]> display(String fileName, HttpServletRequest request){
+
+		
+		
+		
+		String path = request.getSession().getServletContext().getRealPath("/resources/");
+		File file = new File(path + "\\images\\" + fileName);
+		
 		ResponseEntity<byte[]> result = null;
 		
 		HttpHeaders header = new HttpHeaders();
@@ -276,10 +341,12 @@ public class AlbumController {
 	}
 	
 	@PostMapping("/deleteFile")
-	public ResponseEntity<String> deleteFile(String fileName, String type){
+	public ResponseEntity<String> deleteFile(String fileName, String type, HttpServletRequest request){
+		
+		String path = request.getSession().getServletContext().getRealPath("/resources/");
 		
 		try {
-			File file = new File(uploadPath + "\\images\\" + URLDecoder.decode(fileName, "UTF-8"));
+			File file = new File(path + "\\images\\" + URLDecoder.decode(fileName, "UTF-8"));
 			file.delete();	//파일 삭제
 			
 			if(type.equals("image")) {//이미지 파일이면 원본 파일 삭제
@@ -298,8 +365,11 @@ public class AlbumController {
 	}
 	
 	@PostMapping("/upload/ajaxAction")
-	public ResponseEntity<List<AttachFile>> uploadAjax(MultipartFile[] uploadFile) {
-		String upPath = uploadPath + "\\images";
+	public ResponseEntity<List<AttachFile>> uploadAjax(MultipartFile[] uploadFile, HttpServletRequest request) {
+		
+		String path = request.getSession().getServletContext().getRealPath("/resources/");
+		
+		String upPath = path + "\\images";
 		
 		List<AttachFile> attachList = new ArrayList<>();
 		
@@ -343,13 +413,20 @@ public class AlbumController {
 					
 					FileOutputStream fos = new FileOutputStream(new File(upFolder, "s_" + upFileName));
 				
-						
-						
-						
 					
-				Thumbnailator.createThumbnail( //섬네일 이미지 생성
-						multi.getInputStream(), fos, 100, 100);
-					fos.close();
+					Thumbnailator.createThumbnail( //섬네일 이미지 생성
+							multi.getInputStream(), fos, 100, 100);
+						fos.close();
+					
+					File thumbnailFile = new File(upFolder, "s_" + upFileName);
+					
+					   // 썸네일 이미지 압축
+				    Thumbnails.of(new File(upFolder, "s_" + upFileName))
+				              .size(100, 100)
+				              .outputQuality(1.0)
+				              .toFile(thumbnailFile);
+				    
+				    
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -391,8 +468,9 @@ public class AlbumController {
 	
 	}
 	
-	public void deleteAttach(List<AttachFile> attachList){ //첨부파일 삭제
+	public void deleteAttach(List<AttachFile> attachList, HttpServletRequest request){ //첨부파일 삭제
 		
+		String path = request.getSession().getServletContext().getRealPath("/resources/");
 		
 		if (attachList == null || attachList.size() < 1) {
 			return;
@@ -402,13 +480,13 @@ public class AlbumController {
 		
 		attachList.forEach(abvo -> {
 			try {
-			Path file = Paths.get(uploadPath + "\\images\\" + abvo.getUpFolder() + "\\" + abvo.getUuid() + "_" + abvo.getFileName());
+			Path file = Paths.get(path + "\\images\\" + abvo.getUpFolder() + "\\" + abvo.getUuid() + "_" + abvo.getFileName());
 			
 				Files.deleteIfExists(file); //파일이 존재하면 삭제
 //				Files.exists(path)
 			
 			if (Files.probeContentType(file).startsWith("image")) { //이미지 파일의 경우
-				Path thumbnail = Paths.get(uploadPath + "\\images\\" + abvo.getUpFolder() + "\\s_" + abvo.getUuid() + "_" + abvo.getFileName());
+				Path thumbnail = Paths.get(path + "\\images\\" + abvo.getUpFolder() + "\\s_" + abvo.getUuid() + "_" + abvo.getFileName());
 				Files.delete(thumbnail); //썸네일 삭제
 			}
 			
@@ -420,7 +498,9 @@ public class AlbumController {
 		
 	}
 	
-	public void cleanAttach(){ //DB에 있는 데이터와 폴더에 있는 첨부파일이 일치하는 것들 이외에 삭제
+	public void cleanAttach(HttpServletRequest request){ //DB에 있는 데이터와 폴더에 있는 첨부파일이 일치하는 것들 이외에 삭제
+		
+		String path = request.getSession().getServletContext().getRealPath("/resources/");
 		
 		List<AttachFile> attachList = attachFileService.allFiles();
 		
@@ -429,12 +509,12 @@ public class AlbumController {
 			
 		}
 
-	    try (Stream<Path> files = Files.walk(Paths.get(uploadPath + "\\images\\"))) {
+	    try (Stream<Path> files = Files.walk(Paths.get(path + "\\images\\"))) {
 	        files.filter(file -> {
 	                // DB에 존재하는 파일 리스트에 포함되어 있지 않으면 true 반환
 	                return attachList.stream()
-	                                 .noneMatch(dbFile -> Paths.get(uploadPath + "\\images\\" + dbFile.getUpFolder() + "\\" + dbFile.getUuid() + "_" + dbFile.getFileName()).equals(file)
-	                                           || Paths.get(uploadPath + "\\images\\" + dbFile.getUpFolder() + "\\s_" + dbFile.getUuid() + "_" + dbFile.getFileName()).equals(file));
+	                                 .noneMatch(dbFile -> Paths.get(path + "\\images\\" + dbFile.getUpFolder() + "\\" + dbFile.getUuid() + "_" + dbFile.getFileName()).equals(file)
+	                                           || Paths.get(path + "\\images\\" + dbFile.getUpFolder() + "\\s_" + dbFile.getUuid() + "_" + dbFile.getFileName()).equals(file));
 	            })
 	            .forEach(file -> {
 	                try {

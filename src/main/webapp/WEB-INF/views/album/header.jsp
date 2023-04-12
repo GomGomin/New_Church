@@ -1,3 +1,7 @@
+<!--
+작성자 : 김도영
+최초 작성일 : 23.04.04
+-->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -24,11 +28,12 @@
 </head>
 <body class="text-center" onload="InitializeStaticMenu()">
 
+<!-- Chat GPT -->
 
 <img data-bs-toggle="offcanvas" aria-expanded="false"  data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" id="STATICMENU" style="width: 100px; height: 80px;" src="/resources/img/GPT.png">
 
 
-<div class="offcanvas offcanvas-end" tabindex="-1"  data-bs-scroll="true" data-bs-backdrop="false" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+<div class="offcanvas offcanvas-end" tabindex="-1"  data-bs-scroll="true" data-bs-backdrop="false" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" style="z-index: 5">
   <div class="offcanvas-header">
     <h3 class="offcanvas-title" id="offcanvasRightLabel">Church AI[CHAT GPT]</h3>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -52,7 +57,7 @@
   </div>
 </div>
 
-
+<!-- Chat GPT -->
   </body>
 
 <script type="text/javascript">

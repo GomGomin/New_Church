@@ -1,3 +1,7 @@
+<!--
+작성자 : 김도영
+최초 작성일 : 23.04.04
+-->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -10,12 +14,11 @@
 <meta charset="UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://code.jquery.com/jquery-3.6.3.min.js"
-	integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
-	crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
 <title>계정 교회</title>
 </head>
 <body>
@@ -42,32 +45,38 @@
 	<form:input path="pbtel" class="w3-input w3-padding-16" placeholder="전화번호" type="text" />
 	<br>
 
-	
-
-	
-	<div class="w3-third" style="width: 15%;">
-		  <label class="w3-text-teal"><b>주소</b></label>
-  	<form:input path="pbaddress" id="pbaddress" type="hidden" />
-	<input class="w3-border w3-light-grey" id="sample6_postcode" placeholder="우편번호" readonly="readonly" type="text" />
+			<div class="w3-third" style="width: 8%; padding-top: 5px;">
+				<h5>
+					<b><label for="inputDescription">주소</label></b>
+				</h5>
+			</div>
+			<div class="w3-third" style="width: 100%;">
+	<div class="w3-third" style="width: 10%;">
+	  	<input name="pbaddress" id="pbaddress" type="hidden" />
+	<input class="form-control" id="sample6_postcode" placeholder="우편번호" readonly="readonly" type="text" />
 	</div>
 
 
-	<button type="button" class="w3-aqua" onclick="sample6_execDaumPostcode()" style="margin-top: 20px;">우편번호 찾기</button>
-	 		<div style="width: 30%; padding-top: 10px;">
-	<input style="width: 100%;" class="w3-border" id="sample6_address" placeholder="주소" type="text" readonly="readonly" />
+	<button type="button" class="btn btn-info text-light" onclick="sample6_execDaumPostcode()" style="margin-left: 10px;"><i class="fa fa-search w3-margin-right"></i>우편번호 검색</button>
+	 		<div style="width: 33%; padding-top: 10px;">
+	<input style="width: 100%;" class="form-control" id="sample6_address" readonly="readonly" placeholder="주소" type="text" />
 	</div>
-	 	 		<div style="width: 50%; padding-top: 10px;">
-<input type="text" id="sample6_detailAddress" style="width: 30%;" class="w3-border" placeholder="상세주소">
-<input type="text" id="sample6_extraAddress" style="width: 30%;" class="w3-border" placeholder="참고항목" readonly="readonly">
+	 	 		<div class="w3-third" style="width: 15%; padding-top: 10px;">
+<input type="text" id="sample6_detailAddress" style="width: 100%;" class="form-control" placeholder="상세주소">
+
 
 	</div>
+	<div class="w3-third" style="width: 15%; padding-top: 10px; padding-left: 10px;">
+	<input type="text" id="sample6_extraAddress" style="width: 100%;" class="form-control" readonly="readonly" placeholder="참고항목">
+			</div>
+		</div>
+
+
+
 	  <br>
-<!-- 	  <div class="w3-half" style="padding-top: 10px;"> -->
-<!-- 		<input id="addr2" class="w3-input w3-border" placeholder="" type="text" /> -->
-<!-- 		<input id="addr3" class="w3-input w3-border" placeholder="" type="text" /> -->
-<!-- 		</div> -->
 	  <div style="margin-top: 30px;">
-	<button type="button" onclick="check()" style="margin-top: 30px;" class="w3-button w3-black w3-margin-bottom"><i class="fa fa-paper-plane w3-margin-right"></i>신청</button>
+  	<button type="button" style="margin-top: 30px;" onclick="history.back()" class="btn btn-secondary">이전으로</button>
+	<button type="button" onclick="check()" style="margin-top: 30px;" class="btn btn-primary"><i class="fa fa-paper-plane w3-margin-right"></i>신청</button>
 </div>
   </form:form>
   </div>
@@ -87,8 +96,8 @@
 
 
 function check() {
-	$("#pbaddress").val($("#sample6_postcode").val() + "/" + $("#sample6_address").val() + "/" + $("#sample6_extraAddress").val() + "/" + $("#sample6_detailAddress").val());
-	$("#form").submit();
+	$("#pbaddress").val($("#sample6_postcode").val() + "/" + $("#sample6_address").val() + "/" + $("#sample6_extraAddress").val() + "/" + $("#sample6_detailAddress").val());	
+		$("#form").submit();
 }
 
     function sample6_execDaumPostcode() {

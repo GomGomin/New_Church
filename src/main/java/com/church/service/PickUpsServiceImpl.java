@@ -1,3 +1,5 @@
+//작성자 : 김도영
+//최초 작성일 : 23.04.04
 package com.church.service;
 
 import java.util.List;
@@ -48,6 +50,11 @@ public class PickUpsServiceImpl implements PickUpsService {
 	@Override
 	public void delete(String pbno) {
 		pickUpsMapper.delete(pbno);
+	}
+
+	@Override
+	public int hasPickupHistory(String pbwriter) {
+		return pickUpsMapper.hasPickupHistory(pbwriter);
 	}
 	
 	

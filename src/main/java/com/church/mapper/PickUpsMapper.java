@@ -1,3 +1,5 @@
+//작성자 : 김도영
+//최초 작성일 : 23.04.04
 package com.church.mapper;
 
 import java.util.List;
@@ -20,5 +22,7 @@ public interface PickUpsMapper {
 	void access(String pbno);
 	
 	void delete(String pbno);
+	
+	int hasPickupHistory(String pbwriter);
 
 }

@@ -1,3 +1,7 @@
+<!--
+작성자 : 김도영
+최초 작성일 : 23.04.04
+-->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -10,15 +14,11 @@
 <meta charset="UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://code.jquery.com/jquery-3.6.3.min.js"
-	integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
-	crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-	
+
 <title>계정 교회</title>
 </head>
 <body>
@@ -41,62 +41,63 @@
 <br><br>
 
 		<div>
-			<div class="w3-third" style="width: 7%; padding-top: 5px;">
+			<div class="w3-third" style="width: 8%; padding-top: 5px;">
 				<h5>
 					<b><label for="inputDescription">신청인</label></b>
 				</h5>
 			</div>
-			<div class="w3-third" style="width: 10%; margin-right: 1200px; margin-bottom: 10px;">
+			<div class="w3-third" style="width: 10%; margin-right: 900px; margin-bottom: 10px;">
 				<input class="form-control" value="${pickBoard.pbname}" id="uname" name="pbname"
 					  type="text" />
 			</div>
 		</div>
 		<div>
-			<div class="w3-third" style="width: 7%; padding-top: 5px;">
+			<div class="w3-third" style="width: 8%; padding-top: 5px;">
 				<h5>
 					<b><label for="inputDescription">아이디</label></b>
 				</h5>
 			</div>
-			<div class="w3-third" style="width: 15%; margin-right: 1100px; margin-bottom: 10px;">
-				<input class="form-control" value="${pickBoard.pbwriter}" id="uname"
+			<input type="hidden" name="pbwriter" value="${pickBoard.pbwriter}">
+			<div class="w3-third" style="width: 15%; margin-right: 900px; margin-bottom: 10px;">
+				<input class="form-control" value="${pickBoard.pbwriter}"
 					 disabled="disabled" type="text" />
 			</div>
 		</div>
 		<div>
-			<div class="w3-third" style="width: 7%; padding-top: 5px;">
+			<div class="w3-third" style="width: 8%; padding-top: 5px;">
 				<h5>
 					<b><label for="inputDescription">전화번호</label></b>
 				</h5>
 			</div>
-			<div class="w3-third" style="width: 15%; margin-right: 1100px; margin-bottom: 10px;">
+			<div class="w3-third" style="width: 15%; margin-right: 900px; margin-bottom: 10px;">
 				<input class="form-control" value="${pickBoard.pbtel}" id="uname" name="pbtel"
 					  type="text" />
 			</div>
 		</div>
 		<div>
-			<div class="w3-third" style="width: 7%; padding-top: 5px;">
+			<div class="w3-third" style="width: 8%; padding-top: 5px;">
 				<h5>
-					<b><label for="inputDescription">신청 날짜</label></b>
+					<b><label for="inputDescription">신청일</label></b>
 				</h5>
 			</div>
-			<div class="w3-third" style="width: 20%; margin-right: 1000px; margin-bottom: 10px;">
+			<div class="w3-third" style="width: 25%; margin-right: 700px; margin-bottom: 10px;">
 				<input class="form-control" value="${pickBoard.date}" id="date"
 					 disabled="disabled" type="text" />
 			</div>
 		</div>
 		<div>
-			<div class="w3-third" style="width: 7%; padding-top: 5px;">
+			<div class="w3-third" style="width: 8%; padding-top: 5px;">
 				<h5>
 					<b><label for="inputDescription">승인 여부</label></b>
 				</h5>
 			</div>
-			<div class="w3-third" style="width: 5%; margin-right: 1250px; margin-bottom: 10px;">
+			<div class="w3-third" style="width: 10%; margin-right: 900px; margin-bottom: 20px;">
 				<input class="form-control" value="${pickBoard.pbstate}" id="pbstate"
 					 type="text" disabled="disabled"/>
 			</div>
 		</div>
 		<div>
-			<div class="w3-third" style="width: 7%; padding-top: 5px;">
+			<div class="w3-third" style="width: 8%; padding-top: 5px;">
 				<h5>
 					<b><label for="inputDescription">주소</label></b>
 				</h5>
@@ -105,13 +106,13 @@
 	<div class="w3-third" style="width: 10%;">
   	<input name="pbno" value="${pickBoard.pbno}" type="hidden" />
   	<input name="pbaddress" id="pbaddress" value="${pickBoard.pbaddress}" type="hidden" />
-	<input class="form-control" id="sample6_postcode" placeholder="우편번호" type="text" />
+	<input class="form-control" id="sample6_postcode" placeholder="우편번호" readonly="readonly" type="text" />
 	</div>
 
 
 	<button type="button" class="w3-aqua w3-large" onclick="sample6_execDaumPostcode()" style="margin-left: 10px;">우편번호 찾기</button>
 	 		<div style="width: 33%; padding-top: 10px;">
-	<input style="width: 100%;" class="form-control" id="sample6_address" placeholder="주소" type="text" />
+	<input style="width: 100%;" class="form-control" id="sample6_address" readonly="readonly" placeholder="주소" type="text" />
 	</div>
 	 	 		<div class="w3-third" style="width: 15%; padding-top: 10px;">
 <input type="text" id="sample6_detailAddress" style="width: 100%;" class="form-control" placeholder="상세주소">
@@ -119,7 +120,7 @@
 
 	</div>
 	<div class="w3-third" style="width: 15%; padding-top: 10px; padding-left: 10px;">
-	<input type="text" id="sample6_extraAddress" style="width: 100%;" class="form-control" placeholder="참고항목">
+	<input type="text" id="sample6_extraAddress" style="width: 100%;" class="form-control" readonly="readonly" placeholder="참고항목">
 			</div>
 		</div>
 		

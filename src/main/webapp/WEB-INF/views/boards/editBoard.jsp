@@ -20,32 +20,31 @@
 <!-- 로그인 정보 받기 -->
 <sec:authentication property="principal" var="user" />
 	<!-- 메인 -->
-	<div class="container">
-		<form:form modelAttribute="EditBoard" action="./edit?${_csrf.parameterName}=${_csrf.token}" method="post">
-			<div class="mb-3">
-				<label class="form-label">작성자</label> 
-				<form:input type="text" class="form-control" readonly="true" path="bwriter" value="${board.bwriter }" />
+	<br><h1>게시물 수정</h1><br>
+	<form:form modelAttribute="EditBoard" action="./edit?${_csrf.parameterName}=${_csrf.token}" method="post" id="check">
+		<div class="mb-3">
+			<label class="form-label">작성자</label> 
+			<form:input type="text" class="form-control" readonly="true" path="bwriter" value="${board.bwriter }" />
+		</div>
+		<div class="mb-3">
+			<label class="form-label">제목</label> 
+			<form:input type="text" class="form-control" path="btitle" value="${board.btitle }" required="true"/>
+		</div>
+		<div class="mb-3">
+			<label class="form-label">내용</label>
+			<textarea class="form-control" id="summernote" rows="3" name="bcontents">${board.bcontents }</textarea>
+		</div>
+		<input type="hidden" name="bno" value="${board.bno }" />
+		<div class="row">
+			<div class="col-10"></div>
+			<div class="col">
+				<button type="submit" class="form-control" >등록</button>
 			</div>
-			<div class="mb-3">
-				<label class="form-label">제목</label> 
-				<form:input type="text" class="form-control" path="btitle" value="${board.btitle }" />
+			<div class="col">
+				<input type="button" onclick="location.href='/boards/detail?bno=${board.bno}&username=${user.username}'" class="form-control" value="취소" />
 			</div>
-			<div class="mb-3">
-				<label class="form-label">내용</label>
-				<textarea class="form-control" id="summernote" rows="3" name="bcontents">${board.bcontents }</textarea>
-			</div>
-			<input type="hidden" name="bno" value="${board.bno }" />
-			<div class="row">
-				<div class="col-10"></div>
-				<div class="col">
-					<button type="submit" class="form-control" >등록</button>
-				</div>
-				<div class="col">
-					<input type="button" onclick="location.href='/boards/detail?bno=${board.bno}&username=${user.username}'" class="form-control" value="취소" />
-				</div>
-			</div>
-		</form:form>
-	</div>
+		</div>
+	</form:form><br>
 	<!-- END 메인 -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
@@ -65,6 +64,17 @@
 	    ['view', ['fullscreen', 'codeview', 'help']]
 	  ]
 	});
+	
+	$('#check').on('submit', function(e) {
+
+		  if($('#summernote').summernote('isEmpty')) {
+			  alert("내용이 비었습니다.");
+		    e.preventDefault();
+		  }
+		  else {
+		  }
+	});
+
 </script>	
 </body>
 </html>

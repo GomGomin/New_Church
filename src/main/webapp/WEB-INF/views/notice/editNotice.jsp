@@ -20,14 +20,14 @@
 <sec:authentication property="principal" var="user" />
 <!-- 메인 -->
 <div class="container">
-  <form:form modelAttribute="EditNotice" action="./edit?${_csrf.parameterName}=${_csrf.token}" method="post">
+  <form:form modelAttribute="EditNotice" id="EditNoticeForm" action="./edit?${_csrf.parameterName}=${_csrf.token}" method="post">
     <div class="mb-3">
       <label class="form-label">작성자</label>
       <form:input type="text" class="form-control" readonly="true" path="nwriter" value="${notice.nwriter }" />
     </div>
     <div class="mb-3">
       <label class="form-label">제목</label>
-      <form:input type="text" class="form-control" path="ntitle" value="${notice.ntitle }" />
+      <form:input type="text" class="form-control" path="ntitle" value="${notice.ntitle }" required="true"/>
     </div>
     <div class="mb-3">
       <label class="form-label">내용</label>
@@ -63,6 +63,13 @@
       ['insert', ['link', 'picture', 'video']],
       ['view', ['fullscreen', 'codeview', 'help']]
     ]
+  });
+
+  $('#EditNoticeForm').on('submit', function(e) {
+    if ($('#summernote').summernote('isEmpty')) {
+      alert("내용이 비었습니다.<br>내용을 입력해주세요.");
+      e.preventDefault();
+    }
   });
 </script>
 </body>

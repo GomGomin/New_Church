@@ -1,3 +1,5 @@
+//작성자 : 김도영
+//최초 작성일 : 23.04.04
 package com.church.service;
 
 import java.util.List;
@@ -21,5 +23,7 @@ public interface PickUpsService {
 	void access(String pbno);
 	
 	void delete(String pbno);
+	
+	int hasPickupHistory(String pbwriter);
  
 }
