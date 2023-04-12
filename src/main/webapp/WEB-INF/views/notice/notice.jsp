@@ -49,12 +49,12 @@
                     <div class="col-9">
                     </div>
                     <div class="col">
-                        <sec:authorize access="hasRole('admin')">
+                        <sec:authorize access="hasRole('ADMIN')">
                             <button onclick="location.href='/notice/edit?nno=${notice.nno }'" class="form-control">수정</button>
                         </sec:authorize>
                     </div>
                     <div class="col">
-                        <sec:authorize access="hasRole('admin')">
+                        <sec:authorize access="hasRole('ADMIN')">
                             <button onclick="removeNotice(${notice.nno })" class="form-control">삭제</button>
                         </sec:authorize>
                     </div>

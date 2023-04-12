@@ -48,11 +48,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.church.domain.Albums;
 import com.church.domain.AttachFile;
 import com.church.domain.Paging;
-import com.church.domain.Users;
 import com.church.service.AlbumsService;
 import com.church.service.AttachFileService;
 import com.church.service.ChatGPTService;
-import com.church.service.UsersService;
 
 import net.coobird.thumbnailator.Thumbnailator;
 
@@ -62,9 +60,6 @@ public class AlbumController {
 	
 	@Autowired
 	private AlbumsService albumsService;
-	
-	@Autowired
-	private UsersService usersService;
 	
 	@Autowired
 	private AttachFileService attachFileService;
@@ -94,12 +89,11 @@ public class AlbumController {
 			@RequestParam("fileName") String[] fileNames,
             @RequestParam("upFolder") String[] upFolders,
             @RequestParam("uuid") String[] uuids,
-            @RequestParam("image") String[] images) {
+            @RequestParam("image") String[] images, HttpServletRequest request) {
 		
 		if(principal != null) {
 		String userId = principal.getName();
-		Users user = usersService.detailUser(userId);
-		albums.put("awriter", user.getName());
+		albums.put("awriter", userId);
 		}
 		
 		albumsService.insert(albums);
@@ -119,7 +113,7 @@ public class AlbumController {
 			}
 		  }
 		
-		cleanAttach();
+		cleanAttach(request);
 		
 		return "redirect:/album/list";
 	}
@@ -131,10 +125,10 @@ public class AlbumController {
 	
 	@ResponseBody
 	@PostMapping("/delete")
-	public void deleteAlbums(@RequestParam String ano) {
+	public void deleteAlbums(@RequestParam String ano, HttpServletRequest request) {
 		albumsService.delete(ano);
 		
-		cleanAttach();
+		cleanAttach(request);
 	}
 	
 	@GetMapping("/detail")
@@ -295,7 +289,7 @@ public class AlbumController {
 			@RequestParam("fileName") String[] fileNames,
             @RequestParam("upFolder") String[] upFolders,
             @RequestParam("uuid") String[] uuids,
-            @RequestParam("image") String[] images) {
+            @RequestParam("image") String[] images, HttpServletRequest request) {
 		
 			albumsService.update(albums);
 		
@@ -314,15 +308,21 @@ public class AlbumController {
 			}
 		  }
 		
-		cleanAttach();
+		cleanAttach(request);
 		
 		return "redirect:/album/list";
 	}
 	
 	//썸네일 이미지 전송
 	@GetMapping("/display")
-	public ResponseEntity<byte[]> display(String fileName){
-		File file = new File(uploadPath + "\\images\\" + fileName);
+	public ResponseEntity<byte[]> display(String fileName, HttpServletRequest request){
+
+		
+		
+		
+		String path = request.getSession().getServletContext().getRealPath("/resources/");
+		File file = new File(path + "\\images\\" + fileName);
+		
 		ResponseEntity<byte[]> result = null;
 		
 		HttpHeaders header = new HttpHeaders();
@@ -340,10 +340,12 @@ public class AlbumController {
 	}
 	
 	@PostMapping("/deleteFile")
-	public ResponseEntity<String> deleteFile(String fileName, String type){
+	public ResponseEntity<String> deleteFile(String fileName, String type, HttpServletRequest request){
+		
+		String path = request.getSession().getServletContext().getRealPath("/resources/");
 		
 		try {
-			File file = new File(uploadPath + "\\images\\" + URLDecoder.decode(fileName, "UTF-8"));
+			File file = new File(path + "\\images\\" + URLDecoder.decode(fileName, "UTF-8"));
 			file.delete();	//파일 삭제
 			
 			if(type.equals("image")) {//이미지 파일이면 원본 파일 삭제
@@ -362,8 +364,11 @@ public class AlbumController {
 	}
 	
 	@PostMapping("/upload/ajaxAction")
-	public ResponseEntity<List<AttachFile>> uploadAjax(MultipartFile[] uploadFile) {
-		String upPath = uploadPath + "\\images";
+	public ResponseEntity<List<AttachFile>> uploadAjax(MultipartFile[] uploadFile, HttpServletRequest request) {
+		
+		String path = request.getSession().getServletContext().getRealPath("/resources/");
+		
+		String upPath = path + "\\images";
 		
 		List<AttachFile> attachList = new ArrayList<>();
 		
@@ -455,8 +460,9 @@ public class AlbumController {
 	
 	}
 	
-	public void deleteAttach(List<AttachFile> attachList){ //첨부파일 삭제
+	public void deleteAttach(List<AttachFile> attachList, HttpServletRequest request){ //첨부파일 삭제
 		
+		String path = request.getSession().getServletContext().getRealPath("/resources/");
 		
 		if (attachList == null || attachList.size() < 1) {
 			return;
@@ -466,13 +472,13 @@ public class AlbumController {
 		
 		attachList.forEach(abvo -> {
 			try {
-			Path file = Paths.get(uploadPath + "\\images\\" + abvo.getUpFolder() + "\\" + abvo.getUuid() + "_" + abvo.getFileName());
+			Path file = Paths.get(path + "\\images\\" + abvo.getUpFolder() + "\\" + abvo.getUuid() + "_" + abvo.getFileName());
 			
 				Files.deleteIfExists(file); //파일이 존재하면 삭제
 //				Files.exists(path)
 			
 			if (Files.probeContentType(file).startsWith("image")) { //이미지 파일의 경우
-				Path thumbnail = Paths.get(uploadPath + "\\images\\" + abvo.getUpFolder() + "\\s_" + abvo.getUuid() + "_" + abvo.getFileName());
+				Path thumbnail = Paths.get(path + "\\images\\" + abvo.getUpFolder() + "\\s_" + abvo.getUuid() + "_" + abvo.getFileName());
 				Files.delete(thumbnail); //썸네일 삭제
 			}
 			
@@ -484,7 +490,9 @@ public class AlbumController {
 		
 	}
 	
-	public void cleanAttach(){ //DB에 있는 데이터와 폴더에 있는 첨부파일이 일치하는 것들 이외에 삭제
+	public void cleanAttach(HttpServletRequest request){ //DB에 있는 데이터와 폴더에 있는 첨부파일이 일치하는 것들 이외에 삭제
+		
+		String path = request.getSession().getServletContext().getRealPath("/resources/");
 		
 		List<AttachFile> attachList = attachFileService.allFiles();
 		
@@ -493,12 +501,12 @@ public class AlbumController {
 			
 		}
 
-	    try (Stream<Path> files = Files.walk(Paths.get(uploadPath + "\\images\\"))) {
+	    try (Stream<Path> files = Files.walk(Paths.get(path + "\\images\\"))) {
 	        files.filter(file -> {
 	                // DB에 존재하는 파일 리스트에 포함되어 있지 않으면 true 반환
 	                return attachList.stream()
-	                                 .noneMatch(dbFile -> Paths.get(uploadPath + "\\images\\" + dbFile.getUpFolder() + "\\" + dbFile.getUuid() + "_" + dbFile.getFileName()).equals(file)
-	                                           || Paths.get(uploadPath + "\\images\\" + dbFile.getUpFolder() + "\\s_" + dbFile.getUuid() + "_" + dbFile.getFileName()).equals(file));
+	                                 .noneMatch(dbFile -> Paths.get(path + "\\images\\" + dbFile.getUpFolder() + "\\" + dbFile.getUuid() + "_" + dbFile.getFileName()).equals(file)
+	                                           || Paths.get(path + "\\images\\" + dbFile.getUpFolder() + "\\s_" + dbFile.getUuid() + "_" + dbFile.getFileName()).equals(file));
 	            })
 	            .forEach(file -> {
 	                try {

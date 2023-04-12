@@ -43,7 +43,7 @@
 	<!-- 업로드 패스 설정 -->
 	<beans:bean class="java.lang.String" id="uploadPath">
 		<beans:constructor-arg
-					value="C:\develop\JSP\New_Church\src\main\webapp\resources"/>  <!-- 로컬에서 작업할 때 -->
+					value="C:\develop\New_Church\src\main\webapp\resources"/>  <!-- 로컬에서 작업할 때 -->
 
 
 	</beans:bean>

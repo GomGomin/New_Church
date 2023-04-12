@@ -14,7 +14,7 @@
             WHERE ntitle LIKE concat('%', #{keyword}, '%') OR ncontents LIKE concat('%', #{keyword}, '%')
         </if>
         <if test='searchType.equals("writer")'>
-            WHERE nwriters LIKE concat('%', #{keyword}, '%')
+            WHERE nwriter LIKE concat('%', #{keyword}, '%')
         </if>
         ORDER BY nno DESC, date DESC
         LIMIT #{displayPost}, #{postNum}

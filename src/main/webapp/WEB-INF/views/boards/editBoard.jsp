@@ -66,13 +66,15 @@
 	});
 	
 	$('#check').on('submit', function(e) {
-	  if($('#summernote').summernote('isEmpty')) {
-		  alert("내용이 비었습니다.");
-	    e.preventDefault();
-	  }
-	  else {
-	  }
-	})
+
+		  if($('#summernote').summernote('isEmpty')) {
+			  alert("내용이 비었습니다.");
+		    e.preventDefault();
+		  }
+		  else {
+		  }
+	});
+
 </script>	
 </body>
 </html>
