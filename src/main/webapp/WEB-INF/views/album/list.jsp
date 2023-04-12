@@ -108,10 +108,10 @@
 					<option value="writer" <c:if test="${page.searchType eq 'writer'}">selected</c:if>>작성자</option>
 				</select> 
 								<input type="text" name="keyword" class="form-control" style="width: 200px;" value="${page.keyword}" placeholder="Search"/>
-								<button type="button" class="btn btn-success" id="searchBtn" style="margin-left: 10px;">검색</button>
+								<button type="button" class="btn btn-light border-dark" id="searchBtn" style="margin-left: 10px;">검색</button>
 			
 					<a href="/album/add" style="margin-left: 650px;"
-			class="btn btn-success">게시물 등록</a>
+			class="btn btn-light border-dark">게시물 등록</a>
 			
 			
 			</div>
