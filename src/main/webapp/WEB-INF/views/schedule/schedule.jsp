@@ -83,11 +83,11 @@
 					</div>
 				</div>
 				<br>
-				<input type="test" style="display: none" id = "hidden" readonly>
+				<input type="text" style="display: none" id = "hidden" readonly>
 				<div id="reply_list"></div>
 				<!-- END 댓글 등록 -->
-				</c:if>
 			</div>
+			</c:if>
 		</div>
 		<!-- END paging & 글작성버튼 -->
 	</div>
