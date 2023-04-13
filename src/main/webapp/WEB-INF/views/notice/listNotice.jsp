@@ -6,6 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,12 +51,12 @@
             <tr>
                 <td>${notice.nno }</td>
                 <sec:authorize access="isAnonymous()">
-                    <td><a id="listTitle" href="/notice/detail?nno=${notice.nno }&username=${user}">${notice.ntitle }</a></td>
+                    <td><a class="listTitle" href="/notice/detail?nno=${notice.nno }&username=${user}">${notice.ntitle }</a></td>
                 </sec:authorize>
                 <sec:authorize access="isAuthenticated()">
-                <td><a id="listTitle" href="/notice/detail?nno=${notice.nno }&username=${user.username}">${notice.ntitle }</a></td>
+                    <td><a class="listTitle" href="/notice/detail?nno=${notice.nno }&username=${user.username}">${notice.ntitle }</a></td>
                 </sec:authorize>
-                <td>${notice.date }</td>
+                <td>${fn:split(notice.date,' ')[0] }</td>
                 <td>${notice.nview }</td>
             </tr>
         </c:forEach>
@@ -64,8 +65,11 @@
     <!-- END 게시물 목록 -->
     <!-- paging -->
     <div align="center">
+        <c:if test="${select != 1}">
+            <span><a href="/notice/list?num=1${page.searchTypeKeyword}">&lt;&lt; </a></span>
+        </c:if>
         <c:if test="${page.prev}">
-            <span>[ <a href="/notice/list?num=${page.startPageNum - 1}${page.searchTypeKeyword}">이전</a> ]</span>
+            <span><a href="/notice/list?num=${page.startPageNum - 1}${page.searchTypeKeyword}"> &lt;</a></span>
         </c:if>
         <c:forEach begin="${page.startPageNum}" end="${page.endPageNum}" var="num">
             <span>
@@ -78,13 +82,16 @@
             </span>
         </c:forEach>
         <c:if test="${page.next}">
-            <span>[ <a href="/notice/list?num=${page.endPageNum + 1}${page.searchTypeKeyword}">다음</a> ]</span>
+            <span><a href="/notice/list?num=${page.endPageNum + 1}${page.searchTypeKeyword}">&gt;</a></span>
+        </c:if>
+        <c:if test="${endPage != select}">
+            <span><a href="/notice/list?num=${endPage}${page.searchTypeKeyword}">&gt;&gt;</a></span>
         </c:if>
     </div>
     <!-- END paging -->
     <!-- 검색 -->
     <div class="row">
-        <div class="col">
+        <div class="col-md-2">
             <select name="searchType" class="form-control">
                 <option value="title" <c:if test="${page.searchType eq 'title'}">selected</c:if>>제목</option>
                 <option value="content" <c:if test="${page.searchType eq 'content'}">selected</c:if>>내용</option>
@@ -92,16 +99,16 @@
                 <option value="writer" <c:if test="${page.searchType eq 'writer'}">selected</c:if>>작성자</option>
             </select>
         </div>
-        <div class="col-3">
+        <div class="col-md-3">
             <input type="text" name="keyword" class="form-control" value="${page.keyword}" placeholder="검색어를 입력해주세요."/>
         </div>
-        <div class="col">
+        <div class="col-md">
             <button type="button" class="form-control" id="searchBtn">검색</button>
         </div>
         <!-- END 검색 -->
         <!-- 글작성버튼 -->
-        <div class="col-5"></div>
-        <div class="col">
+        <div class="col-md-4"></div>
+        <div class="col-md-2">
             <sec:authorize access="hasRole('ADMIN')">
                 <button onclick="location.href='/notice/setNewNotice'" class="form-control">작성</button>
             </sec:authorize>
@@ -129,15 +136,9 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-<script>
-    /* 검색 */
-    document.getElementById("searchBtn").onclick = function () {
-        let searchType = document.getElementsByName("searchType")[0].value;
-        let keyword =  document.getElementsByName("keyword")[0].value;
+<!-- 페이지 개별 적용 js -->
+<script type="text/javascript" src="/resources/notice/js/listNotice.js"></script>
 
-        location.href = "/notice/list?num=1" + "&searchType=" + searchType + "&keyword=" + keyword;
-    };
-</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </body>
 </html>

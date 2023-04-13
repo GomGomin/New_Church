@@ -34,11 +34,11 @@
             <form:textarea class="form-control" id="summernote" rows="3" path="ncontents" required="true" ></form:textarea>
         </div>
         <div class="row">
-            <div class="col-10"></div>
-            <div class="col">
+            <div class="col-md-10"></div>
+            <div class="col-md">
                 <button type="submit" class="form-control">등록</button>
             </div>
-            <div class="col">
+            <div class="col-md">
                 <button onclick="location.href='/boards/list'" class="form-control">취소</button>
             </div>
         </div>

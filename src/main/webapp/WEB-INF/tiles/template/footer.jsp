@@ -15,10 +15,13 @@
 background-color: #2E2E2E;
 height: 100%;
 text-align: left;
-vertical-align: center;
-
+vertical-align: middle;
 }
 
+
+@media (max-width: 936px){
+
+}
 
 .blog-footer h3{
 color:white;

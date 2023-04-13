@@ -50,7 +50,7 @@
                     </div>
                     <div>
                         <a href="/findId">아이디 찾기</a>
-                        <a href="/findPw" style="float: right">비밀번호 찾기</a>
+                        <a href="/findPw" id="findPw">비밀번호 찾기</a>
                     </div>
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                     <button class="submit" id="loginBtn"  type="submit">로그인</button>

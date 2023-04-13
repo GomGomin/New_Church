@@ -60,4 +60,9 @@ public class WeeklyServiceImpl implements WeeklyService {
 		
 	}
 
+	@Override
+	public int count() {
+		return weeklyMapper.count();
+	}
+
 }
