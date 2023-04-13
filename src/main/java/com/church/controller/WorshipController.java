@@ -43,6 +43,9 @@ public class WorshipController {
     public String view(@RequestParam int wno, SearchCondition sc, Model model, RedirectAttributes attr){
         try {
             Worship worship = worshipService.worshipView(wno);
+            if(wno!=worship.getWno()){
+                throw new Exception();
+            }
             model.addAttribute("worship", worship);
             model.addAttribute("mode", "view");
         } catch (Exception e) {
