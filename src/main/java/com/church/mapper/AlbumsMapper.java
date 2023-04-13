@@ -8,6 +8,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import com.church.domain.Albums;
+import org.apache.ibatis.annotations.Select;
 
 public interface AlbumsMapper {
 	
@@ -26,5 +27,8 @@ public interface AlbumsMapper {
 	void delete(String ano);
 	
 	void updateView(String ano);
+
+	@Select("SELECT count(*) FROM album")
+	int count();
 
 }

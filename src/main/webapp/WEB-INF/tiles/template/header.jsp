@@ -174,6 +174,12 @@ function w3_close() {
 	               <a href="/pickup/list"><button>픽업 리스트</button></a>
 	            </div>
            </sec:authorize>
+
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+	            <div class="w3-bar-item w3-button">
+	               <a href="/admin/main"><button>관리자 메뉴</button></a>
+	            </div>
+           </sec:authorize>
         </div>
 
         <div class="w3-left" style="height: auto;">

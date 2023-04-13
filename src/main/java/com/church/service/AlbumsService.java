@@ -25,5 +25,6 @@ public interface AlbumsService {
 	void delete(String ano);
 
 	void updateView(String ano);
-	
+
+	int count();
 }

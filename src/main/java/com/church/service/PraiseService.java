@@ -17,7 +17,7 @@ public interface PraiseService {
     boolean praiseLikeCnt(int pno) throws  Exception; // 좋아요 카운트 + 1
     List<Praise> praiseSearchPage(SearchCondition sc) throws Exception; // 게시물 리스트
     int praiseSearchCount(SearchCondition sc) throws Exception; // 게시물 수
-
+    int count();
 
 
 

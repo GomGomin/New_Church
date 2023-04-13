@@ -56,6 +56,11 @@ public class PickUpsServiceImpl implements PickUpsService {
 	public int hasPickupHistory(String pbwriter) {
 		return pickUpsMapper.hasPickupHistory(pbwriter);
 	}
-	
-	
+
+	@Override
+	public int count() {
+		return pickUpsMapper.count();
+	}
+
+
 }

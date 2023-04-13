@@ -41,4 +41,9 @@ public class EventServiceImpl implements EventService {
     public int eventSearchCount(SearchCondition sc) throws Exception {
         return eventMapper.selectSearchCount(sc);
     }
+
+    @Override
+    public int count() {
+        return eventMapper.count();
+    }
 }

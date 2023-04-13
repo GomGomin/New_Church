@@ -16,7 +16,7 @@ public interface EventService {
     boolean eventModify(Event event) throws Exception; ; //게시글 수정
     List<Event> eventSearchPage(SearchCondition sc) throws Exception; // 게시물 리스트
     int eventSearchCount(SearchCondition sc) throws Exception; // 게시물 수
-
+    int count();
 
 
 
