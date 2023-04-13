@@ -12,6 +12,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -37,11 +38,11 @@
 			<textarea class="form-control" id="summernote" rows="3" name="bcontents"></textarea>
 		</div>
 		<div class="row">
-			<div class="col-10"></div>
-			<div class="col">
+			<div class="col-md-10"></div>
+			<div class="col-md">
 				<button type="submit" class="form-control">등록</button>
 			</div>
-			<div class="col">
+			<div class="col-md">
 				<button onclick="location.href='/boards/list'" class="form-control">취소</button>
 			</div>
 		</div>
