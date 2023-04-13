@@ -53,7 +53,7 @@ public class Paging {
 		int endPageNum_tmp = (int)(Math.ceil((double)count / (double)postNum));
 
 		if(endPageNum > endPageNum_tmp) {
-		endPageNum = endPageNum_tmp;
+			endPageNum = endPageNum_tmp;
 		}
 
 		prev = startPageNum == 1 ? false : true;

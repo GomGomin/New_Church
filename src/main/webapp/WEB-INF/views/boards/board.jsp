@@ -12,7 +12,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
@@ -46,12 +46,12 @@
 	<table class="table">
 		<thead class="table-light">
 			<tr>
-				<th>작성자 <b>${board.bwriter }</b>&nbsp;&nbsp; 
-					${fn:split(board.date,' ')[0] }&nbsp;&nbsp; 
+				<th>작성자 <b>${board.bwriter }</b>&nbsp;
+					${fn:split(board.date,' ')[0] }&nbsp;
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
 					    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
 					    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
-					</svg> ${board.bview }&nbsp;&nbsp; 
+					</svg> ${board.bview }&nbsp;
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
 					    <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
 					    <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
@@ -66,19 +66,19 @@
 			<tr>
 				<td>
 					<div class="row">
-						<div class="col">
+						<div class="col-md">
 							<button onclick="location.href='/boards/list'" class="form-control">목록</button>
 						</div>
-						<div class="col-9">
+						<div class="col-md-9">
 						</div>
-						<div class="col">
+						<div class="col-md">
 						<sec:authorize access="isAuthenticated()">
 							<c:if test="${board.bwriter==user.username }">
 								<button onclick="location.href='/boards/edit?bno=${board.bno }'" class="form-control">수정</button>
 							</c:if>
 						</sec:authorize>
 						</div>
-						<div class="col">
+						<div class="col-md">
 						<sec:authorize access="isAuthenticated()">
 							<c:if test="${board.bwriter==user.username }">
 								<button onclick="removeBoard(${board.bno })" class="form-control">삭제</button>
@@ -94,12 +94,12 @@
 	<!-- 댓글 등록 -->
 	<sec:authorize access="isAuthenticated()">
 	<div class="row">
-		<div class="col-10">
+		<div class="col-md-10">
 			<input type="hidden" id="bno" name="bno" value="${board.bno }" />
 			<input type="hidden" id="rwriter" name="rwriter" value="${user.username}" />
 			<input type="text" class="form-control" placeholder="댓글을 입력해주세요." id="rcontents" name="rcontents"/>
 		</div>
-		<div class="col-2">
+		<div class="col-md-2">
 			<button id="replyNewFunction" class="form-control">등록</button>
 		</div>
 	</div>
@@ -116,7 +116,7 @@
 		<br>
 		<div class='border rounded p-4'>
 			<div class="row">
-				<div class="col-10" style="word-break:break-all">
+				<div class="col-md-10" style="word-break:break-all">
 					<!-- 댓글 등록 시간 -->
 					<fmt:parseDate value="${reply.date}" pattern="yyyy-MM-dd" var="date" /><!-- String > Date -->
 					<fmt:parseNumber value="${date.time / (1000*60*60*24)}" integerOnly="true" var="date" /><!-- Date > Number -->
@@ -135,7 +135,7 @@
 					</c:if>
 						${reply.rcontents }<c:if test="${reply.rupdate!=null }">(${reply.rupdate })</c:if>
 				</div>
-				<div class="col">
+				<div class="col-md">
 				<sec:authorize access="isAuthenticated()">
 					<c:if test="${reply.rwriter==user.username }">
 						<button onclick="modal(${reply.rno})" class="btn btn-outline-white">
@@ -147,7 +147,7 @@
 					</c:if>
 				</sec:authorize>
 				</div>
-				<div class="col">
+				<div class="col-md">
 				<sec:authorize access="isAuthenticated()">
 					<c:if test="${reply.rwriter==user.username }">
 						<button onclick="removeReply(${reply.rno})" class="btn btn-outline-white">
