@@ -24,5 +24,6 @@
 
 	<mybatis-spring:scan base-package="com.church.mapper"/>
 	<context:component-scan base-package="com.church.service"/>
-	
+	<context:component-scan base-package="com.church.Exception"/>
+
 </beans>

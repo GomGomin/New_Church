@@ -16,7 +16,7 @@ public interface WorshipService {
     boolean worshipModify(Worship worship) throws Exception; ; //게시글 수정
     List<Worship> worshipSearchPage(SearchCondition sc) throws Exception; // 게시물 리스트
     int worshipSearchCount(SearchCondition sc) throws Exception; // 게시물 수
-
+    int count();
 
 
 

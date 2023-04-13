@@ -45,4 +45,9 @@ public class PraiseServiceImpl implements PraiseService {
     public int praiseSearchCount(SearchCondition sc) throws Exception {
         return praiseMapper.selectSearchCount(sc);
     }
+
+    @Override
+    public int count() {
+        return praiseMapper.count();
+    }
 }

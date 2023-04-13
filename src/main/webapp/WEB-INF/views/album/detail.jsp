@@ -8,6 +8,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
+<%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
 <head>
 <title>계정 교회</title>
 
@@ -22,7 +23,7 @@
 
 
 <body class="text-center">
-
+<c:set var="username" value="${SecurityContextHolder.getContext().getAuthentication().getName()}" />
 <div class="w3-container w3-black" style="text-align: left; margin-top: 10px; padding: 20px;">
   <h2>${albums.atitle}</h2>
 </div>
@@ -42,20 +43,32 @@
 
 	<hr class="featurette-divider">
 <div style="padding-right: 50px; margin-bottom: 200px;">
+
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
 <button type="button" class="btn btn-danger btn-sm" onclick="remove('${albums.ano}')" style="margin-left: 10px; float: right;">
 	삭제
 </button>
-
 <button type="button" class="btn btn-success btn-sm" onclick="location.href='/album/modify?ano=${albums.ano}'" data-toggle="modal" data-target="#modal-success" style="margin-left: 10px; float: right;">
 	수정
 </button>
+</sec:authorize>
+<c:if test="${albums.awriter == username and username != 'admin'}">	
+<button type="button" class="btn btn-danger btn-sm" onclick="remove('${albums.ano}')" style="margin-left: 10px; float: right;">
+	삭제
+</button>
+<button type="button" class="btn btn-success btn-sm" onclick="location.href='/album/modify?ano=${albums.ano}'" data-toggle="modal" data-target="#modal-success" style="margin-left: 10px; float: right;">
+	수정
+</button>
+				  </c:if>
+
 <button type="button" class="btn btn-secondary btn-sm" onclick="location.href='/album/list'" style="margin-left: 10px; float: right;">
 	목록
 </button>   
+
 </div>
 
 <!------------------------- form end ------------------------------->
-			
+
 </body>
 
 

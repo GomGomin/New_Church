@@ -14,10 +14,11 @@
 .image{
 width : 100%;
 height: 300px;
-background-image: url("/resources/img/church1.jpg");
+
+background-image: url("/resources/img/vw-bus-g4ce60a9a6_1920.jpg");
 background-size: auto;
 background-repeat: no-repeat;
-background-position: 65% 30%;
+background-position: 20% 65%;
 animation: fadein 3s;
 }
 
@@ -30,6 +31,7 @@ animation: fadein 3s;
 		opacity: 1;
 	}
 }
+
 </style>
 <body>
 <div class="image">
