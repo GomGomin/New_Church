@@ -72,7 +72,7 @@ a{text-decoration:none; color:black }
 					<td><a class="title" href="/boards/detail?bno=${board.bno }&username=${user.username}">${board.btitle }</a></td>
 				</sec:authorize>
 				<sec:authorize access="isAnonymous()" >
-					<td><a href="/boards/detail?bno=${board.bno }&username=${user }">${board.btitle }</a></td>
+					<td><a class="title" href="/boards/detail?bno=${board.bno }&username=${user }">${board.btitle }</a></td>
 				</sec:authorize>
 				<td>${fn:split(board.date,' ')[0] }</td>
 				<td>${board.bview }</td>
