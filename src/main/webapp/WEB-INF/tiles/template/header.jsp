@@ -120,14 +120,10 @@ vertical-align: middle !important;
 font-size: 25px !important;
 }
 
-@media screen and (max-width: 640px){
-
-body{
-overflow: auto;
 }
 
-}
-
+.sidemenu{
+display: none;
 }
 
 </style>
@@ -137,9 +133,10 @@ overflow: auto;
 function w3_open() {
 	  if (mySidebar.style.display == 'block') {
 	    mySidebar.style.display = 'none';
-	    alert("gd");
+        $('#map').css('display', 'none'); 
 	  } else {
 	    mySidebar.style.display = 'block';
+        $('#map').css('display', 'black'); 
 	  }
 	}
 
@@ -148,6 +145,37 @@ function w3_close() {
     mySidebar.style.display = "none";
 }
 
+function test() {
+    if($( ".sidevision" ).css( "display" ) == "none"){
+        $('.sidevision').css('display', 'block'); 
+    }else{
+        $('.sidevision').css('display', 'none'); 
+    }
+}
+
+function test2() {
+    if($( ".sidevision2" ).css( "display" ) == "none"){
+        $('.sidevision2').css('display', 'block'); 
+    }else{
+        $('.sidevision2').css('display', 'none'); 
+    }
+}
+
+function test3() {
+    if($( ".sidevision3" ).css( "display" ) == "none"){
+        $('.sidevision3').css('display', 'block'); 
+    }else{
+        $('.sidevision3').css('display', 'none'); 
+    }
+}
+
+function test4() {
+    if($( ".sidevision4" ).css( "display" ) == "none"){
+        $('.sidevision4').css('display', 'block'); 
+    }else{
+        $('.sidevision4').css('display', 'none'); 
+    }
+}
 </script>
 </head>
 <body onload="InitializeStaticMenu()">
@@ -217,12 +245,28 @@ function w3_close() {
         <nav class="w3-sidebar w3-bar-block w3-white w3-card w3-animate-left" style="display:none" id="mySidebar">
             <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">닫기
                 &times;</a>
-            <a href="/" onclick="w3_close()" class="w3-bar-item w3-button">홈페이지</a>  	
-            <a href="/vision" onclick="w3_close()" class="w3-bar-item w3-button">교회 소개</a>
-            <a href="/worship/list" onclick="w3_close()" class="w3-bar-item w3-button">예배와 말씀</a>
-            <a href="/boards/list" onclick="w3_close()" class="w3-bar-item w3-button">게시판</a>
-            <a href="/notice/list" onclick="w3_close()" class="w3-bar-item w3-button">공지사항</a>
-            
+            <a href="/" onclick="w3_close()" class="w3-bar-item w3-button">홈페이지</a>
+            <a href="#" onclick="test()" class="w3-bar-item w3-button">교회소개</a>
+            <ul class="sidevision sidemenu">
+            	<li><a href="/vision" onclick="w3_close()" class="w3-bar-item w3-button">교회소개</a></li>
+            	<li><a href="/map" onclick="w3_close()" class="w3-bar-item w3-button">오시는 길</a></li>
+            </ul>
+            <a href="#" onclick="test2()" class="w3-bar-item w3-button">예배와 말씀</a>
+            <ul class="sidevision2 sidemenu">
+            	<li><a href="/worship/list" onclick="w3_close()" class="w3-bar-item w3-button">예배목록</a></li>
+            	<li><a href="/praise/list" onclick="w3_close()" class="w3-bar-item w3-button">찬양목록</a></li>
+            </ul>
+            <a href="#" onclick="test3()" class="w3-bar-item w3-button">게시판</a>
+            <ul class="sidevision3 sidemenu">
+            	<li><a href="/boards/list" onclick="w3_close()" class="w3-bar-item w3-button">목록</a></li>
+            	<li><a href="/album/list" onclick="w3_close()" class="w3-bar-item w3-button">포토 갤러리</a></li>
+            	<li><a href="/schedule/list" onclick="w3_close()" class="w3-bar-item w3-button">일정</a></li>
+            </ul>
+            <a href="#" onclick="test4()" class="w3-bar-item w3-button">공지사항</a>
+            <ul class="sidevision4 sidemenu">
+            	<li><a href="/notice/list" onclick="w3_close()" class="w3-bar-item w3-button">공지사항 목록</a></li>
+            	<li><a href="/event/list" onclick="w3_close()" class="w3-bar-item w3-button">행사</a></li>
+            </ul>            
             <sec:authorize access="hasRole('ROLE_USER')">
 			   <c:set var="username" value="${SecurityContextHolder.getContext().getAuthentication().getName()}" />
 			   <spring:eval expression="@pickUpController.hasPickupHistory(username)" var="hasPickup" />
