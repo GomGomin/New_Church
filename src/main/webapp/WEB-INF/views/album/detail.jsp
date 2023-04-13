@@ -52,7 +52,7 @@
 	수정
 </button>
 </sec:authorize>
-<c:if test="${albums.awriter == username}">	
+<c:if test="${albums.awriter == username and username != 'admin'}">	
 <button type="button" class="btn btn-danger btn-sm" onclick="remove('${albums.ano}')" style="margin-left: 10px; float: right;">
 	삭제
 </button>

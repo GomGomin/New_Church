@@ -79,9 +79,9 @@
   
     <!-- Contact Section -->
   <div class="w3-container w3-padding-64" id="contact">
-    <h1>포토 갤러리 수정</h1><br>
+    <h1>주보 수정</h1><br>
     
-    		<form action="/album/modify?${_csrf.parameterName}=${_csrf.token}" role='form' class="form-horizontal" method="post" enctype="multipart/form-data">
+    		<form action="/weekly/modify?${_csrf.parameterName}=${_csrf.token}" role='form' class="form-horizontal" method="post" enctype="multipart/form-data">
 	
 
 	<br>
@@ -93,10 +93,10 @@
 				</h5>
 			</div>
 			<div class="w3-third" style="width: 30%; margin-right: 900px; margin-bottom: 10px;">
-				<input class="form-control" id="atitle" name="atitle" value="${albums.atitle}" required="required"
+				<input class="form-control" id="wtitle" name="wtitle" value="${weekly.wtitle}" required="required"
 					  type="text" />
 					  
-					  <input type="hidden" name="ano" value="${albums.ano}">
+					  <input type="hidden" name="wno" value="${weekly.wno}">
 			</div>
 		</div>
 		<div style="padding-top: 80px;">
@@ -117,9 +117,9 @@
 		<ul style="display: flex; flex-wrap: wrap;">
 		<c:forEach items="${attachList}" var="attachList">
 		<li data-folder='${attachList.upFolder}' data-uuid='${attachList.uuid}' data-filename='${attachList.fileName}' data-image='${attachList.image}'>
-				<img style='width:100px; height:100px;' class="original" src="/resources/images/${attachList.upFolder}/s_${attachList.uuid}_${attachList.fileName}"><br>
+				<img style='width:100px; height:100px;' class="original" src="/resources/weeklyImages/${attachList.upFolder}/s_${attachList.uuid}_${attachList.fileName}"><br>
 				${attachList.fileName}
-				<span class='btn btn-warning btn-circle'  data-file="/resources/images/${attachList.upFolder}/s_${attachList.uuid}_${attachList.fileName}" data-type='image'>
+				<span class='btn btn-warning btn-circle'  data-file="/resources/weeklyImages/${attachList.upFolder}/s_${attachList.uuid}_${attachList.fileName}" data-type='image'>
 				<i class='fa fa-times'></i></span>
 				</li>
 				
@@ -241,7 +241,7 @@
 		$.ajax({
 			dataType : 'json',
 			type : 'post',
-			url : '/album/upload/ajaxAction',
+			url : '/weekly/upload/ajaxAction',
 			data : formData,
 			contentType : false,
 			processData : false,
@@ -299,7 +299,7 @@
 					var originalImg = obj.upFolder + "\\" + obj.uuid + "_" + obj.fileName;
 					originalImg = originalImg.replace(new RegExp(/\\/g), "/");
 
-					tag += "<img style='width:100px; height:100px;' class='original' src='/album/display?fileName=" + thumbImg + "'><br>" + obj.fileName + " <span class='btn btn-warning btn-circle'  data-file='" + thumbImg + "' data-type='image'><i class='fa fa-times'></i></span></li>";
+					tag += "<img style='width:100px; height:100px;' class='original' src='/weekly/display?fileName=" + thumbImg + "'><br>" + obj.fileName + " <span class='btn btn-warning btn-circle'  data-file='" + thumbImg + "' data-type='image'><i class='fa fa-times'></i></span></li>";
 					
 					
 					$(document).on('click', '.original', function(event) {
@@ -307,10 +307,6 @@
 						showOriginal(originalImg);
 				});
 					
-				} else {
-					
-					var filePath = encodeURIComponent(obj.upFolder + "/" + obj.uuid + "_" + obj.fileName);
-					tag += "<img src='/resources/images/attach.png'><br>" + obj.fileName + " <span class='btn btn-warning btn-circle' data-file='" + filePath + "' data-type='file'><i class='fa fa-times'></i></span></li>";
 				}
 				
 				
@@ -332,7 +328,7 @@
 	$.ajax({
 		dataType : 'text',
 		type : 'post',
-		url : '/album/deleteFile',
+		url : '/weekly/deleteFile',
 		data : 
 		{	
 			   fileName : $(this).data('file'),
@@ -377,7 +373,7 @@
 			
 		console.log(tag);
 		
-		if ($('.uploadResult ul')[0].innerText === "" || $('#atitle').val() === "") {
+		if ($('.uploadResult ul')[0].innerText === "" || $('#wtitle').val() === "") {
 			alert("제목과 이미지를 정확히 입력해주세요.");
 		}else{
 			$("form[role='form']").append(tag).submit(); //폼 전송

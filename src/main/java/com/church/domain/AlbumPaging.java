@@ -1,4 +1,4 @@
-//작성자 : 김도영
+//작성자 : 심현민
 //최초 작성일 : 23.04.05
 package com.church.domain;
 
@@ -50,14 +50,14 @@ public class AlbumPaging {
 		startPageNum = endPageNum - (pageNumCnt - 1);
 
 		// 마지막 번호 재계산
-		int endPageNum_tmp = (int)(Math.ceil((double)count / (double)pageNumCnt));
+		int endPageNum_tmp = (int)(Math.ceil((double)count / (double)postNum));
 
 		if(endPageNum > endPageNum_tmp) {
 		endPageNum = endPageNum_tmp;
 		}
 
 		prev = startPageNum == 1 ? false : true;
-		next = endPageNum * pageNumCnt >= count ? false : true;
+		next = endPageNum * postNum >= count ? false : true;
 
 		displayPost = (num - 1) * postNum;
 
