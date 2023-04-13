@@ -8,6 +8,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import com.church.domain.Weekly;
+import org.apache.ibatis.annotations.Select;
 
 public interface WeeklyMapper {
 
@@ -26,5 +27,8 @@ public interface WeeklyMapper {
 	void delete(String wno);
 	
 	void updateView(String wno);
+
+	@Select("SELECT count(*) FROM weekly")
+	int count();
 	
 }

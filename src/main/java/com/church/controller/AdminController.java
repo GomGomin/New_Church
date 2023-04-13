@@ -14,6 +14,8 @@ public class AdminController {
     @Autowired
     UsersService usersService;
     @Autowired
+    WeeklyService weeklyService;
+    @Autowired
     WorshipService worshipService;
     @Autowired
     PraiseService praiseService;
@@ -34,6 +36,7 @@ public class AdminController {
     @GetMapping("/main")
     public String main(Model model) throws Exception {
         model.addAttribute("countUsers", usersService.countUsers());
+        model.addAttribute("countWeekly", weeklyService.count());
         model.addAttribute("countWorships", worshipService.count());
         model.addAttribute("countPraises", praiseService.count());
         model.addAttribute("countBoards", boardsService.count());

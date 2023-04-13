@@ -27,4 +27,6 @@ public interface WeeklyService {
 	
 	void updateView(String wno);
 
+	int count();
+
 }
