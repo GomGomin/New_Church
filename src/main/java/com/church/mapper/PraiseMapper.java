@@ -40,4 +40,6 @@ public interface PraiseMapper {
     int updateLikeCnt(int pno) throws  Exception; // 좋아요 카운트  + 1
     int selectSearchCount(SearchCondition sc) throws Exception; ; //키워드 검색 포함 게시물 수
     List<Praise> selectSearchPage(SearchCondition sc) throws Exception; ; //키워드 검색 포함 페이지 목록
+    @Select("SELECT count(*) FROM praise")
+    int count();
 }

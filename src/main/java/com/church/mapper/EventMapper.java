@@ -37,4 +37,7 @@ public interface EventMapper {
 
     @Delete("DELETE FROM event")
     int deleteAll() throws Exception; ; // 글 전체 삭제(테스트코드용)
+
+    @Select("SELECT count(*) FROM event")
+    int count();
 }

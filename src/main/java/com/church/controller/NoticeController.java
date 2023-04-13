@@ -27,6 +27,7 @@ import com.church.service.NoticeService;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("notice")
@@ -73,6 +74,16 @@ public class NoticeController {
                                     HttpServletRequest request, HttpServletResponse response, Model model) {
         // 게시물
         Notice noticeById = noticeService.noticeById(nno);
+        if (noticeById == null) {
+            HttpSession session = request.getSession();
+            String errorMessage;
+
+            errorMessage = "존재하지 않는 게시물 입니다.<br>다시 이용해주세요.";
+
+            session.setAttribute("errorMessage", errorMessage);
+
+            return "redirect:/notice/list";
+        }
         model.addAttribute("notice", noticeById);
 
         viewCountValidation(noticeById, nno, username, request, response);
@@ -125,8 +136,19 @@ public class NoticeController {
     }
 
     @GetMapping("/edit")
-    public String requestEditNotice(@RequestParam("nno") int nno, Model model, @ModelAttribute("EditNotice") Notice notice) {
+    public String requestEditNotice(@RequestParam("nno") int nno, Model model, HttpServletRequest request,
+                                    @ModelAttribute("EditNotice") Notice notice) {
         Notice noticeById = noticeService.noticeById(nno);
+        if (noticeById == null) {
+            HttpSession session = request.getSession();
+            String errorMessage;
+
+            errorMessage = "존재하지 않는 게시물 입니다.<br>다시 이용해주세요.";
+
+            session.setAttribute("errorMessage", errorMessage);
+
+            return "redirect:/notice/list";
+        }
         model.addAttribute("notice", noticeById);
 
         return "notice/editNotice";
