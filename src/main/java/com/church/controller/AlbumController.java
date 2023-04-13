@@ -30,6 +30,7 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -98,24 +99,28 @@ public class AlbumController {
 		albums.put("awriter", userId);
 		}
 		
-		albumsService.insert(albums);
-		
-		Albums recentAlbum = albumsService.recent();
-		
-		  
-		  if (fileNames != null) {
-			  for (int i = 0; i < fileNames.length; i++) {
-				  Map<String, Object> album = new HashMap<String, Object>();
-				  album.put("ano", recentAlbum.getAno()); 
-				  album.put("fileName", fileNames[i]);
-				  album.put("upFolder", upFolders[i]);
-				  album.put("uuid", uuids[i]);
-				  album.put("image", images[i]);
-				  attachFileService.insertAttach(album);
-			}
-		  }
-		
-		cleanAttach(request);
+		try {
+			albumsService.insert(albums);
+			
+			Albums recentAlbum = albumsService.recent();
+			
+			  
+			  if (fileNames != null) {
+				  for (int i = 0; i < fileNames.length; i++) {
+					  Map<String, Object> album = new HashMap<String, Object>();
+					  album.put("ano", recentAlbum.getAno()); 
+					  album.put("fileName", fileNames[i]);
+					  album.put("upFolder", upFolders[i]);
+					  album.put("uuid", uuids[i]);
+					  album.put("image", images[i]);
+					  attachFileService.insertAttach(album);
+				}
+			  }
+			
+			cleanAttach(request);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return "redirect:/album/list";
 	}
@@ -128,48 +133,65 @@ public class AlbumController {
 	@ResponseBody
 	@PostMapping("/delete")
 	public void deleteAlbums(@RequestParam String ano, HttpServletRequest request) {
-		albumsService.delete(ano);
-		
-		cleanAttach(request);
+		try {
+			albumsService.delete(ano);
+			
+			cleanAttach(request);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@GetMapping("/detail")
 	public String detail(@RequestParam("ano") String ano, Model model,
 			HttpServletRequest request,
 			HttpServletResponse response, Principal principal) {
-		
+        if (ano == null) {
+            HttpSession session = request.getSession();
+            String errorMessage;
+
+            errorMessage = "존재하지 않는 게시물 입니다.<br>다시 이용해주세요.";
+
+            session.setAttribute("errorMessage", errorMessage);
+
+            return "redirect:/album/list";
+        }
 
 		
-		//주 게시물
-		Albums albumsById = albumsService.detail(ano);
-		model.addAttribute("albums", albumsById);
+		try {
+			//주 게시물
+			Albums albumsById = albumsService.detail(ano);
+			model.addAttribute("albums", albumsById);
 
-		//첨부파일
-		List<AttachFile> attachList = attachFileService.selectAttachAll(ano);
-		
-		List<String> attachPaths = new ArrayList<String>();
-		
-		for (AttachFile attach : attachList) {
+			//첨부파일
+			List<AttachFile> attachList = attachFileService.selectAttachAll(ano);
 			
-			String filePath = attach.getUpFolder().replaceAll("\\\\", "/") + "/" + attach.getUuid() + "_" + attach.getFileName();
+			List<String> attachPaths = new ArrayList<String>();
 			
+			for (AttachFile attach : attachList) {
+				
+				String filePath = attach.getUpFolder().replaceAll("\\\\", "/") + "/" + attach.getUuid() + "_" + attach.getFileName();
+				
 
-			attachPaths.add(filePath);
+				attachPaths.add(filePath);
 
+			}
+			
+			model.addAttribute("attachPaths", attachPaths);
+			
+			String username = null;
+			
+			if(principal != null) {
+			String userId = principal.getName();
+			username = userId;
+			}
+			
+			
+			//조회수 증가
+			viewCountValidation(albumsById, ano, username, request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
-		model.addAttribute("attachPaths", attachPaths);
-		
-		String username = null;
-		
-		if(principal != null) {
-		String userId = principal.getName();
-		username = userId;
-		}
-		
-		
-		//조회수 증가
-		viewCountValidation(albumsById, ano, username, request, response);
 		
 		return "/album/detail";
 	}
@@ -223,65 +245,84 @@ public class AlbumController {
 	public String list(Model model, @RequestParam(value = "num",required = false, defaultValue = "1") int num, 
 			@RequestParam(value = "searchType",required = false, defaultValue = "title") String searchType,
 			@RequestParam(value = "keyword",required = false, defaultValue = "") String keyword) throws Exception {
-		AlbumPaging page = new AlbumPaging();
-		
-		page.setNum(num);
-		page.setCount(albumsService.searchCount(searchType, keyword));
-		page.setSearchType(searchType);
-		page.setKeyword(keyword);
-
-		List<Albums> albumList = null; 
-		albumList = albumsService.list(page.getDisplayPost(), page.getPostNum(), searchType, keyword);
-	 
-		model.addAttribute("albumList", albumList);
-		model.addAttribute("page", page);
-		model.addAttribute("select", num);
 		
 		
-		Map<Integer, Object> attachFileList = new HashMap<Integer, Object>();
-		
-		for (Albums albums : albumList) {
-			AttachFile attachFile = attachFileService.oneAttach(albums.getAno());
+		try {
+			AlbumPaging page = new AlbumPaging();
 			
-			attachFile.getUpFolder().replaceAll("\\\\", "/");
+			page.setNum(num);
+			page.setCount(albumsService.searchCount(searchType, keyword));
+			page.setSearchType(searchType);
+			page.setKeyword(keyword);
+
+			List<Albums> albumList = null; 
+			albumList = albumsService.list(page.getDisplayPost(), page.getPostNum(), searchType, keyword);
+ 
+			model.addAttribute("albumList", albumList);
+			model.addAttribute("page", page);
+			model.addAttribute("select", num);
 			
-			String filePath = attachFile.getUpFolder().replaceAll("\\\\", "/") + "/" + attachFile.getUuid() + "_" + attachFile.getFileName();
+			
+			Map<Integer, Object> attachFileList = new HashMap<Integer, Object>();
+			
+			for (Albums albums : albumList) {
+				AttachFile attachFile = attachFileService.oneAttach(albums.getAno());
+				
+				attachFile.getUpFolder().replaceAll("\\\\", "/");
+				
+				String filePath = attachFile.getUpFolder().replaceAll("\\\\", "/") + "/" + attachFile.getUuid() + "_" + attachFile.getFileName();
 
-			attachFileList.put(albums.getAno(), filePath);
+				attachFileList.put(albums.getAno(), filePath);
 
+			}
+			
+			model.addAttribute("attachFileList", attachFileList);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
-		model.addAttribute("attachFileList", attachFileList);
 		
 		return "/album/list";
 	 
 	}	
 	
 	@GetMapping("/modify")
-	public String modify(@RequestParam String ano, Model model) {
-		
-		
-		//주 게시물
-		Albums albumsById = albumsService.detail(ano);
-		model.addAttribute("albums", albumsById);
+	public String modify(@RequestParam String ano, Model model, HttpServletRequest request) {
+        if (ano == null) {
+            HttpSession session = request.getSession();
+            String errorMessage;
 
-		//첨부파일
-		List<AttachFile> attachList = attachFileService.selectAttachAll(ano);
+            errorMessage = "존재하지 않는 게시물 입니다.<br>다시 이용해주세요.";
+
+            session.setAttribute("errorMessage", errorMessage);
+
+            return "redirect:/album/list";
+        }
 		
-		List<String> attachPaths = new ArrayList<String>();
-		
-		for (AttachFile attach : attachList) {
+		try {
+			//주 게시물
+			Albums albumsById = albumsService.detail(ano);
+			model.addAttribute("albums", albumsById);
+
+			//첨부파일
+			List<AttachFile> attachList = attachFileService.selectAttachAll(ano);
 			
-			String filePath = attach.getUpFolder().replaceAll("\\\\", "/") + "/" + attach.getUuid() + "_" + attach.getFileName();
+			List<String> attachPaths = new ArrayList<String>();
 			
+			for (AttachFile attach : attachList) {
+				
+				String filePath = attach.getUpFolder().replaceAll("\\\\", "/") + "/" + attach.getUuid() + "_" + attach.getFileName();
+				
 
-			attachPaths.add(filePath);
+				attachPaths.add(filePath);
 
+			}
+			
+			model.addAttribute("attachPaths", attachPaths);
+			
+			model.addAttribute("attachList", attachList);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
-		model.addAttribute("attachPaths", attachPaths);
-		
-		model.addAttribute("attachList", attachList);
 		
 		return "/album/modify";
 	}
@@ -293,24 +334,28 @@ public class AlbumController {
             @RequestParam("uuid") String[] uuids,
             @RequestParam("image") String[] images, HttpServletRequest request) {
 		
-			albumsService.update(albums);
-		
-			attachFileService.deleteAttach((String) albums.get("ano"));
-		  
-		  if (fileNames != null) {
-			  for (int i = 0; i < fileNames.length; i++) {
-				  Map<String, Object> album = new HashMap<String, Object>();
-				  album.put("ano", albums.get("ano")); 
-				  album.put("fileName", fileNames[i]);
-				  album.put("upFolder", upFolders[i]);
-				  album.put("uuid", uuids[i]);
-				  album.put("image", images[i]);
+			try {
+				albumsService.update(albums);
 
-				  attachFileService.insertAttach(album);
+				attachFileService.deleteAttach((String) albums.get("ano"));
+  
+  if (fileNames != null) {
+				  for (int i = 0; i < fileNames.length; i++) {
+					  Map<String, Object> album = new HashMap<String, Object>();
+					  album.put("ano", albums.get("ano")); 
+					  album.put("fileName", fileNames[i]);
+					  album.put("upFolder", upFolders[i]);
+					  album.put("uuid", uuids[i]);
+					  album.put("image", images[i]);
+
+					  attachFileService.insertAttach(album);
+				}
+  }
+
+  				cleanAttach(request);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		  }
-		
-		cleanAttach(request);
 		
 		return "redirect:/album/list";
 	}

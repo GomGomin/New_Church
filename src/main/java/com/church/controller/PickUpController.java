@@ -6,6 +6,9 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -76,11 +79,24 @@ public class PickUpController {
 	}
 	
 	@GetMapping("/detail")
-	public String detail(@RequestParam("pbwriter") String pbwriter, Model model) {
-		
-		//주 게시물
-		PickBoard pickUpById = pickUpsService.detail(pbwriter);
-		model.addAttribute("pickBoard", pickUpById);
+	public String detail(@RequestParam("pbwriter") String pbwriter, Model model, HttpServletRequest request) {
+        if (pbwriter == null) {
+            HttpSession session = request.getSession();
+            String errorMessage;
+
+            errorMessage = "존재하지 않는 게시물 입니다.<br>다시 이용해주세요.";
+
+            session.setAttribute("errorMessage", errorMessage);
+
+            return "redirect:/";
+        }
+		try {
+			//주 게시물
+			PickBoard pickUpById = pickUpsService.detail(pbwriter);
+			model.addAttribute("pickBoard", pickUpById);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return "/pickUp/detail";
 	}
@@ -88,18 +104,38 @@ public class PickUpController {
 
 	@GetMapping("/list")
 	public String list(Model model) {
-		List<PickBoard> accessList = pickUpsService.accessList();
-		List<PickBoard> denyList = pickUpsService.denyList();
-		model.addAttribute("accessList", accessList);
-		model.addAttribute("denyList", denyList);
+		try {
+			List<PickBoard> accessList = pickUpsService.accessList();
+			List<PickBoard> denyList = pickUpsService.denyList();
+			model.addAttribute("accessList", accessList);
+			model.addAttribute("denyList", denyList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return "/pickUp/list";
 	}
 
 	@GetMapping("/modify")
-	public String modify(@RequestParam("pbwriter") String pbwriter, Principal principal, Model model) {
+	public String modify(@RequestParam("pbwriter") String pbwriter, Principal principal, Model model, HttpServletRequest request) {
+        if (pbwriter == null) {
+            HttpSession session = request.getSession();
+            String errorMessage;
+
+            errorMessage = "존재하지 않는 게시물 입니다.<br>다시 이용해주세요.";
+
+            session.setAttribute("errorMessage", errorMessage);
+
+            return "redirect:/";
+        }
 		
-		PickBoard pickUpById = pickUpsService.detail(pbwriter);
-		model.addAttribute("pickBoard", pickUpById);
+		
+		
+		try {
+			PickBoard pickUpById = pickUpsService.detail(pbwriter);
+			model.addAttribute("pickBoard", pickUpById);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		if(principal != null) {
 		String userId = principal.getName();
@@ -113,13 +149,21 @@ public class PickUpController {
 	@ResponseBody
 	@PostMapping("/modify")
 	public void editBoard(@RequestParam Map<String, Object> pickBoard) {
-		pickUpsService.update(pickBoard);
+		try {
+			pickUpsService.update(pickBoard);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@PostMapping("/formModify")
 	public String modify(@RequestParam Map<String, Object> pickBoard) {
 		
-		pickUpsService.update(pickBoard);
+		try {
+			pickUpsService.update(pickBoard);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		
 		return "redirect:/pickup/detail?pbwriter=" + pickBoard.get("pbwriter");
@@ -128,7 +172,11 @@ public class PickUpController {
 	@ResponseBody
 	@PostMapping("/access")
 	public void access(@RequestParam String pbno) {
-		pickUpsService.access(pbno);
+		try {
+			pickUpsService.access(pbno);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	

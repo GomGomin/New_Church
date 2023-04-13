@@ -42,7 +42,7 @@
 
 
 	
-	<form:input path="pbtel" class="w3-input w3-padding-16" placeholder="전화번호" type="text" />
+	<form:input path="pbtel" id="pbtel" class="w3-input w3-padding-16" placeholder="전화번호" type="text" />
 	<br>
 
 			<div class="w3-third" style="width: 8%; padding-top: 5px;">
@@ -97,7 +97,12 @@
 
 function check() {
 	$("#pbaddress").val($("#sample6_postcode").val() + "/" + $("#sample6_address").val() + "/" + $("#sample6_extraAddress").val() + "/" + $("#sample6_detailAddress").val());	
+		
+	if ($('#uname').val() === "" || $('#pbtel').val() === "" || $("#sample6_postcode").val() === "") {
+		alert("정확한 정보를 입력해주세요.");
+	}else{
 		$("#form").submit();
+	}
 }
 
     function sample6_execDaumPostcode() {

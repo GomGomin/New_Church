@@ -29,6 +29,7 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -76,29 +77,33 @@ public class WeeklyController {
             @RequestParam("uuid") String[] uuids,
             @RequestParam("image") String[] images, HttpServletRequest request) {
 		
-		if(principal != null) {
-		String userId = principal.getName();
-		weekly.put("wwriter", userId);
-		}
-		
-		weeklyService.insert(weekly);
-		
-		Weekly recentWeekly = weeklyService.recent();
-		
-		  
-		  if (fileNames != null) {
-			  for (int i = 0; i < fileNames.length; i++) {
-				  Map<String, Object> weeklys = new HashMap<String, Object>();
-				  weeklys.put("wno", recentWeekly.getWno()); 
-				  weeklys.put("fileName", fileNames[i]);
-				  weeklys.put("upFolder", upFolders[i]);
-				  weeklys.put("uuid", uuids[i]);
-				  weeklys.put("image", images[i]);
-				  weeklyAttachService.insertAttach(weeklys);
+		try {
+			if(principal != null) {
+			String userId = principal.getName();
+			weekly.put("wwriter", userId);
 			}
-		  }
-		
-		cleanAttach(request);
+			
+			weeklyService.insert(weekly);
+			
+			Weekly recentWeekly = weeklyService.recent();
+			
+			  
+			  if (fileNames != null) {
+				  for (int i = 0; i < fileNames.length; i++) {
+					  Map<String, Object> weeklys = new HashMap<String, Object>();
+					  weeklys.put("wno", recentWeekly.getWno()); 
+					  weeklys.put("fileName", fileNames[i]);
+					  weeklys.put("upFolder", upFolders[i]);
+					  weeklys.put("uuid", uuids[i]);
+					  weeklys.put("image", images[i]);
+					  weeklyAttachService.insertAttach(weeklys);
+				}
+			  }
+			
+			cleanAttach(request);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return "redirect:/weekly/list";
 	}
@@ -111,48 +116,66 @@ public class WeeklyController {
 	@ResponseBody
 	@PostMapping("/delete")
 	public void deleteWeekly(@RequestParam String wno, HttpServletRequest request) {
-		weeklyService.delete(wno);
-		
-		cleanAttach(request);
+		try {
+			weeklyService.delete(wno);
+			
+			cleanAttach(request);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@GetMapping("/detail")
 	public String detail(@RequestParam("wno") String wno, Model model,
 			HttpServletRequest request,
 			HttpServletResponse response, Principal principal) {
+        if (wno == null) {
+            HttpSession session = request.getSession();
+            String errorMessage;
+
+            errorMessage = "존재하지 않는 게시물 입니다.<br>다시 이용해주세요.";
+
+            session.setAttribute("errorMessage", errorMessage);
+
+            return "redirect:/weekly/list";
+        }
 		
 
 		
-		//주 게시물
-		Weekly weeklyById = weeklyService.detail(wno);
-		model.addAttribute("weekly", weeklyById);
+		try {
+			//주 게시물
+			Weekly weeklyById = weeklyService.detail(wno);
+			model.addAttribute("weekly", weeklyById);
 
-		//첨부파일
-		List<WeeklyAttach> attachList = weeklyAttachService.selectAttachAll(wno);
-		
-		List<String> attachPaths = new ArrayList<String>();
-		
-		for (WeeklyAttach attach : attachList) {
+			//첨부파일
+			List<WeeklyAttach> attachList = weeklyAttachService.selectAttachAll(wno);
 			
-			String filePath = attach.getUpFolder().replaceAll("\\\\", "/") + "/" + attach.getUuid() + "_" + attach.getFileName();
+			List<String> attachPaths = new ArrayList<String>();
 			
+			for (WeeklyAttach attach : attachList) {
+				
+				String filePath = attach.getUpFolder().replaceAll("\\\\", "/") + "/" + attach.getUuid() + "_" + attach.getFileName();
+				
 
-			attachPaths.add(filePath);
+				attachPaths.add(filePath);
 
+			}
+			
+			model.addAttribute("attachPaths", attachPaths);
+			
+			String username = null;
+			
+			if(principal != null) {
+			String userId = principal.getName();
+			username = userId;
+			}
+			
+			
+			//조회수 증가
+			viewCountValidation(weeklyById, wno, username, request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
-		model.addAttribute("attachPaths", attachPaths);
-		
-		String username = null;
-		
-		if(principal != null) {
-		String userId = principal.getName();
-		username = userId;
-		}
-		
-		
-		//조회수 증가
-		viewCountValidation(weeklyById, wno, username, request, response);
 		
 		return "/weekly/detail";
 	}
@@ -206,65 +229,82 @@ public class WeeklyController {
 	public String list(Model model, @RequestParam(value = "num",required = false, defaultValue = "1") int num, 
 			@RequestParam(value = "searchType",required = false, defaultValue = "title") String searchType,
 			@RequestParam(value = "keyword",required = false, defaultValue = "") String keyword) throws Exception {
-		AlbumPaging page = new AlbumPaging();
-		
-		page.setNum(num);
-		page.setCount(weeklyService.searchCount(searchType, keyword));
-		page.setSearchType(searchType);
-		page.setKeyword(keyword);
-
-		List<Weekly> weeklyList = null; 
-		weeklyList = weeklyService.list(page.getDisplayPost(), page.getPostNum(), searchType, keyword);
-	 
-		model.addAttribute("weeklyList", weeklyList);
-		model.addAttribute("page", page);
-		model.addAttribute("select", num);
-		
-		
-		Map<Integer, Object> WeeklyAttachList = new HashMap<Integer, Object>();
-		
-		for (Weekly weekly : weeklyList) {
-			WeeklyAttach WeeklyAttach = weeklyAttachService.oneAttach(weekly.getWno());
+		try {
+			AlbumPaging page = new AlbumPaging();
 			
-			WeeklyAttach.getUpFolder().replaceAll("\\\\", "/");
+			page.setNum(num);
+			page.setCount(weeklyService.searchCount(searchType, keyword));
+			page.setSearchType(searchType);
+			page.setKeyword(keyword);
+
+			List<Weekly> weeklyList = null; 
+			weeklyList = weeklyService.list(page.getDisplayPost(), page.getPostNum(), searchType, keyword);
+ 
+			model.addAttribute("weeklyList", weeklyList);
+			model.addAttribute("page", page);
+			model.addAttribute("select", num);
 			
-			String filePath = WeeklyAttach.getUpFolder().replaceAll("\\\\", "/") + "/" + WeeklyAttach.getUuid() + "_" + WeeklyAttach.getFileName();
+			
+			Map<Integer, Object> WeeklyAttachList = new HashMap<Integer, Object>();
+			
+			for (Weekly weekly : weeklyList) {
+				WeeklyAttach WeeklyAttach = weeklyAttachService.oneAttach(weekly.getWno());
+				
+				WeeklyAttach.getUpFolder().replaceAll("\\\\", "/");
+				
+				String filePath = WeeklyAttach.getUpFolder().replaceAll("\\\\", "/") + "/" + WeeklyAttach.getUuid() + "_" + WeeklyAttach.getFileName();
 
-			WeeklyAttachList.put(weekly.getWno(), filePath);
+				WeeklyAttachList.put(weekly.getWno(), filePath);
 
+			}
+			
+			model.addAttribute("WeeklyAttachList", WeeklyAttachList);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
-		model.addAttribute("WeeklyAttachList", WeeklyAttachList);
 		
 		return "/weekly/list";
 	 
 	}	
 	
 	@GetMapping("/modify")
-	public String modify(@RequestParam String wno, Model model) {
-		
-		
-		//주 게시물
-		Weekly weeklyById = weeklyService.detail(wno);
-		model.addAttribute("weekly", weeklyById);
+	public String modify(@RequestParam String wno, Model model, HttpServletRequest request) {
+        if (wno == null) {
+            HttpSession session = request.getSession();
+            String errorMessage;
 
-		//첨부파일
-		List<WeeklyAttach> attachList = weeklyAttachService.selectAttachAll(wno);
+            errorMessage = "존재하지 않는 게시물 입니다.<br>다시 이용해주세요.";
+
+            session.setAttribute("errorMessage", errorMessage);
+
+            return "redirect:/weekly/list";
+        }
 		
-		List<String> attachPaths = new ArrayList<String>();
-		
-		for (WeeklyAttach attach : attachList) {
+		try {
+			//주 게시물
+			Weekly weeklyById = weeklyService.detail(wno);
+			model.addAttribute("weekly", weeklyById);
+
+			//첨부파일
+			List<WeeklyAttach> attachList = weeklyAttachService.selectAttachAll(wno);
 			
-			String filePath = attach.getUpFolder().replaceAll("\\\\", "/") + "/" + attach.getUuid() + "_" + attach.getFileName();
+			List<String> attachPaths = new ArrayList<String>();
 			
+			for (WeeklyAttach attach : attachList) {
+				
+				String filePath = attach.getUpFolder().replaceAll("\\\\", "/") + "/" + attach.getUuid() + "_" + attach.getFileName();
+				
 
-			attachPaths.add(filePath);
+				attachPaths.add(filePath);
 
+			}
+			
+			model.addAttribute("attachPaths", attachPaths);
+			
+			model.addAttribute("attachList", attachList);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
-		model.addAttribute("attachPaths", attachPaths);
-		
-		model.addAttribute("attachList", attachList);
 		
 		return "/weekly/modify";
 	}
@@ -276,24 +316,28 @@ public class WeeklyController {
             @RequestParam("uuid") String[] uuids,
             @RequestParam("image") String[] images, HttpServletRequest request) {
 		
-			weeklyService.update(weekly);
-		
-			weeklyAttachService.deleteAttach((String) weekly.get("wno"));
-		  
-		  if (fileNames != null) {
-			  for (int i = 0; i < fileNames.length; i++) {
-				  Map<String, Object> album = new HashMap<String, Object>();
-				  album.put("wno", weekly.get("wno")); 
-				  album.put("fileName", fileNames[i]);
-				  album.put("upFolder", upFolders[i]);
-				  album.put("uuid", uuids[i]);
-				  album.put("image", images[i]);
+			try {
+				weeklyService.update(weekly);
 
-				  weeklyAttachService.insertAttach(album);
+				weeklyAttachService.deleteAttach((String) weekly.get("wno"));
+  
+  if (fileNames != null) {
+				  for (int i = 0; i < fileNames.length; i++) {
+					  Map<String, Object> album = new HashMap<String, Object>();
+					  album.put("wno", weekly.get("wno")); 
+					  album.put("fileName", fileNames[i]);
+					  album.put("upFolder", upFolders[i]);
+					  album.put("uuid", uuids[i]);
+					  album.put("image", images[i]);
+
+					  weeklyAttachService.insertAttach(album);
+				}
+  }
+
+cleanAttach(request);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		  }
-		
-		cleanAttach(request);
 		
 		return "redirect:/weekly/list";
 	}

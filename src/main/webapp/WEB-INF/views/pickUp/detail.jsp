@@ -305,7 +305,7 @@ if ($("#pbstate").val() == '1') {
 	        },
 			success:function(result) {
 				alert("해당 픽업 신청이 삭제되었습니다.");
-				window.location.replace("/pickup/list");
+				window.location.replace("/");
 			},
 			error:function(request, status, error) {
 				alert(request.status + " " + request.responseText);

@@ -14,6 +14,20 @@
 		<security:intercept-url pattern="/notice/edit" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/notice/removeNotice" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/notice/setNewNotice" access="hasRole('ADMIN')" />
+		
+		<!--앨범 관련 security 처리-->
+		<security:intercept-url pattern="/album/add" access="isAuthenticated()" />
+		<security:intercept-url pattern="/album/modify" access="isAuthenticated()" />
+		
+		<!--픽업 관련 security 처리-->
+		<security:intercept-url pattern="/pickup/list" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/pickup/add" access="hasRole('USER')" />
+		<security:intercept-url pattern="/pickup/modify" access="hasRole('USER')" />
+		<security:intercept-url pattern="/pickup/detail" access="hasRole('USER')" />
+				
+		<!--주보 관련 security 처리-->
+		<security:intercept-url pattern="/weekly/add" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/weekly/modify" access="hasRole('ADMIN')" />
     
 		<!--유저 관련 security 처리-->
 		<security:intercept-url pattern="/listUsers" access="hasRole('ADMIN')" />

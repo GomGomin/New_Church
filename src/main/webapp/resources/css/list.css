@@ -1,0 +1,27 @@
+/* 뷰포트 너비가 390px 이하일 때 스타일을 적용합니다. */
+@media screen and (max-width: 400px) {
+
+  body {
+   overflow-x: auto !important;
+  }
+
+  h1 {
+      margin-right: 180px !important;
+      font-size: 30px !important;
+      font-weight: bold !important;
+  }
+
+   img {
+      width: 150px !important;
+      height: 100px !important;
+   }
+
+   .col-md-4 {
+      width: 100% !important;
+      
+
+
+   }
+
+
+}

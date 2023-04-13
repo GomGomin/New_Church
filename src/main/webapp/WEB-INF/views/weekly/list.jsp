@@ -8,6 +8,8 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -167,9 +169,38 @@ min-width: 100px;" class="btn btn-light border-dark">주보 등록</a>
 		</div>
 
 	</div>
-	
+<script>
+    //오류 메시지 모달 띄우기 위한 함수
+    <% String errorMessage = (String) request.getSession().getAttribute("errorMessage"); %>
+    $(document).ready(function(){
+        if (<%= errorMessage != null && !errorMessage.isEmpty() %>) {
+            $('#error').modal('show');
+            <% session.removeAttribute("errorMessage"); %>
+        } else {
+            $('#error').modal('hide');
+        }
+    });
+</script>
 
 <!------------------------- form end ------------------------------->
+
+<!-- 오류 메시지 모달 -->
+<div class="modal" id="error" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">오류 발생</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <%= errorMessage %>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
