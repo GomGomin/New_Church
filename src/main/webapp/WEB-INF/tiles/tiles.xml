@@ -292,6 +292,7 @@
         <put-attribute name="main_slide" value="" />
         <put-attribute name="image" value="/WEB-INF/views/about/img_test4.jsp" />
         <put-attribute name="content" value="/WEB-INF/views/admin/adminMain.jsp" />
+    </definition>
         
     <definition name="exception/error" extends="base-Template2">
         <put-attribute name="title" value="에러페이지" />
