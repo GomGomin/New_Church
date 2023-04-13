@@ -120,6 +120,9 @@ vertical-align: middle !important;
 font-size: 25px !important;
 }
 
+#STATICMENU{
+display: none;
+}
 }
 
 .sidemenu{
