@@ -136,8 +136,10 @@ function w3_close() {
             <div class="dropdown w3-bar-item w3-button">
                 <button>예배와 말씀</button>
                 <div class="dropdown-content">
+                    <a href="/weekly/list">주보 목록</a>
                     <a href="/worship/list">예배 목록</a>
                     <a href="/praise/list">찬양 목록</a>
+
                 </div>
             </div>
             <div class="dropdown w3-bar-item w3-button">
