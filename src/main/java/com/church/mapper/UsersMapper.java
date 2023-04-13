@@ -20,6 +20,8 @@ public interface UsersMapper {
 	@Select("SELECT * FROM users LIMIT #{displayPost}, #{postNum}")
 	List<Users> listUser(@Param("displayPost") int displayPost, @Param("postNum") int postNum);
 
+	@Select("SELECT count(*) FROM users")
+	int countUsers();
 
 	@Insert("Insert Into users(username, password, name, email, tel) Values(#{username}, #{password}, #{name}, #{email}, #{tel})")
 	@Options(useGeneratedKeys = true, keyProperty = "username")

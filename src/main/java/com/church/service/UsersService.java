@@ -31,4 +31,5 @@ public interface UsersService {
 
 	Users telChk(String tel);
 
+	int countUsers();
 }

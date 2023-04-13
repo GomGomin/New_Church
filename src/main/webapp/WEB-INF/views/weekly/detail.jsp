@@ -25,11 +25,11 @@
 <body class="text-center">
 <c:set var="username" value="${SecurityContextHolder.getContext().getAuthentication().getName()}" />
 <div class="w3-container w3-black" style="text-align: left; margin-top: 10px; padding: 20px;">
-  <h2>${albums.atitle}</h2>
+  <h2>${weekly.wtitle}</h2>
 </div>
 <div style=" text-align: left; padding-left: 10px; margin-top: 10px;">
 
-작성자 : ${albums.awriter} | 등록일 : ${albums.date} | 조회수 : ${albums.aview}
+작성자 : ${weekly.wwriter} | 등록일 : ${weekly.date} | 조회수 : ${weekly.wview}
 </div>
 
 	<hr class="featurette-divider">
@@ -37,7 +37,7 @@
 
 <c:forEach items="${attachPaths}" var="attachPaths">
 
-				<img src="/resources/images/${attachPaths}" style="width: 1200px; height: 800px;" alt="album image"><br><br>
+				<img src="/resources/weeklyImages/${attachPaths}" style="width: 1200px; height: 800px;" alt="weekly image"><br><br>
 				
 </c:forEach>	
 
@@ -45,23 +45,15 @@
 <div style="padding-right: 50px; margin-bottom: 200px;">
 
             <sec:authorize access="hasRole('ROLE_ADMIN')">
-<button type="button" class="btn btn-danger btn-sm" onclick="remove('${albums.ano}')" style="margin-left: 10px; float: right;">
+<button type="button" class="btn btn-danger btn-sm" onclick="remove('${weekly.wno}')" style="margin-left: 10px; float: right;">
 	삭제
 </button>
-<button type="button" class="btn btn-success btn-sm" onclick="location.href='/album/modify?ano=${albums.ano}'" data-toggle="modal" data-target="#modal-success" style="margin-left: 10px; float: right;">
+<button type="button" class="btn btn-success btn-sm" onclick="location.href='/weekly/modify?wno=${weekly.wno}'" data-toggle="modal" data-target="#modal-success" style="margin-left: 10px; float: right;">
 	수정
 </button>
 </sec:authorize>
-<c:if test="${albums.awriter == username and username != 'admin'}">	
-<button type="button" class="btn btn-danger btn-sm" onclick="remove('${albums.ano}')" style="margin-left: 10px; float: right;">
-	삭제
-</button>
-<button type="button" class="btn btn-success btn-sm" onclick="location.href='/album/modify?ano=${albums.ano}'" data-toggle="modal" data-target="#modal-success" style="margin-left: 10px; float: right;">
-	수정
-</button>
-				  </c:if>
 
-<button type="button" class="btn btn-secondary btn-sm" onclick="location.href='/album/list'" style="margin-left: 10px; float: right;">
+<button type="button" class="btn btn-secondary btn-sm" onclick="location.href='/weekly/list'" style="margin-left: 10px; float: right;">
 	목록
 </button>   
 
@@ -74,21 +66,21 @@
 
 <script type="text/javascript">
 
-		function remove(ano) {
+		function remove(wno) {
 			
 			$.ajax({
 				type:"POST",
-				url:"/album/delete",
+				url:"/weekly/delete",
 				data:{
-					ano : ano
+					wno : wno
 				},
 				beforeSend : function(xhr)
 		        {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다. */
 		            xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
 		        },
 				success:function(result) {
-					alert("해당 앨범이 삭제되었습니다.");
-					window.location.replace("/album/list");
+					alert("해당 주보가 삭제되었습니다.");
+					window.location.replace("/weekly/list");
 				},
 				error:function(request,status,error) {
 					alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);

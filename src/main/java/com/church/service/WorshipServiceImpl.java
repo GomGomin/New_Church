@@ -41,4 +41,9 @@ public class WorshipServiceImpl implements WorshipService {
     public int worshipSearchCount(SearchCondition sc) throws Exception {
         return worshipMapper.selectSearchCount(sc);
     }
+
+    @Override
+    public int count() {
+        return worshipMapper.count();
+    }
 }

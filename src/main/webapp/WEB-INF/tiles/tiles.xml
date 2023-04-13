@@ -69,6 +69,34 @@
         <put-attribute name="content" value="/WEB-INF/views/users/login.jsp" />
     </definition>
     
+        <definition name="/weekly/add" extends="base-Template">
+        <put-attribute name="title" value="주보 등록" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="/WEB-INF/views/about/img_test7.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/weekly/add.jsp" />
+    </definition>
+
+    <definition name="/weekly/detail" extends="base-Template">
+        <put-attribute name="title" value="주보 상세보기" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="/WEB-INF/views/about/img_test7.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/weekly/detail.jsp" />
+    </definition>
+
+    <definition name="/weekly/list" extends="base-Template">
+        <put-attribute name="title" value="주보 목록" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="/WEB-INF/views/about/img_test7.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/weekly/list.jsp" />
+    </definition>
+
+    <definition name="/weekly/modify" extends="base-Template">
+        <put-attribute name="title" value="주보 수정" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="/WEB-INF/views/about/img_test7.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/weekly/modify.jsp" />
+    </definition>
+    
     <definition name="/album/add" extends="base-Template">
         <put-attribute name="title" value="앨범 등록" />
         <put-attribute name="main_slide" value="" />
@@ -251,13 +279,21 @@
         <put-attribute name="image" value="/WEB-INF/views/about/img_test4.jsp" />
         <put-attribute name="content" value="/WEB-INF/views/event/event.jsp" />
     </definition>
+
     <definition name="event/list" extends="base-Template">
         <put-attribute name="title" value="행사 목록" />
         <put-attribute name="main_slide" value="" />
         <put-attribute name="image" value="/WEB-INF/views/about/img_test4.jsp" />
         <put-attribute name="content" value="/WEB-INF/views/event/list.jsp" />
     </definition>
-
+    
+    <definition name="admin/adminMain" extends="base-Template">
+        <put-attribute name="title" value="관리자 페이지" />
+        <put-attribute name="main_slide" value="" />
+        <put-attribute name="image" value="/WEB-INF/views/about/img_test4.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/admin/adminMain.jsp" />
+    </definition>
+        
     <definition name="exception/error" extends="base-Template2">
         <put-attribute name="title" value="에러페이지" />
         <put-attribute name="content" value="/WEB-INF/views/exception/error.jsp" />

@@ -37,4 +37,7 @@ public interface WorshipMapper {
 
     @Delete("DELETE FROM worship")
     int deleteAll() throws Exception; ; // 글 전체 삭제(테스트코드용)
+
+    @Select("SELECT count(*) FROM worship")
+    int count();
 }

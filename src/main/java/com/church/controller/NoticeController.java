@@ -2,31 +2,23 @@
 //최초 작성일 : 23.04.04
 package com.church.controller;
 
+import com.church.domain.Notice;
+import com.church.domain.Paging;
+import com.church.service.NoticeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
 import java.util.List;
-import java.util.Map;
-
-import com.church.service.NoticeService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.church.domain.Notice;
-import com.church.domain.Paging;
-import com.church.service.NoticeService;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("notice")
@@ -73,6 +65,16 @@ public class NoticeController {
                                     HttpServletRequest request, HttpServletResponse response, Model model) {
         // 게시물
         Notice noticeById = noticeService.noticeById(nno);
+        if (noticeById == null) {
+            HttpSession session = request.getSession();
+            String errorMessage;
+
+            errorMessage = "존재하지 않는 게시물 입니다.<br>다시 이용해주세요.";
+
+            session.setAttribute("errorMessage", errorMessage);
+
+            return "redirect:/notice/list";
+        }
         model.addAttribute("notice", noticeById);
 
         viewCountValidation(noticeById, nno, username, request, response);
@@ -125,8 +127,19 @@ public class NoticeController {
     }
 
     @GetMapping("/edit")
-    public String requestEditNotice(@RequestParam("nno") int nno, Model model, @ModelAttribute("EditNotice") Notice notice) {
+    public String requestEditNotice(@RequestParam("nno") int nno, Model model, HttpServletRequest request,
+                                    @ModelAttribute("EditNotice") Notice notice) {
         Notice noticeById = noticeService.noticeById(nno);
+        if (noticeById == null) {
+            HttpSession session = request.getSession();
+            String errorMessage;
+
+            errorMessage = "존재하지 않는 게시물 입니다.<br>다시 이용해주세요.";
+
+            session.setAttribute("errorMessage", errorMessage);
+
+            return "redirect:/notice/list";
+        }
         model.addAttribute("notice", noticeById);
 
         return "notice/editNotice";

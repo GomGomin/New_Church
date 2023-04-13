@@ -10,8 +10,20 @@
 
 
 	<security:http use-expressions="true" entry-point-ref="customAuthenticationEntryPoint">
+		<!--공지 관련 security 처리-->
+		<security:intercept-url pattern="/notice/edit" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/notice/removeNotice" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/notice/setNewNotice" access="hasRole('ADMIN')" />
-		<security:intercept-url pattern="/listUsers" access="isAuthenticated() and hasRole('ADMIN')" />
+    
+		<!--유저 관련 security 처리-->
+		<security:intercept-url pattern="/listUsers" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/detailUser" access="isAuthenticated()" />
+		<security:intercept-url pattern="/updateUser" access="isAuthenticated()" />
+		<security:intercept-url pattern="/updatePw" access="isAuthenticated()" />
+    
+		<!--관리자 페이지 security 처리-->
+		<security:intercept-url pattern="/admin/main" access="hasRole('ADMIN')" />
+
 		<security:intercept-url pattern="/schedule/register" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/praise/register" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/worship/register" access="hasRole('ADMIN')" />
@@ -24,6 +36,7 @@
 		<security:intercept-url pattern="/praise/adminRemove" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/worship/adminRemove" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/event/adminRemove" access="hasRole('ADMIN')" />
+    
 		<security:intercept-url pattern="/**" access="permitAll" />
 
 		<security:form-login login-page="/login"
