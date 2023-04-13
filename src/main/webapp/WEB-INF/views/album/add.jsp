@@ -116,7 +116,7 @@
 		
 	<!-- 업로드 결과 출력 -->
 	<div class="uploadResult" style="margin-top: 100px; width: 1000px;">
-		<ul></ul>
+		<ul style="display: flex; flex-wrap: wrap;"></ul>
 	</div>
 	<!-- END 업로드 결과 출력 -->
 
@@ -177,8 +177,8 @@
 	
 	//파일 종류(exe, sh, zip) 및 크기(5MB) 제한
 	var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
-	var maxSize = 5242880;
-	
+	var maxSize = 2621440;
+
 	//업로드 제한 확인
 	function uploadCheck(fileName, fileSize) {
 		if(regex.test(fileName)){	//확장자 확인
@@ -187,7 +187,7 @@
 		}
 	
 		if(fileSize >= maxSize) {
-			alert("업로드 허용 크기(5MB) 초과 - 업로드 불가")
+			alert("업로드 허용 크기(2MB) 초과 - 업로드 불가")
 			return false;
 		}
 		return true;
@@ -273,9 +273,6 @@
 				
 				
 				
-				//이미지는 파일명 표시
-				//이미지 파일이 아니면 attach.png 표시 및 다운로드
-				if(obj.image){
 
 					
 					
@@ -294,16 +291,10 @@
 						
 						showOriginal(originalImg);
 				});
-					
-				} else {
-					
-					var filePath = encodeURIComponent(obj.upFolder + "/" + obj.uuid + "_" + obj.fileName);
-					tag += "<img src='/resources/images/attach.png'><br>" + obj.fileName + " <span class='btn btn-warning btn-circle' data-file='" + filePath + "' data-type='file'><i class='fa fa-times'></i></span></li>";
-				}
-				
 				
 			});//END each()
 			resultUL.append(tag);
+			
 	}//END showUploadedFile()
 
 	
@@ -376,6 +367,14 @@
 		
 	
 	});//END submit 버튼 클릭 이벤트 처리
+	
+	
+
+	
+	
+	
+	
+	
 	
 	</script>
 

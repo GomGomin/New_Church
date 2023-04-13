@@ -22,6 +22,62 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
 <title>계정 교회</title>
+<style>
+.contents{
+width:100%;
+padding: 30px;
+}
+
+.head{
+padding-bottom: 30px;
+width: 100%;
+}
+
+.form-control{
+width: 300px; !important;
+height : 50px; !important;
+margin: 0; !important;
+padding: 0; !important;
+}
+
+.infodetail h5{
+width : 130px;
+display: inline-block;
+font-size: 25px;
+font-weight: bold;
+}
+
+
+.form-control{
+/* text-align: center; */
+padding-left:10px;
+width: !important;
+display: inline-block !important;
+}
+
+.long{
+width:600px !important;
+}
+
+.infodetail{
+margin: 10px;
+}
+
+.short{
+width:150px !important;
+}
+
+#map{
+width: 45%;
+height: 400px;
+margin: 0 left;
+board:1px solid light grey;
+border-radius: 10px;
+box-shadow: 1px 1px 2px 4px grey;
+margin-top: 30px;
+margin-left: 10px;
+}
+</style>
 </head>
 <body>
 
@@ -32,87 +88,67 @@
   
   
     <!-- Contact Section -->
-  <div class="w3-container w3-padding-64" id="contact">
-    <h1>픽업 신청 상세보기</h1><br>
-    <p class="w3-text-blue-black w3-large"><b>※ 유아 및 어린이 회원은 승.하차가 익숙해질 때까지 보호자께서 동승하여 주시기 바랍니다.</b></p>
-    <p class="w3-text-blue-black w3-large"><b>※ 교회버스 승.하차 시 시간보다 10분 정도 일찍 나와주시기 바라며, 손을 흔들어 탑승 의사를 표현해 주시기 바랍니다.</b></p>
-    <p class="w3-text-blue-black w3-large"><b>※ 교회버스 도착시간 보다 지연될 경우 도로사정, 차량정체 등으로 인한 지연이오니 다른 교통수단을 이용해 주시기 바랍니다.</b></p>
-	<form id="form" action="/pickup/add?${_csrf.parameterName}=${_csrf.token}" class="form-horizontal" method="post">
-
+  <div class="contents">
+  	<div class="head">
+	    <h1>픽업 신청 상세보기</h1><br>
+	    <p class="w3-text-blue-black w3-large"><b>※ 유아 및 어린이 회원은 승.하차가 익숙해질 때까지 보호자께서 동승하여 주시기 바랍니다.</b></p>
+	    <p class="w3-text-blue-black w3-large"><b>※ 교회버스 승.하차 시 시간보다 10분 정도 일찍 나와주시기 바라며, 손을 흔들어 탑승 의사를 표현해 주시기 바랍니다.</b></p>
+	    <p class="w3-text-blue-black w3-large"><b>※ 교회버스 도착시간 보다 지연될 경우 도로사정, 차량정체 등으로 인한 지연이오니 다른 교통수단을 이용해 주시기 바랍니다.</b></p>
+	</div>
 	
-<br><br>
-
-		<div>
-			<div class="w3-third" style="width: 8%; padding-top: 5px;">
-				<h5>
-					<b><label for="inputDescription">신청인</label></b>
-				</h5>
-			</div>
-			<div class="w3-third" style="width: 10%; margin-right: 900px; margin-bottom: 10px;">
-				<input name="pbname" class="form-control" id="uname" value="${pickBoard.pbname}"
-					 disabled="disabled" type="text" />
-			</div>
+	<form id="form" action="/pickup/add?${_csrf.parameterName}=${_csrf.token}" class="form-horizontal" method="post">
+	
+	<div class="pickinfo">
+		<div class="infodetail">
+			<h5>
+				<b><label for="inputDescription">신청인</label></b>
+			</h5>
+			<input name="pbname" class="form-control short" id="uname" value="${pickBoard.pbname}"
+				 disabled="disabled" type="text"/>
 		</div>
-		<div>
-			<div class="w3-third" style="width: 8%; padding-top: 5px;">
-				<h5>
-					<b><label for="inputDescription">아이디</label></b>
-				</h5>
-			</div>
-			<div class="w3-third" style="width: 15%; margin-right: 900px; margin-bottom: 10px;">
-				<input name="pbwriter" class="form-control" id="uname" value="${pickBoard.pbwriter}"
-					 disabled="disabled" type="text" />
-			</div>
+		
+		<div class="infodetail">
+			<h5>
+				<b><label for="inputDescription">아이디</label></b>
+			</h5>
+			<input name="pbwriter" class="form-control short" id="uname" value="${pickBoard.pbwriter}"
+				 disabled="disabled" type="text" />
 		</div>
-		<div>
-			<div class="w3-third" style="width: 8%; padding-top: 5px;">
-				<h5>
-					<b><label for="inputDescription">전화번호</label></b>
-				</h5>
-			</div>
-			<div class="w3-third" style="width: 20%; margin-right: 850px; margin-bottom: 10px;">
-				<input name="pbtel" class="form-control" id="uname" value="${pickBoard.pbtel}"
-					 disabled="disabled" type="text" />
-			</div>
+		<div class="infodetail">
+			<h5>
+				<b><label for="inputDescription">전화번호</label></b>
+			</h5>
+			<input name="pbtel" class="form-control short" id="uname" value="${pickBoard.pbtel}"
+				 disabled="disabled" type="text" />
 		</div>
-		<div>
-			<div class="w3-third" style="width: 8%; padding-top: 5px;">
-				<h5>
-					<b><label for="inputDescription">신청일</label></b>
-				</h5>
-			</div>
-			<div class="w3-third" style="width: 25%; margin-right: 700px; margin-bottom: 10px;">
-				<input name="date" class="form-control" id="date" value="${pickBoard.date}"
-					 disabled="disabled" type="text" />
-			</div>
+		<div class="infodetail">
+			<h5>
+				<b><label for="inputDescription">신청일</label></b>
+			</h5>
+			<input name="date" class="form-control" id="date" value="${pickBoard.date}"
+				 disabled="disabled" type="text" />
 		</div>
-		<div>
-			<div class="w3-third" style="width: 8%; padding-top: 5px;">
-				<h5>
-					<b><label for="inputDescription">승인 여부</label></b>
-				</h5>
-			</div>
-			<div class="w3-third" style="width: 10%; margin-right: 900px; margin-bottom: 10px;">
-				<input name="pbstate" class="form-control" id="pbstate" value="${pickBoard.pbstate}"
-					 type="text" disabled="disabled"/>
-			</div>
+		<div class="infodetail">
+			<h5>
+				<b><label for="inputDescription">승인 여부</label></b>
+			</h5>
+			<input name="pbstate" class="form-control short" id="pbstate" value="${pickBoard.pbstate}"
+				 type="text" disabled="disabled"/>
 		</div>
-		<div>
-			<div class="w3-third" style="width: 8%; padding-top: 5px;">
-				<h5>
-					<b><label for="inputDescription">주소</label></b>
-				</h5>
-			</div>
-			<div class="w3-third" style="width: 40%; margin-right: 600px; margin-bottom: 10px;">
-				<input name="pbaddress" class="form-control" id="pbaddress" value="${pickBoard.pbaddress}"
-					 disabled="disabled" type="text" />
-			</div>
+		<div class="infodetail">
+			<h5>
+				<b><label for="inputDescription">주소</label></b>
+			</h5>
+			<input name="pbaddress" class="form-control long" id="pbaddress" value="${pickBoard.pbaddress}"
+				 disabled="disabled" type="text" />
 		</div>
-			<div id="map" style="width:400px;height:400px;"></div>
+	</div>
+		
+		<div id="map"></div>
 
   </form>
 	  </div>
-	  <div style="margin-left: 10px; padding-bottom: 100px;">
+	  <div style="margin-left: 35px; padding-bottom: 100px;">
 	<button type="button" onclick="location.href='./modify?pbwriter=${pickBoard.pbwriter}'" class="btn btn-primary">수정</button>
 	<button type="button" onclick="remove('${pickBoard.pbno}')" class="btn btn-danger">삭제</button>
 
@@ -126,7 +162,7 @@
 
 
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f94caa3f14bb97c5a461377e09303edb&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=91966b94c8dcb08be4fe8c7e60e81bb2&libraries=services"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 

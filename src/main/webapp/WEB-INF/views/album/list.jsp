@@ -20,6 +20,27 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
+
+<style type="text/css">
+
+@font-face {
+    font-family: 'SDSamliphopangche_Outline';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/SDSamliphopangche_Outline.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+p{
+font-family: "SDSamliphopangche_Outline";
+color: white;
+font-size: 50px;
+}
+
+
+
+
+</style>
+
 </head>
 <body class="text-center">
 
@@ -47,7 +68,7 @@
 		<c:choose>
     <c:when test="${albumList == null ||  albumList.size() < 1}">
 			
-			<div class="container" style="width: 50%; padding-bottom: 100px;">
+			<div class="container" style="width: 100%; padding-bottom: 100px;">
 				<p class="alert alert-danger"
 					style="text-align: center; height: 200px; padding: 40px; padding-top: 60px; margin-top: 100px;">등록된
 					게시물이 없습니다.</p>
@@ -99,9 +120,10 @@
 		</div>
 		<!-- END paging -->
 
-        <sec:authorize access="isAuthenticated()">
+			        <sec:authorize access="isAuthenticated()">
         			<!-- 검색 -->
-			<div style=" display: flex; justify-content: flex-start; margin-right: 20px; padding-bottom: 100px;">
+			<div style=" display: flex; text-align: right; margin-right: 20px; width: 100%; padding-bottom: 100px;">
+
 				<select name="searchType" class="form-select" style="width: 150px; margin-right: 10px;">
 					<option value="title" <c:if test="${page.searchType eq 'title'}">selected</c:if>>제목</option>
 					<option value="title_awriter" <c:if test="${page.searchType eq 'title_awriter'}">selected</c:if>>제목 & 작성자</option>
@@ -110,18 +132,38 @@
 								<input type="text" name="keyword" class="form-control" style="width: 200px;" value="${page.keyword}" placeholder="Search"/>
 								<button type="button" class="btn btn-light border-dark" id="searchBtn" style="margin-left: 10px;">검색</button>
 			
-					<a href="/album/add" style="margin-left: 600px;"
-			class="btn btn-light border-dark">게시물 등록</a>
+			
+
+					<a href="/album/add" style="margin-left:55%;
+min-width: 100px;" class="btn btn-light border-dark">게시물 등록</a>
 			
 			
 			</div>
 			<!-- END 검색 -->
-        
-	<div class="text-end">
 
-	</div>
-	</sec:authorize>
+				</sec:authorize>
+				
+				
+							        <sec:authorize access="isAnonymous()">
+        			<!-- 검색 -->
+			<div style=" display: flex; text-align: right; margin-right: 20px; width: 100%; padding-bottom: 100px;">
 
+				<select name="searchType" class="form-select" style="width: 150px; margin-right: 10px;">
+					<option value="title" <c:if test="${page.searchType eq 'title'}">selected</c:if>>제목</option>
+					<option value="title_awriter" <c:if test="${page.searchType eq 'title_awriter'}">selected</c:if>>제목 & 작성자</option>
+					<option value="writer" <c:if test="${page.searchType eq 'writer'}">selected</c:if>>작성자</option>
+				</select> 
+								<input type="text" name="keyword" class="form-control" style="width: 200px;" value="${page.keyword}" placeholder="Search"/>
+								<button type="button" class="btn btn-light border-dark" id="searchBtn" style="margin-left: 10px;">검색</button>
+			
+			
+			</div>
+			<!-- END 검색 -->
+
+				</sec:authorize>
+				
+				
+				
 		</div>
 
 	</div>
