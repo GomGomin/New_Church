@@ -7,8 +7,8 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 
 <html>
-
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
 <script>
 $(window).scroll(function(){
@@ -18,6 +18,7 @@ $(window).scroll(function(){
 		$('.btn_gotop').hide();
 	}
 });
+
 $('.btn_gotop').click(function(){
 	$('html, body').animate({scrollTop:0},400);
 	return false;
@@ -88,6 +89,20 @@ display:flex;
 flex-direction: column;
 height: 100%;
 }
+
+@media screen and (max-width: 640px){
+
+body{
+overflow: auto;
+}
+
+/* .slide{ */
+/* display: none; */
+/* } */
+
+}
+
+
 </style>
 <title><tiles:insertAttribute name="title" /></title>  
 </head>
@@ -99,12 +114,12 @@ height: 100%;
 	</div>
 <!-- 	헤더 END -->
 <!-- 	슬라이더 -->
-	<section>
+	<section class="slide">
 	<tiles:insertAttribute name="main_slide" />  
 	</section>
 <!-- 	슬라이더 END -->
 <!-- 	페이지 이미지 -->
-	<section style="margin-bottom: 15px;">
+	<section class="image"style="margin-bottom: 15px;">
 	<tiles:insertAttribute name="image" />
 	</section>
 <!-- 	페이지 내용 -->
