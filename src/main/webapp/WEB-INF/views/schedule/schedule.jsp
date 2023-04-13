@@ -77,12 +77,14 @@
 				<br>
 				<!-- 댓글 등록 -->
 				<div class="row">
-					<div class="col-sm-8">
-						<textarea name="rcontents" id="rcontents" class="form-control" cols="12" rows="1" placeholder="댓글을 입력해주세요."></textarea>
-					</div>
-					<div class="col-2">
-						<button id="replyAddBtn" class="form-control">등록</button>
-					</div>
+					<sec:authorize access="isAuthenticated()">
+						<div class="col-sm-8">
+							<textarea name="rcontents" id="rcontents" class="form-control" cols="12" rows="1" placeholder="댓글을 입력해주세요."></textarea>
+						</div>
+						<div class="col-2">
+							<button id="replyAddBtn" class="form-control">등록</button>
+						</div>
+					</sec:authorize>
 				</div>
 				<br>
 				<input type="text" style="display: none" id = "hidden" readonly>
