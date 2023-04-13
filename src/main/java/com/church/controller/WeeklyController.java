@@ -488,8 +488,13 @@ public class WeeklyController {
 	
 	//현재 시점의 '연/월/일' 폴더 경로 문자열 생성하여 반환
 	public String getFolder() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String str = sdf.format(new Date());
+		String str = null;
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			str = sdf.format(new Date());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return str.replace("-", File.separator);
 	}
