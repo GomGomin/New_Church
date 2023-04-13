@@ -63,7 +63,7 @@ flex:1;
 
 .footer{
 width: 100%;
-min-width: 780px;
+/* min-width: 780px; */
 margin-bottom: 0;
 height: 70px;
 }
