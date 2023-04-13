@@ -37,7 +37,15 @@
 		<security:intercept-url pattern="/praise/adminRemove" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/worship/adminRemove" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/event/adminRemove" access="hasRole('ADMIN')" />
-    
+		
+    	<security:intercept-url pattern="/boards/setNewBoard" access="isAuthenticated()" />
+    	<security:intercept-url pattern="/boards/edit" access="isAuthenticated()" />
+    	<security:intercept-url pattern="/boards/removeboard" access="isAuthenticated()" />
+    	<security:intercept-url pattern="/boards/replynew" access="isAuthenticated()" />
+    	<security:intercept-url pattern="/boards/editReply" access="isAuthenticated()" />
+    	<security:intercept-url pattern="/boards/removereply" access="isAuthenticated()" />
+    	
+    	
 		<security:intercept-url pattern="/**" access="permitAll" />
 
 		<security:form-login login-page="/login"
