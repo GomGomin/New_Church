@@ -3,7 +3,7 @@
 	작성일 : 2023-04-08
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+		 pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page session="false" %>
@@ -42,6 +42,7 @@
 <!-- 메인 -->
 <div class="container">
 	<div>
+		<br><h1>일정 안내</h1><br>
 	<!-- 게시물 목록 -->
 		<table class="table table-hover">
 			<tr>

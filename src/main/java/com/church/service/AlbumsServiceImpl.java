@@ -56,5 +56,10 @@ public class AlbumsServiceImpl implements AlbumsService {
 	public void updateView(String ano) {
 		albumsMapper.updateView(ano);
 	}
-	
+
+	@Override
+	public int count() {
+		return albumsMapper.count();
+	}
+
 }

@@ -58,6 +58,9 @@ public class PraiseController {
     public String view(@RequestParam int pno, SearchCondition sc, Model model, RedirectAttributes attr){
         try {
             Praise praise = praiseService.praiseView(pno);
+            if(pno!=praise.getPno()){
+                throw new Exception();
+            }
             model.addAttribute("praise", praise);
             model.addAttribute("mode", "view");
         } catch (Exception e) {

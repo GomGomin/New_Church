@@ -17,7 +17,18 @@ height: 300px;
 background-image: url("/resources/img/church6.jpg");
 background-size: auto;
 background-repeat: no-repeat;
-background-position: 30% 30%;
+background-position: 30% 49%;
+animation: fadein 3s;
+}
+
+@keyframes fadein {
+/* 효과를 동작시간 동안 0 ~ 1까지 */
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
 </style>

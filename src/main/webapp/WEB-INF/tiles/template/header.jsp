@@ -38,47 +38,48 @@
 
 
 <style>
-        function w3_open() {
-            if (mySidebar.style.display == 'block') {
-                mySidebar.style.display = 'none';
-                alert("gd");
-            } else {
-                mySidebar.style.display = 'block';
-            }
-        }
 
-        // Close the sidebar with the close button
-        function w3_close() {
-            mySidebar.style.display = "none";
-        }
+/*         function w3_open() { */
+/*             if (mySidebar.style.display == 'block') { */
+/*                 mySidebar.style.display = 'none'; */
+/*                 alert("gd"); */
+/*             } else { */
+/*                 mySidebar.style.display = 'block'; */
+/*             } */
+/*         } */
+
+/*         // Close the sidebar with the close button */
+/*         function w3_close() { */
+/*             mySidebar.style.display = "none"; */
+/*         } */
 
 #STATICMENU { margin: 0pt; padding: 0pt; position: absolute; z-index: 1; right: 0px; top: 0px;}
 
 
 .dropdown {
-  overflow: hidden;
+ overflow: hidden;
 }
 
 
 .dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  border-radius: 10px;
+ display: none;
+ position: absolute;
+ background-color: #f9f9f9;
+ min-width: 160px;
+ box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+ border-radius: 10px;
 
 }
 
 .dropdown-content a {
-  float: none;
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
-  border-radius: inherit;
-
+float: none;
+color: black;
+padding: 12px 16px;
+text-decoration: none;
+display: block;
+text-align: left;
+border-radius: inherit;
+ 
 }
 
 .dropdown-content a:hover {
@@ -86,16 +87,47 @@
 }
 
 .dropdown:hover .dropdown-content {
-  display: block;
+ display: block;
 }
 
 #dropdown:hover .dropdown-content {
-  display: block;
+ display: block;
 }
 
 .w3-top button{
 border: none;
 background-color: inherit;
+}
+
+@media screen and (max-width: 640px){
+
+.w3-right{
+height: inherit; !important;
+vertical-align: middle; !important;
+font-size: 10px;
+}
+
+#myNavbar{
+height: inherit; !important;
+}
+
+
+.w3-left{
+vertical-align: middle !important;
+}
+
+.w3-left i{
+font-size: 25px !important;
+}
+
+@media screen and (max-width: 640px){
+
+body{
+overflow: auto;
+}
+
+}
+
 }
 
 </style>
@@ -136,8 +168,10 @@ function w3_close() {
             <div class="dropdown w3-bar-item w3-button">
                 <button>예배와 말씀</button>
                 <div class="dropdown-content">
+                    <a href="/weekly/list">주보 목록</a>
                     <a href="/worship/list">예배 목록</a>
                     <a href="/praise/list">찬양 목록</a>
+
                 </div>
             </div>
             <div class="dropdown w3-bar-item w3-button">
@@ -174,6 +208,12 @@ function w3_close() {
 	               <a href="/pickup/list"><button>픽업 리스트</button></a>
 	            </div>
            </sec:authorize>
+
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+	            <div class="w3-bar-item w3-button">
+	               <a href="/admin/main"><button>관리자 메뉴</button></a>
+	            </div>
+           </sec:authorize>
         </div>
 
         <div class="w3-left" style="height: auto;">
@@ -185,12 +225,26 @@ function w3_close() {
         <nav class="w3-sidebar w3-bar-block w3-white w3-card w3-animate-left" style="display:none" id="mySidebar">
             <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">닫기
                 &times;</a>
-            <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">교회 소개</a>
-            <a href="#team" onclick="w3_close()" class="w3-bar-item w3-button">예배와 말씀</a>
-            <a href="#work" onclick="w3_close()" class="w3-bar-item w3-button">게시판</a>
-            <a href="#pricing" onclick="w3_close()" class="w3-bar-item w3-button">공지사항</a>
-            <a href="#pricing" onclick="w3_close()" class="w3-bar-item w3-button"
-               sec:authorize="hasAnyAuthority('ROLE_ADMIN')">픽업</a>
+            <a href="/" onclick="w3_close()" class="w3-bar-item w3-button">홈페이지</a>  	
+            <a href="/vision" onclick="w3_close()" class="w3-bar-item w3-button">교회 소개</a>
+            <a href="/worship/list" onclick="w3_close()" class="w3-bar-item w3-button">예배와 말씀</a>
+            <a href="/boards/list" onclick="w3_close()" class="w3-bar-item w3-button">게시판</a>
+            <a href="/notice/list" onclick="w3_close()" class="w3-bar-item w3-button">공지사항</a>
+            
+            <sec:authorize access="hasRole('ROLE_USER')">
+			   <c:set var="username" value="${SecurityContextHolder.getContext().getAuthentication().getName()}" />
+			   <spring:eval expression="@pickUpController.hasPickupHistory(username)" var="hasPickup" />
+	    	   <c:if test="${!hasPickup}">
+		           <a href="/pickup/add" onclick="w3_close()" class="w3-bar-item w3-button">픽업 신청</a>
+	           </c:if>
+			   <c:if test="${hasPickup}">
+				   <a href="/pickup/detail?pbwriter=${username}"onclick="w3_close()" class="w3-bar-item w3-button">내 픽업 보기</a>
+			   </c:if>          
+			</sec:authorize>
+			
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+            	<a href="/notice/list" onclick="w3_close()" class="w3-bar-item w3-button">픽업</a>
+            </sec:authorize>
         </nav>
 
         <!-- Right-sided navbar links -->

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.church.domain.PickBoard;
+import org.apache.ibatis.annotations.Select;
 
 
 public interface PickUpsService {
@@ -25,5 +26,7 @@ public interface PickUpsService {
 	void delete(String pbno);
 	
 	int hasPickupHistory(String pbwriter);
+
+	int count();
  
 }

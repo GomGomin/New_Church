@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.church.domain.PickBoard;
+import org.apache.ibatis.annotations.Select;
 
 public interface PickUpsMapper {
 	
@@ -25,4 +26,6 @@ public interface PickUpsMapper {
 	
 	int hasPickupHistory(String pbwriter);
 
+	@Select("SELECT count(*) FROM pickboard")
+	int count();
 }

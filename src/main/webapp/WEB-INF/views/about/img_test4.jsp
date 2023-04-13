@@ -18,8 +18,19 @@ background-image: url("/resources/img/church7.jpg");
 background-size: auto;
 background-repeat: no-repeat;
 background-position: 10% 23%;
+animation: fadein 3s;
+
 }
 
+@keyframes fadein {
+/* 효과를 동작시간 동안 0 ~ 1까지 */
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
 </style>
 <body>
 <div class="image">

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.church.mapper.WeeklyMapper">
+
+
+<insert id="insert"
+	parameterType="HashMap" useGeneratedKeys="true" keyProperty="wno">
+	<![CDATA[
+		INSERT INTO weekly
+		(wtitle, wwriter) VALUES (#{wtitle}, #{wwriter})
+	]]>
+</insert>
+
+<select id="detail" parameterType="String" resultType="com.church.domain.Weekly">
+<![CDATA[
+	SELECT * FROM weekly WHERE wno = #{wno}
+	]]>
+</select>
+
+<select id="recent" resultType="com.church.domain.Weekly">
+<![CDATA[
+SELECT * FROM weekly ORDER BY wno DESC LIMIT 1;
+	]]>
+</select>
+
+<!-- <select id="list" resultType="com.church.domain.Albums"> -->
+<!-- <![CDATA[ -->
+<!-- 	SELECT * FROM album ORDER BY ano DESC -->
+<!-- 	]]> -->
+<!-- </select> -->
+
+	<select id="list" parameterType="hashMap" resultType="com.church.domain.Weekly">
+		SELECT *
+		FROM weekly
+		<if test='searchType.equals("title")'>
+			WHERE wtitle LIKE concat('%', #{keyword}, '%')
+		</if>
+		<if test='searchType.equals("title_wwriter")'>
+			WHERE wtitle LIKE concat('%', #{keyword}, '%') OR wwriter LIKE concat('%', #{keyword}, '%')
+		</if>
+		<if test='searchType.equals("writer")'>
+			WHERE wwriter LIKE concat('%', #{keyword}, '%')
+		</if>
+		ORDER BY wno DESC, date DESC
+		LIMIT #{displayPost}, #{postNum}
+	</select> 
+	<select id="searchCount" parameterType="hashMap" resultType="int">
+		SELECT COUNT(wno)
+		FROM weekly
+		<if test='searchType.equals("title")'>
+			WHERE wtitle LIKE concat('%', #{keyword}, '%')
+		</if>
+		<if test='searchType.equals("title_wwriter")'>
+			WHERE wtitle LIKE concat('%', #{keyword}, '%') OR wwriter LIKE concat('%', #{keyword}, '%')
+		</if>
+		<if test='searchType.equals("writer")'>
+			WHERE wwriter LIKE concat('%', #{keyword}, '%')
+		</if>
+	</select>
+
+<update id="update" parameterType="HashMap">
+
+	UPDATE weekly SET wtitle=#{wtitle} WHERE wno = #{wno}
+
+</update>
+
+<delete id="delete" parameterType="String">
+
+	DELETE FROM weekly WHERE wno = #{wno}
+
+</delete>
+
+<update id="updateView" parameterType="String">
+
+<![CDATA[
+UPDATE weekly SET wview = wview + 1 WHERE wno = #{wno}
+	]]>
+	
+</update>
+
+
+</mapper>

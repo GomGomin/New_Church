@@ -44,6 +44,9 @@ public class ScheduleController {
     public String view(@RequestParam int sno, SearchCondition sc, Model model, RedirectAttributes attr){
         try {
             Schedule schedule = scheduleService.scheduleView(sno);
+            if(sno!=schedule.getSno()){
+                throw new Exception();
+            }
             model.addAttribute("schedule", schedule);
             model.addAttribute("mode", "view");
         } catch (Exception e) {
