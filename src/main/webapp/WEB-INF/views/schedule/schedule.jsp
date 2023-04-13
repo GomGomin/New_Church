@@ -15,7 +15,9 @@
 </head>
 <body>
 <%--<script src = "/resources/js/view.js"></script>--%>
-<sec:authentication property="principal" var="user"/>
+<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal" var="user"/>
+</sec:authorize>
 <script>
 	let msg = "${msg}";
 	if(msg=="registerError"){
