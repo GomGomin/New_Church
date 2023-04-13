@@ -15,10 +15,13 @@
 background-color: #2E2E2E;
 height: 100%;
 text-align: left;
-vertical-align: center;
-
+vertical-align: middle;
 }
 
+
+@media (max-width: 936px){
+
+}
 
 .blog-footer h3{
 color:white;
@@ -63,11 +66,12 @@ float: right;
 
 
 @media screen and (max-width: 640px){
-.blog-footer *{
-background-color: black;
-color: black;
+.blog-footer {
+color: #2E2E2E !important;
 }
-
+.blog-footer p{
+display: none;
+}
 }
 </style>
 </head>
