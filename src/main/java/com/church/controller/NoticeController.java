@@ -35,7 +35,7 @@ public class NoticeController {
     @Autowired
     NoticeService noticeService;
 
-    @GetMapping("setNewNotice")
+    @GetMapping("/setNewNotice")
     public String requestAddNoticeForm(@ModelAttribute("NewNotice") Notice notice) {
         return "notice/addNotice";
     }
