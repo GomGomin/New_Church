@@ -24,7 +24,7 @@
 <section class="section">
     <div class="section_box">
         <div class="contact">
-            <form id="submitForm" action="./updatePw?${_csrf.parameterName}=${_csrf.token}" method="post">
+            <form id="submitForm" class="userForm" action="./updatePw?${_csrf.parameterName}=${_csrf.token}" method="post">
                 <h3>비밀번호 변경</h3>
                 <div class="container">
                     <div class="row g-3 align-items-center">

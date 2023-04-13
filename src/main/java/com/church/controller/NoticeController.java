@@ -49,6 +49,7 @@ public class NoticeController {
         page.setCount(noticeService.searchCount(searchType, keyword));
         page.setSearchType(searchType);
         page.setKeyword(keyword);
+        int endPage = (int)Math.ceil(noticeService.searchCount(searchType, keyword)/page.getPostNum()) + 1;
 
         List<Notice> list = null;
         list = noticeService.list(page.getDisplayPost(), page.getPostNum(), searchType, keyword);
@@ -56,6 +57,7 @@ public class NoticeController {
         model.addAttribute("list", list);
         model.addAttribute("page", page);
         model.addAttribute("select", num);
+        model.addAttribute("endPage", endPage);
 
         return "notice/listNotice";
     }

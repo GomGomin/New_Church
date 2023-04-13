@@ -45,6 +45,19 @@
         <div class="col-lg-3 col-6">
             <div class="small-box bg-success">
                 <div class="inner">
+                    <h3>${countWeekly}</h3>
+                    <p>주보 수</p>
+                </div>
+                <div class="icon">
+                    <i class="fa-solid fa-newspaper"></i>
+                </div>
+                <a href="/praise/list" class="small-box-footer">목록 보기 <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-6">
+            <div class="small-box bg-success">
+                <div class="inner">
                     <h3>${countWorships}</h3>
                     <p>예배 수</p>
                 </div>

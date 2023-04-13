@@ -43,17 +43,17 @@
         <tr>
             <td>
                 <div class="row">
-                    <div class="col">
+                    <div class="col-md">
                         <button onclick="location.href='/notice/list'" class="form-control">목록</button>
                     </div>
-                    <div class="col-9">
+                    <div class="col-md-9">
                     </div>
-                    <div class="col">
+                    <div class="col-md">
                         <sec:authorize access="hasRole('ADMIN')">
                             <button onclick="location.href='/notice/edit?nno=${notice.nno }'" class="form-control">수정</button>
                         </sec:authorize>
                     </div>
-                    <div class="col">
+                    <div class="col-md">
                         <sec:authorize access="hasRole('ADMIN')">
                             <button onclick="removeNotice(${notice.nno })" class="form-control">삭제</button>
                         </sec:authorize>
