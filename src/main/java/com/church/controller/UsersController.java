@@ -113,48 +113,21 @@ public class UsersController {
 
 
 	@GetMapping("/listUsers") //유저 목록 페이지 출력
-	public String ListUsers(@RequestParam(value = "num",required = false, defaultValue = "1") int num,
-							Principal principal, HttpServletRequest request, Model model) {
-		if(principal == null){ //로그인 상태가 아니면
-			HttpSession session = request.getSession();
-			String errorMessage;
+	public String ListUsers(@RequestParam(value = "num",required = false, defaultValue = "1") int num, Model model) {
+		Paging page = new Paging();
 
-			errorMessage = "로그인 후 이용해주세요.";
+		page.setNum(num); //현재 페이지
+		page.setCount(usersService.totalCount()); //User의 총 숫자
 
-			session.setAttribute("errorMessage", errorMessage);
+		List<Users> listUsers = null;
+		listUsers = usersService.listUser(page.getDisplayPost(), page.getPostNum());
+		//DisplayPost()의 기본 값은 10 (domain의 Paging에서 수정)
 
-			return "redirect:/login";
-		}
-		else {
-			String loginUsername = principal.getName(); //로그인한 유저 ID 받아오기
-			Users loginUser = usersService.detailUser(loginUsername); //로그인한 유저의 정보 받아오기
-			String authority = loginUser.getAuthority(); //유저의 권한 받아오기
-			if (!authority.equals("ROLE_ADMIN")) { //관리자가 아니면
-				HttpSession session = request.getSession();
-				String errorMessage;
+		model.addAttribute("listUsers", listUsers);
+		model.addAttribute("page", page);
+		model.addAttribute("select", num);
 
-				errorMessage = "관리자만 이용 가능합니다.";
-
-				session.setAttribute("errorMessage", errorMessage);
-
-				return "redirect:/";
-			} else {
-				Paging page = new Paging();
-
-				page.setNum(num); //현재 페이지
-				page.setCount(usersService.totalCount()); //User의 총 숫자
-
-				List<Users> listUsers = null;
-				listUsers = usersService.listUser(page.getDisplayPost(), page.getPostNum());
-				//DisplayPost()의 기본 값은 10 (domain의 Paging에서 수정)
-
-				model.addAttribute("listUsers", listUsers);
-				model.addAttribute("page", page);
-				model.addAttribute("select", num);
-
-				return "users/listUsers";
-			}
-		}
+		return "users/listUsers";
 	}
 
 
