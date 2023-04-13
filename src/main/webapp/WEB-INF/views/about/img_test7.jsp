@@ -14,10 +14,10 @@
 .image{
 width : 100%;
 height: 300px;
-background-image: url("/resources/img/gallery-gf1f588193_1920.jpg");
+background-image: url("/resources/img/church-windows-g77cde22b8_1920.jpg");
 background-size: auto;
 background-repeat: no-repeat;
-background-position: 40% 60%;
+background-position: 50% 5%;
 animation: fadein 3s;
 }
 

@@ -43,6 +43,9 @@ public class EventController {
     public String view(@RequestParam int eno, SearchCondition sc, Model model, RedirectAttributes attr){
         try {
             Event event = eventService.eventView(eno);
+            if(eno!=event.getEno()){
+                throw new Exception();
+            }
             model.addAttribute("event", event);
             model.addAttribute("mode", "view");
         } catch (Exception e) {

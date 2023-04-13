@@ -62,6 +62,13 @@ float: right;
 }
 
 
+@media screen and (max-width: 640px){
+.blog-footer *{
+background-color: black;
+color: black;
+}
+
+}
 </style>
 </head>
 <body>

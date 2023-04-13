@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -87,6 +88,18 @@ public class BoardController {
 		try {
 			// 게시물
 			Board boardById = boardService.boardById(bno);
+			
+			if (boardById == null) {
+				HttpSession session = request.getSession();
+				String errorMessage;
+				
+				errorMessage = "존재하지 않는 게시물 입니다.<br>다시 이용해주세요.";
+				
+				session.setAttribute("errorMessage", errorMessage);
+				
+				return "redirect:/boards/list";
+			}
+			
 			model.addAttribute("board", boardById);
 			
 			// 답변
@@ -96,6 +109,8 @@ public class BoardController {
 			model.addAttribute("cnt", cnt);
 			
 			viewCountValidation(boardById, bno, username, request, response);
+			
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
