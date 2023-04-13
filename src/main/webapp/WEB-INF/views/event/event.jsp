@@ -3,7 +3,7 @@
 	작성일 : 2023-04-09
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+		 pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
@@ -77,9 +77,9 @@
 				</form>
 			</div>
 		<!-- END paging & 글작성버튼 -->
-		</div>
-	<!-- END 메인 -->
 	</div>
+	<!-- END 메인 -->
+</div>
 <script>
 	let formCheck = function() {
 		let form = document.getElementById("form");

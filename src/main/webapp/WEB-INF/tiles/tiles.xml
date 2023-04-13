@@ -9,6 +9,10 @@
         <put-attribute name="footer" value="/WEB-INF/tiles/template/footer.jsp"/>
     </definition>
 
+    <definition name="base-Template2" template="/WEB-INF/tiles/layout/baseLayout2.jsp">
+        <put-attribute name="title" value="Sample Title" />
+    </definition>
+
     <definition name="home" extends="base-Template">
         <put-attribute name="title" value="계정교회" />
         <put-attribute name="main_slide" value="/WEB-INF/views/home.jsp" />
@@ -254,12 +258,16 @@
         <put-attribute name="image" value="/WEB-INF/views/about/img_test4.jsp" />
         <put-attribute name="content" value="/WEB-INF/views/event/list.jsp" />
     </definition>
-
+    
     <definition name="admin/adminMain" extends="base-Template">
         <put-attribute name="title" value="관리자 페이지" />
         <put-attribute name="main_slide" value="" />
         <put-attribute name="image" value="/WEB-INF/views/about/img_test4.jsp" />
         <put-attribute name="content" value="/WEB-INF/views/admin/adminMain.jsp" />
+        
+    <definition name="exception/error" extends="base-Template2">
+        <put-attribute name="title" value="에러페이지" />
+        <put-attribute name="content" value="/WEB-INF/views/exception/error.jsp" />
     </definition>
 
 </tiles-definitions>
