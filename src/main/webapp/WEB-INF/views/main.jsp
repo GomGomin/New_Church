@@ -57,6 +57,14 @@ height: 150px;
     display: none;
   }
   
+  
+@media screen and (max-width: 640px){
+body{
+width: inherit !important;
+height: inherit !important;
+}
+
+}
 </style>
 
 	<script>

@@ -108,11 +108,31 @@ color: rgb(253, 200, 53);
 .weekday{
 color: rgb(253, 53, 53);
 }
+
 @font-face {
      font-family: 'S-CoreDream-3Light';
      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
      font-weight: normal;
      font-style: normal;
+}
+
+@media screen and (max-width: 640px){
+#map{
+height: 30vh;
+}
+
+.table{
+vertical-align: middle;
+}
+
+.table td{
+font-size: 1em;
+}
+
+.table h1{
+font-size: 1em;
+}
+
 }
 </style>
 </head>
@@ -132,7 +152,7 @@ color: rgb(253, 53, 53);
 		<br>
 		<h2>예배시간</h2>
 		<hr>
-		    <table>
+		    <table class="table">
 	            <thead>
 	                <tr>
 	                    <th>예배</th>

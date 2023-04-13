@@ -14,6 +14,7 @@
 .image{
 width : 100%;
 height: 300px;
+
 background-image: url("/resources/img/vw-bus-g4ce60a9a6_1920.jpg");
 background-size: auto;
 background-repeat: no-repeat;

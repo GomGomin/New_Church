@@ -16,7 +16,7 @@
 width : 100%;
 height: 600px;
 overflow: hidden;
-min-width: 780px;
+/* min-width: 780px; */
 }
 
 img{
@@ -93,7 +93,28 @@ display: inline;
 
 }
 
+@media screen and (max-width: 640px){
+/* body{ */
+/* width: inherit !important; */
+/* height: inherit !important; */
+/* } */
 
+.slider{
+height: inherit !important;
+}
+
+.bxslider img{
+width: inherit !important;
+height: 100% !important;
+}
+
+.bxslider p,h1,h2{
+display: none;
+}
+/* .slider p,h1,h2{ */
+/* display: none; */
+/* } */
+}
 
 </style>
 </head>
