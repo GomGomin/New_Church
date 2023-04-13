@@ -8,22 +8,11 @@
 
 <html>
 <head>
-<script>
-
-</script>
-<style>
-
-</style>
+    <title><tiles:insertAttribute name="title" /></title>
 </head>
 <body>
-<div class="header">
-<tiles:insertAttribute name="header" />
-</div>
-<div class="container">
-<tiles:insertAttribute name="content" />  
-</div>
-<div class="footer">
-<tiles:insertAttribute name="footer" />  
-</div>
+    <div class="container">
+        <tiles:insertAttribute name="content" />
+    </div>
 </body>
 </html>

@@ -12,6 +12,18 @@
 	<security:http use-expressions="true" entry-point-ref="customAuthenticationEntryPoint">
 		<security:intercept-url pattern="/notice/setNewNotice" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/listUsers" access="isAuthenticated() and hasRole('ADMIN')" />
+		<security:intercept-url pattern="/schedule/register" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/praise/register" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/worship/register" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/event/register" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/schedule/modify" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/praise/modify" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/worship/modify" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/event/modify" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/schedule/adminRemove" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/praise/adminRemove" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/worship/adminRemove" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/event/adminRemove" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/**" access="permitAll" />
 
 		<security:form-login login-page="/login"

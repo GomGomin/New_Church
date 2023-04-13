@@ -6,6 +6,7 @@
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
+<%@ page isErrorPage="true"%>
 <html>
 <head>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -116,7 +117,7 @@
 </head>
 <body>
     <c:choose>
-        <c:when test="${msg eq '404'}">
+        <c:when test='${msg == null}'>
             <div class="page-404">
                 <div class="outer">
                     <div class="middle">
