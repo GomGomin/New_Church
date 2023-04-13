@@ -58,13 +58,11 @@ height: 90px;
 width: 80%;
 margin: 0 auto;
 margin-bottom: 30px;
-min-width: 780px;
 flex:1;
 }
 
 .footer{
 width: 100%;
-min-width: 780px;
 margin-bottom: 0;
 height: 70px;
 }
