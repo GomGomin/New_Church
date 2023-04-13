@@ -25,60 +25,60 @@
 	}
 </script>
 <!-- 메인 -->
-<div class="container">
-	<!-- 검색 -->
-	<div class="col-lg-8 mx-auto p-4 py-md-5">
-		<header class="d-flex align-items-center pb-3 mb-5 border-bottom">
-			<h4 class="pb-3 mb-3">찬양 ${mode eq "new" ? "작성" : "보기"}</h4>
-		</header>
-		<div>
-			<form id = "form">
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-				<c:if test="${mode ne 'new'}">
-					<input type="hidden" name="pno" value="${praise.pno}">
-					<div class="pb-3 mb-3" id="view_only">
-						<span class="fs-6">${praise.pwriter}(관리자)</span>&nbsp; | &nbsp;
-						<span class="fs-6">등록일 : ${praise.date}</span> | &nbsp;
-						<span class="fs-6">추천수 : ${praise.plike}</span> | &nbsp;
-						<span class="fs-6">조회수 : ${praise.pview}</span>
-					</div>
-				</c:if>
-				<div class="col-sm-8 my-5">
-					<input type = "text" class = "form-control" name = "ptitle" id = "ptitle" placeholder="제목을 입력해 주세요." value="${praise.ptitle}" ${mode == "new" ? "" : "readonly"}>
-				</div>
-				<div class="col-sm-8 my-5 except_view" style="${mode ne 'new' ? 'display: none' : ''}">
-					<input type="text" class="form-control" name="pfile" id="pfile" placeholder="영상 링크를 입력해 주세요." value="${praise.pfile}">
-				</div>
-				<c:if test="${mode ne 'new'}">
-					<div class="col-sm-8 my-5" id="screen">
-						<iframe width="550" height="315" src="${praise.pfile}" allowfullscreen></iframe>
-					</div>
-					<div>
-						<button type="button" id="recommend" class="btn btn-primary mx-3">추천하기</button>
-					</div>
-				</c:if>
-				<br>
-				<div class="col-sm-8">
-					<textarea id="pcontents" name = "pcontents" rows="10" cols="10" class="form-control" placeholder="본문 또는 내용을 입력해 주세요." ${mode == "new" ? "" : "readonly"}>${praise.pcontents}</textarea>
-				</div>
-				<div class="row my-5">
-					<div class="col">
-						<button type="button" id="listBtn" class="btn btn-secondary">목록</button>
-						<sec:authentication property="principal" var="user"/>
-						<sec:authorize access="hasRole('ADMIN')">
-							<c:if test="${mode eq 'new'}">
-								<input type="hidden" value="${user.username}" name="pwriter">
-								<button type="button" id="writeBtn" class="btn btn-secondary mx-3">등록</button>
-							</c:if>
-							<c:if test="${mode ne 'new'}">
-								<button type="button" id="modifyBtn" class="btn btn-secondary">수정</button>
-								<button type="button" id="removeBtn" class="btn btn-secondary"> 삭제</button>
-							</c:if>
-						</sec:authorize>
-					</div>
-				</div>
-			</form>
-		</div>
+	<div class="container">
+		<!-- 검색 -->
+		<div class="col-lg-8 mx-auto p-4 py-md-5">
+			<header class="d-flex align-items-center pb-3 mb-5 border-bottom">
+				<h4 class="pb-3 mb-3">찬양 ${mode eq "new" ? "작성" : "보기"}</h4>
+			</header>
+			<div>
+				<form id = "form">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+					<c:if test="${mode ne 'new'}">
+						<input type="hidden" name="pno" value="${praise.pno}">
+						<div class="pb-3 mb-3" id="view_only">
+							<span class="fs-6">${praise.pwriter}(관리자)</span>&nbsp; | &nbsp;
+							<span class="fs-6">등록일 : ${praise.date}</span> | &nbsp;
+							<span class="fs-6">추천수 : ${praise.plike}</span> | &nbsp;
+							<span class="fs-6">조회수 : ${praise.pview}</span>
+						</div>
+					</c:if>
+						<div class="col-sm-8 my-5">
+							<input type = "text" class = "form-control" name = "ptitle" id = "ptitle" placeholder="제목을 입력해 주세요." value="${praise.ptitle}" ${mode == "new" ? "" : "readonly"}>
+						</div>
+						<div class="col-sm-8 my-5 except_view" style="${mode ne 'new' ? 'display: none' : ''}">
+							<input type="text" class="form-control" name="pfile" id="pfile" placeholder="영상 링크를 입력해 주세요." value="${praise.pfile}">
+						</div>
+					<c:if test="${mode ne 'new'}">
+							<div class="col-sm-8 my-5" id="screen">
+								<iframe width="550" height="315" src="${praise.pfile}" allowfullscreen></iframe>
+							</div>
+							<div>
+								<button type="button" id="recommend" class="btn btn-primary mx-3">추천하기</button>
+							</div>
+					</c:if>
+						<br>
+						<div class="col-sm-8">
+							<textarea id="pcontents" name = "pcontents" rows="10" cols="10" class="form-control" placeholder="본문 또는 내용을 입력해 주세요." ${mode == "new" ? "" : "readonly"}>${praise.pcontents}</textarea>
+						</div>
+						<div class="row my-5">
+							<div class="col">
+								<button type="button" id="listBtn" class="btn btn-secondary">목록</button>
+								<sec:authentication property="principal" var="user"/>
+								<sec:authorize access="hasRole('ADMIN')">
+									<c:if test="${mode eq 'new'}">
+										<input type="hidden" value="${user.username}" name="pwriter">
+										<button type="button" id="writeBtn" class="btn btn-secondary mx-3">등록</button>
+									</c:if>
+									<c:if test="${mode ne 'new'}">
+										<button type="button" id="modifyBtn" class="btn btn-secondary">수정</button>
+										<button type="button" id="removeBtn" class="btn btn-secondary"> 삭제</button>
+									</c:if>
+								</sec:authorize>
+							</div>
+						</div>
+				</form>
+			</div>
 		<!-- END paging & 글작성버튼 -->
 	</div>
 	<!-- END 메인 -->

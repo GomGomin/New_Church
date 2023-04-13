@@ -1,5 +1,10 @@
+/* 작업자 : 김남훈 */
+/* 작업내용 : 헤더 스타일 */
+/* 최근 수정 내역 : 헤더 스타일 변경 */
+
 @charset "UTF-8";
-body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+/* body, h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif} */
+body, h1,h2,h3,h4,h5,h6 {font-family: 'Noto Sans KR', sans-serif}
 
 body, html {
   height: 100%;
@@ -21,12 +26,88 @@ body, html {
 @font-face {
     font-family: 'TheJamsil5Bold';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
-    font-weight: 700;
+    font-weight: 300;
     font-style: normal;
 }
 
 .w3-top{
-font-family:'TheJamsil5Bold';
-font-size:18px;
+    font-family:'TheJamsil5Bold';
+    font-size:18px;
+    font-style: normal;
+    position: relative;
+    z-index: 1;
+    vertical-align: middle !important;
+/* position: fixed */
 }
 
+.w3-card {
+    overflow :visible!important;
+}
+
+.dropdown {
+    overflow: visible!important;
+}
+
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    z-index: 999 !important;
+}
+
+.dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    border-radius: inherit;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+#dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.w3-top button{
+    border: none;
+    background-color: inherit;
+}
+
+.w3-top a{
+    margin: 0 auto;
+}
+
+.w3-right a{
+    height: 100%;
+    font-size: 18px;
+}
+
+.logo {
+    background: url("/resources/img/logo.png") no-repeat 50% 50%;
+    background-size: contain;
+    height: 100%;
+    width: 250px!important;
+}
+
+.logo:hover {
+    background-color: inherit !important;
+}
+
+@media screen and (max-width: 1150px) {
+    .logo {
+        display: none !important;
+    }
+}

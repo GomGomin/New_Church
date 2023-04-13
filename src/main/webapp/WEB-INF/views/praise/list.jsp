@@ -42,6 +42,7 @@
 <div class="container">
 	<!-- 게시물 목록 -->
 	<div>
+		<br><h1>찬양 목록</h1><br>
 		<table class="table table-hover">
 			<tr>
 				<th>번호</th>

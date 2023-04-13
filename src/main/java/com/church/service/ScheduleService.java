@@ -1,3 +1,4 @@
+
 /*
     작성자 : 박지원
     작성일 : 2023-04-05
@@ -22,6 +23,7 @@ public interface ScheduleService {
     boolean scheduleViewCnt(int sno) throws Exception; ; //조회수 카운트 + 1
     List<Schedule> scheduleSearchPage(SearchCondition sc) throws Exception;
     int scheduleSearchCount(SearchCondition sc) throws Exception;
+
 
 
 

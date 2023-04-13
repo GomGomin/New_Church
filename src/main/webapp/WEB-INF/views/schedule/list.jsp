@@ -42,7 +42,8 @@
 <!-- 메인 -->
 <div class="container">
 	<div>
-		<!-- 게시물 목록 -->
+		<br><h1>일정 안내</h1><br>
+	<!-- 게시물 목록 -->
 		<table class="table table-hover">
 			<tr>
 				<th>번호</th>

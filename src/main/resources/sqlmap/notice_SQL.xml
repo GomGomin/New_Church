@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.church.mapper.NoticeMapper">
+    <select id="list" parameterType="hashMap" resultType="com.church.domain.Notice">
+        SELECT *
+        FROM notice
+        <if test='searchType.equals("title")'>
+            WHERE ntitle LIKE concat('%', #{keyword}, '%')
+        </if>
+        <if test='searchType.equals("content")'>
+            WHERE ncontents LIKE concat('%', #{keyword}, '%')
+        </if>
+        <if test='searchType.equals("title_content")'>
+            WHERE ntitle LIKE concat('%', #{keyword}, '%') OR ncontents LIKE concat('%', #{keyword}, '%')
+        </if>
+        <if test='searchType.equals("writer")'>
+            WHERE nwriter LIKE concat('%', #{keyword}, '%')
+        </if>
+        ORDER BY nno DESC, date DESC
+        LIMIT #{displayPost}, #{postNum}
+    </select>
+    <select id="searchCount" parameterType="hashMap" resultType="int">
+        SELECT COUNT(nno)
+        FROM notice
+        <if test='searchType.equals("title")'>
+            WHERE ntitle LIKE concat('%', #{keyword}, '%')
+        </if>
+        <if test='searchType.equals("content")'>
+            WHERE ncontents LIKE concat('%', #{keyword}, '%')
+        </if>
+        <if test='searchType.equals("title_content")'>
+            WHERE ntitle LIKE concat('%', #{keyword}, '%') OR ncontents LIKE concat('%', #{keyword}, '%')
+        </if>
+        <if test='searchType.equals("writer")'>
+            WHERE nwriter LIKE concat('%', #{keyword}, '%')
+        </if>
+    </select>
+</mapper>
