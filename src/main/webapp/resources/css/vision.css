@@ -11,6 +11,10 @@
     font-style: normal;
 }
 
+.welcome{
+	margin-top: 30px;
+}
+
 .welcome p{
 color: #808080;
 font-family : "TAEBAEKmilkyway";
