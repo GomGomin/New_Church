@@ -15,6 +15,7 @@
 </head>
 <body>
 <%--<script src = "/resources/js/view.js"></script>--%>
+<sec:authentication property="principal" var="user"/>
 <script>
 	let msg = "${msg}";
 	if(msg=="registerError"){
@@ -51,17 +52,16 @@
 						<div class="row my-5">
 							<div class="col">
 								<button type="button" id="listBtn" class="btn btn-secondary">목록</button>
-								<%--<sec:authentication property="principal" var="user"/>--%>
-								<%--<sec:authorize access="hasRole('ADMIN')">--%>
+								<sec:authorize access="hasRole('ADMIN')">
 									<c:if test="${mode eq 'new'}">
-										<%--<input type="hidden" value="${user.username}" name="swriter">--%>
+										<input type="hidden" value="${user.username}" name="swriter">
 										<button type="button" id="writeBtn" class="btn btn-secondary mx-3">등록</button>
 									</c:if>
 									<c:if test="${mode ne 'new'}">
 										<button type="button" id="modifyBtn" class="btn btn-secondary">수정</button>
 										<button type="button" id="removeBtn" class="btn btn-secondary"> 삭제</button>
 									</c:if>
-								<%--</sec:authorize>--%>
+								</sec:authorize>
 							</div>
 						</div>
 				</form>
@@ -83,11 +83,11 @@
 						</div>
 					</div>
 					<br>
-					<input type="test" style="display: none" id = "hidden" readonly>
+					<input type="text" style="display: none" id = "hidden" readonly>
 					<div id="reply_list"></div>
 					<!-- END 댓글 등록 -->
+					</div>
 				</c:if>
-				</div>
 			</div>
 		<!-- END paging & 글작성버튼 -->
 		</div>
@@ -102,16 +102,18 @@
             data: { sno: '${schedule.sno}' },
             success: function (result) {
                 for (var i = 0; i < result.length; i++) {
-                    var newReply = '<div class="reply">';
+                    var newReply = '<div class="reply">'
                     newReply += '<p class="reply-content">' + result[i].rcontents + '</p>'
                     newReply += '<div data-rno=' + result[i].rno + ' data-sno=' + result[i].sno + ' data-rwriter=' + result[i].rwriter + '>'
                     newReply += '<span class="reply-writer">' + "작성자 : " + result[i].rwriter + '</span>'
                     newReply += '<span class="reply-date">' + "&nbsp;&nbsp;&nbsp;" + result[i].date + result[i].rupdate + '</span>'
-                    newReply += '<button class="mx-3 btn-sm float-right replyModifyBtn">수정</button>'
-                    newReply += '<button class="mx-3 btn-sm float-right replyRemoveBtn">삭제</button>'
-					newReply += '<textarea style="display: none" name="rcontents" id="modify_contents" class="form-control" cols="12" rows="1" placeholder="새로운 댓글을 입력해주세요."></textarea>'
-                    newReply += '</div></div><br><br><br>'
-                    $('#reply_list').append(newReply);
+                   if(result[i].rwriter == '${user.username}') {
+					   newReply += '<button class="mx-3 btn-sm float-right replyModifyBtn">수정</button>'
+					   newReply += '<button class="mx-3 btn-sm float-right replyRemoveBtn">삭제</button>'
+					   newReply += '<textarea style="display: none" name="rcontents" class="form-control modify_contents" cols="12" rows="1" placeholder="새로운 댓글을 입력해주세요."></textarea>';
+				   }
+					newReply += '</div></div><br><br><br>';
+					$('#reply_list').append(newReply);
                 }
             }
         })
@@ -126,7 +128,7 @@
                 return false;
             }
             let register = {
-                rwriter : 'aaaa',
+                rwriter : '${user.username}',
                 sno : '${schedule.sno}',
                 rcontents : $("#rcontents").val()
             };
@@ -148,26 +150,29 @@
             });
         });
 		$("#reply_list").on('click', '.replyModifyBtn', function() 	{
+			let myReply = $(this).parent().find('.modify_contents')
 			const isReadOnlyReply = $("#hidden").attr('readonly');
 			if(isReadOnlyReply=='readonly'){
 				$("#hidden").attr('readonly', false);
 				$("#replyAddBtn").hide()
-				$("#modify_contents").show();
+				myReply.show();
 				$("#rcontents").hide();
 				$(".replyRemoveBtn").hide();
-				$(".replyModifyBtn").html("수정완료");
+				$(".replyModifyBtn").hide();
+				$(this).parent().find('.replyModifyBtn').html("수정완료");
+				$(this).parent().find('.replyModifyBtn').show();
 				return;
 			}
-			if($("#modify_contents").val()=="") {
+			if($(this).parent().find('.modify_contents').val()=="") {
 				alert("댓글을 입력해 주세요.");
-				$("#modify_contents").focus();
+				myReply.focus();
 				return false;
 			}
 			let rno = $(this).parent().attr("data-rno");
 			let modify = {
-				rwriter : 'aaaa',
+				rwriter : '${user.username}',
 				rno : rno,
-				rcontents : $("#modify_contents").val()
+				rcontents : myReply.val()
 			};
 			$.ajax({
 				type:'PATCH',
@@ -212,9 +217,6 @@
 		});
 
 	});
-
-
-
 	/*댓글 ajax END*/
 
 	let formCheck = function() {

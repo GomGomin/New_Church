@@ -37,6 +37,7 @@ display: inline;
 .info{
 width: 80%;
 margin: 0 auto;
+padding: 10px 0;
 }
 
 .logo{
@@ -50,7 +51,6 @@ margin: 0 auto;
 }
 
 .footer_content{
-margin :10px;
 display: inline;
 text-align: right;
 float: right;

@@ -110,7 +110,7 @@
 	</div>
 
 
-	<button type="button" class="w3-aqua w3-large" onclick="sample6_execDaumPostcode()" style="margin-left: 10px;">우편번호 찾기</button>
+	<button type="button" class="btn w3-green text-light" onclick="sample6_execDaumPostcode()" style="margin-left: 10px;"><i class="fa fa-search w3-margin-right"></i>우편번호 검색</button>
 	 		<div style="width: 33%; padding-top: 10px;">
 	<input style="width: 100%;" class="form-control" id="sample6_address" readonly="readonly" placeholder="주소" type="text" />
 	</div>
