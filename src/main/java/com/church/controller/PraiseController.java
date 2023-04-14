@@ -78,8 +78,7 @@ public class PraiseController {
     @PostMapping("/register")
     public String register(Praise praise, RedirectAttributes attr, Model model){
         try {
-            String embedUrl = praise.getPfile().replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/");
-            praise.setPfile(embedUrl);
+           embedUrl(praise);
             if(praiseService.praiseRegister(praise)){
                 attr.addFlashAttribute("msg", "registerOk");
                 return "redirect:/praise/list";
@@ -95,11 +94,19 @@ public class PraiseController {
             return "praise/praise";
         }
     }
+    private void embedUrl(Praise praise) {
+        String embedUrl;
+        if( praise.getPfile().contains("watch")){
+            embedUrl = praise.getPfile().replace("watch?v=", "embed/");
+        }else{
+            embedUrl = praise.getPfile().replace("youtu.be", "www.youtube.com/embed");
+        }g
+        praise.setPfile(embedUrl);
+    }
     @PostMapping("/modify")
     public String update(SearchCondition sc, Praise praise, Model model, RedirectAttributes attr){
         try {
-            String embedUrl = praise.getPfile().replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/");
-            praise.setPfile(embedUrl);
+            embedUrl(praise);
             if(praiseService.praiseModify(praise)){
                 attr.addFlashAttribute("msg", "modifyOk");
                 return "redirect:/praise/list" + sc.getQueryString();
