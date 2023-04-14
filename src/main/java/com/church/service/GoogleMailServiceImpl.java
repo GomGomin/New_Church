@@ -25,12 +25,7 @@ public class GoogleMailServiceImpl implements MailService {
 			messageHelper.setFrom("yoonkeunsoo@gmail.com","계정 교회");
 			messageHelper.setSubject(subject);
 			messageHelper.setTo(to);
-			messageHelper.setText("text/html",body);//템플릿에 들어가는 이미지 cid로 삽입
-
-			messageHelper.addInline("image1", new ClassPathResource("mailImg/image-1.jpeg"));
-			messageHelper.addInline("image2", new ClassPathResource("mailImg/image-2.jpeg"));
-			messageHelper.addInline("image3", new ClassPathResource("mailImg/image-3.jpeg"));
-			messageHelper.addInline("image4", new ClassPathResource("mailImg/image-4.png"));
+			messageHelper.setText("text/html",body);
 
 			mailSender.send(message);
 		} catch(Exception e) {
