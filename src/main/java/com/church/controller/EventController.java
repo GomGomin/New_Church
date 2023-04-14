@@ -43,6 +43,9 @@ public class EventController {
     public String view(@RequestParam int eno, SearchCondition sc, Model model, RedirectAttributes attr){
         try {
             Event event = eventService.eventView(eno);
+            if(eno!=event.getEno()){
+                throw new Exception();
+            }
             model.addAttribute("event", event);
             model.addAttribute("mode", "view");
         } catch (Exception e) {
@@ -60,10 +63,7 @@ public class EventController {
     @PostMapping("/register")
     public String register(Event event, RedirectAttributes attr, Model model){
         try {
-            String embedUrl = event.getEfile().replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/");
-            event.setEfile(embedUrl);
-            String thumbnail = embedUrl.replace("https://www.youtube.com/embed/","https://img.youtube.com/vi/");
-            event.setEimg(thumbnail + "/0.jpg");
+            embedUrl(event);
             if(eventService.eventRegister(event)){
                 attr.addFlashAttribute("msg", "registerOk");
                 return "redirect:/event/list";
@@ -79,13 +79,23 @@ public class EventController {
             return "event/event";
         }
     }
+
+    private void embedUrl(Event event) {
+        String embedUrl;
+        if(event.getEfile().contains("watch")){
+            embedUrl = event.getEfile().replace("watch?v=", "embed/");
+        }else{
+            embedUrl = event.getEfile().replace("youtu.be", "www.youtube.com/embed");
+        }
+        event.setEfile(embedUrl);
+        String thumbnail = embedUrl.replace("https://www.youtube.com/embed/","https://img.youtube.com/vi/");
+        event.setEimg(thumbnail + "/0.jpg");
+    }
+
     @PostMapping("/modify")
     public String update(SearchCondition sc, Event event, Model model, RedirectAttributes attr){
         try {
-            String embedUrl = event.getEfile().replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/");
-            event.setEfile(embedUrl);
-            String thumbnail = embedUrl.replace("https://www.youtube.com/embed/","https://img.youtube.com/vi/");
-            event.setEimg(thumbnail + "/0.jpg");
+            embedUrl(event);
             if(eventService.eventModify(event)){
                 attr.addFlashAttribute("msg", "modifyOk");
                 return "redirect:/event/list" + sc.getQueryString();

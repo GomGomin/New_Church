@@ -6,6 +6,7 @@
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
+<%@ page isErrorPage="true"%>
 <html>
 <head>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -115,41 +116,41 @@
     </style>
 </head>
 <body>
-    <c:choose>
-        <c:when test="${msg eq '404'}">
-            <div class="page-404">
-                <div class="outer">
-                    <div class="middle">
-                        <div class="inner">
-                            <!--BEGIN CONTENT-->
-                            <div class="inner-circle"><i class="fa fa-home"></i><span>404</span></div>
-                            <span class="inner-status">페이지를 찾을 수 없습니다!</span>
-                            <span class="inner-detail">
+<c:choose>
+    <c:when test='${msg == null}'>
+        <div class="page-404">
+            <div class="outer">
+                <div class="middle">
+                    <div class="inner">
+                        <!--BEGIN CONTENT-->
+                        <div class="inner-circle"><i class="fa fa-home"></i><span>404</span></div>
+                        <span class="inner-status">페이지를 찾을 수 없습니다!</span>
+                        <span class="inner-detail">
                                 잘못된 경로이거나 사라진 페이지입니다.
                                 <a href="/" class="btn btn-info mtl"><i class="fa fa-home"></i>&nbsp;
                                     홈으로
                                 </a>
                              </span>
-                        </div>
                     </div>
                 </div>
             </div>
-        </c:when>
-        <c:otherwise>
-            <div class="page-404">
-                <div class="outer">
-                    <div class="middle">
-                        <div class="inner">
-                            <!--BEGIN CONTENT-->
-                            <div class="inner-circle"><i class="fa fa-cogs"></i><span>500</span></div>
-                            <span class="inner-status">죄송합니다! 서버에 문제가 있습니다.</span>
-                            <span class="inner-detail">관리자에게 문의해주세요.</span>
-                            <!--END CONTENT-->
-                        </div>
+        </div>
+    </c:when>
+    <c:otherwise>
+        <div class="page-404">
+            <div class="outer">
+                <div class="middle">
+                    <div class="inner">
+                        <!--BEGIN CONTENT-->
+                        <div class="inner-circle"><i class="fa fa-cogs"></i><span>500</span></div>
+                        <span class="inner-status">죄송합니다! 서버에 문제가 있습니다.</span>
+                        <span class="inner-detail">관리자에게 문의해주세요.</span>
+                        <!--END CONTENT-->
                     </div>
                 </div>
             </div>
-        </c:otherwise>
-    </c:choose>
+        </div>
+    </c:otherwise>
+</c:choose>
 </body>
 </html>

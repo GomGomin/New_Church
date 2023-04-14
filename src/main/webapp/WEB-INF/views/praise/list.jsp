@@ -11,6 +11,7 @@
 <head>
 	<title>Home</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style>
 		a { text-decoration: none; color: black; }
 		a:visited { text-decoration: none; }
@@ -42,13 +43,14 @@
 <div class="container">
 	<!-- 게시물 목록 -->
 	<div>
+		<br><h1>찬양 목록</h1><br>
 		<table class="table table-hover">
 			<tr>
-				<th>번호</th>
-				<th>찬양제목</th>
-				<th>작성일</th>
-				<th>추천수</th>
-				<th>조회수</th>
+				<th class="col-md">번호</th>
+				<th class="col-md-5">찬양제목</th>
+				<th class="col-md-4">작성일</th>
+				<th class="col-md">추천수</th>
+				<th class="col-md">조회수</th>
 			</tr>
 			<c:forEach items="${praiseList }" var="list">
 				<tr>
@@ -68,7 +70,7 @@
 			<a href="/praise/list${sph.sc.getQueryString(sph.beginPage-1)}"class = "fs-3 text-dark">&lt;</a>
 		</c:if>
 		<c:forEach var="i" begin="${sph.beginPage}" end="${sph.endPage}">
-			<a style="font-size: 28px" href="/praise/list${sph.sc.getQueryString(i)}" class = ${i eq sph.sc.page ? "text-primary"  : "text-dark" }>${i}&nbsp;</a>
+			<a style="font-size: 20px" href="/praise/list${sph.sc.getQueryString(i)}" class = ${i eq sph.sc.page ? "text-primary"  : "text-dark" }>${i}&nbsp;</a>
 		</c:forEach>
 		<c:if test="${sph.showNext}">
 			<a href="/praise/list${sph.sc.getQueryString(sph.endPage+1)}" class = "fs-3 text-dark">&gt;</a>
@@ -78,22 +80,22 @@
 	<!-- 검색 -->
 	<form action="/praise/list">
 		<div class="row g-3">
-			<div class="col-2">
+			<div class="col-md-2">
 				<select name="option" class="form-select">
 					<option value="all" ${sph.sc.option eq "all" || sph.sc.option eq '' ? "selected" : ""}>제목+내용</option>
 					<option value="title" ${sph.sc.option eq "title" ? "selected" : ""}>제목</option>
 				</select>
 			</div>
-			<div class="col-3">
+			<div class="col-md-3">
 				<input type="text" class="form-control" placeholder="검색어를 입력해주세요." value="${sph.sc.keyword}" id="keyword" name="keyword">
 			</div>
-			<div class="col">
+			<div class="col-md">
 				<input type="submit" class="form-control" value="검색">
 			</div>
 			<!-- END 검색 -->
 			<!-- 글작성버튼 -->
-			<div class="col-5"></div>
-			<div class="col">
+			<div class="col-md-5"></div>
+			<div class="col-md">
 				<sec:authorize access="hasRole('ADMIN')">
 					<input type="submit" formaction="/praise/register" class="form-control" value="작성">
 				</sec:authorize>

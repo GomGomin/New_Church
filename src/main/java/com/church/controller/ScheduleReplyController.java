@@ -35,7 +35,7 @@ public class ScheduleReplyController {
             if(cnt!=1){
                 throw new Exception("Delete Failed");
             }
-                return new ResponseEntity<>("deleteOk",HttpStatus.OK);
+            return new ResponseEntity<>("deleteOk",HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();

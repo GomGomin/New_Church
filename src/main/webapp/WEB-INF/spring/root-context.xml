@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
-    xmlns:context="http://www.springframework.org/schema/context"
-    xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd
     http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
@@ -12,9 +12,9 @@
 	<!-- mysql 연결 설정 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/church?serverTimezone=UTC" />
-		<property name="username" value="church" />
-		<property name="password" value="1234" />
+		<property name="url" value="jdbc:mysql://localhost:3306/gyejeong?serverTimezone=UTC" />
+		<property name="username" value="gyejeong" />
+		<property name="password" value="gyejeong0505" />
 	</bean>
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -24,5 +24,6 @@
 
 	<mybatis-spring:scan base-package="com.church.mapper"/>
 	<context:component-scan base-package="com.church.service"/>
-	
+	<context:component-scan base-package="com.church.Exception"/>
+
 </beans>
