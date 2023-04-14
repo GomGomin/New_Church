@@ -195,7 +195,7 @@
         }
     </script>
 </head>
-<body onload="InitializeStaticMenu()">
+<body>
 
 <!-- Navbar (sit on top) -->
 <div class="w3-top">

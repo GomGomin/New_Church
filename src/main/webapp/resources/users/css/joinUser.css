@@ -154,5 +154,6 @@ img{
     }
     .right{
         width: 100%!important;
+        font-size: 0.7rem;
     }
 }

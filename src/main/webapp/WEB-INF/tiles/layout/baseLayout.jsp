@@ -87,13 +87,25 @@
          flex-direction: column;
          height: 100%;
       }
+      .image{
+         display: block;
+      }
 
       @media screen and (max-width: 640px){
 
          body{
-            overflow: auto;
+            overflow: scroll !important;
+            width: 100%;
+            height: 100vh !important;
+         }
+         .slide{
+            display: block;
          }
 
+         .wrapper{
+            overflow-y: auto;
+            overflow-x: auto;
+         }
          /* .slide{ */
          /* display: none; */
          /* } */
