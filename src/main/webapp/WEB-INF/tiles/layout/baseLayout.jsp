@@ -9,21 +9,8 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
-<script>
-$(window).scroll(function(){
-	if ($(this).scrollTop() > 150){
-		$('.btn_gotop').show();
-	} else{
-		$('.btn_gotop').hide();
-	}
-});
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 
-$('.btn_gotop').click(function(){
-	$('html, body').animate({scrollTop:0},400);
-	return false;
-});
-</script>
 <style>
 
 *{
@@ -141,11 +128,38 @@ display: black;
 <!-- 	푸터 END -->
 </div>
 
-<a href="#" class="btn_gotop" id="click">
-  <span class="glyphicon glyphicon-chevron-up">
-  &#9650;
-  </span>
-</a>
+<!-- <a href="#" class="btn_gotop" id="insert_btn"> -->
+<!--   <span class="glyphicon glyphicon-chevron-up"> -->
+<!--   &#9650; -->
+<!--   </span> -->
+<!-- </a> -->
 
+<input type="button" class="btn_gotop" value="삽입" id = "insert_btn">
+
+<script>
+$(window).scroll(function(){
+	if ($(this).scrollTop() > 10){
+		console.log("gd");
+		$('.btn_gotop').show();
+	} else{
+		$('.btn_gotop').hide();
+		console.log($(this).scrollTop());
+	}
+});
+
+$('.btn_gotop').click(function(){
+	$('html, body').animate({scrollTop:0},400);
+	return false;
+});
+
+$("#insert_btn").click(function(){
+    if(confirm("정말 등록하시겠습니까 ?") == true){
+        alert("등록되었습니다");
+    }
+    else{
+        return ;
+    }
+});
+</script>
 </body>
 </html>
