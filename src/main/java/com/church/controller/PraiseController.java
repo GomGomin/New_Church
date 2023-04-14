@@ -100,7 +100,7 @@ public class PraiseController {
             embedUrl = praise.getPfile().replace("watch?v=", "embed/");
         }else{
             embedUrl = praise.getPfile().replace("youtu.be", "www.youtube.com/embed");
-        }g
+        }
         praise.setPfile(embedUrl);
     }
     @PostMapping("/modify")
