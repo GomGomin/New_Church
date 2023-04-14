@@ -22,7 +22,7 @@ public class GoogleMailServiceImpl implements MailService {
 		
 		try {
 			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
-			messageHelper.setFrom("qz6789.sk@gmail.com","계정 교회");
+			messageHelper.setFrom("yoonkeunsoo@gmail.com","계정 교회");
 			messageHelper.setSubject(subject);
 			messageHelper.setTo(to);
 			messageHelper.setText("text/html",body);//템플릿에 들어가는 이미지 cid로 삽입
