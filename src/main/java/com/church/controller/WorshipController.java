@@ -63,10 +63,7 @@ public class WorshipController {
     @PostMapping("/register")
     public String register(Worship worship, RedirectAttributes attr, Model model){
         try {
-            String embedUrl = worship.getWfile().replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/");
-            worship.setWfile(embedUrl);
-            String thumbnail = embedUrl.replace("https://www.youtube.com/embed/","https://img.youtube.com/vi/");
-            worship.setWimg(thumbnail + "/0.jpg");
+            embedUrl(worship);
             if(worshipService.worshipRegister(worship)){
                 attr.addFlashAttribute("msg", "registerOk");
                 return "redirect:/worship/list";
@@ -85,10 +82,7 @@ public class WorshipController {
     @PostMapping("/modify")
     public String update(SearchCondition sc, Worship worship, Model model, RedirectAttributes attr){
         try {
-            String embedUrl = worship.getWfile().replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/");
-            worship.setWfile(embedUrl);
-            String thumbnail = embedUrl.replace("https://www.youtube.com/embed/","https://img.youtube.com/vi/");
-            worship.setWimg(thumbnail + "/0.jpg");
+            embedUrl(worship);
             if(worshipService.worshipModify(worship)){
                 attr.addFlashAttribute("msg", "modifyOk");
                 return "redirect:/worship/list" + sc.getQueryString();
@@ -103,6 +97,19 @@ public class WorshipController {
             return "worship/worship";
         }
     }
+
+    private void embedUrl(Worship worship) {
+        String embedUrl;
+        if( worship.getWfile().contains("watch")){
+            embedUrl = worship.getWfile().replace("watch?v=", "embed/");
+        }else{
+            embedUrl = worship.getWfile().replace("youtu.be", "www.youtube.com/embed");
+        }
+        worship.setWfile(embedUrl);
+        String thumbnail = embedUrl.replace("https://www.youtube.com/embed/","https://img.youtube.com/vi/");
+        worship.setWimg(thumbnail + "/0.jpg");
+    }
+
     @PostMapping("/adminRemove")
     public String removeForAdmin(@RequestParam int wno, SearchCondition sc, RedirectAttributes attr){
         try {
