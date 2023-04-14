@@ -58,13 +58,11 @@ height: 90px;
 width: 80%;
 margin: 0 auto;
 margin-bottom: 30px;
-min-width: 780px;
 flex:1;
 }
 
 .footer{
 width: 100%;
-min-width: 780px;
 margin-bottom: 0;
 height: 70px;
 }
@@ -85,20 +83,29 @@ height: 70px;
 }
 
 .wrapper{
+overflow-y: auto;
+overflow-x: auto;
 display:flex;
 flex-direction: column;
 height: 100%;
 }
 
+.image{
+display: block;
+}
+
 @media screen and (max-width: 640px){
 
 body{
-overflow: auto;
+overflow: scroll !important;
+width: 100%;
+height: 100vh !important;
 }
 
-/* .slide{ */
-/* display: none; */
-/* } */
+.slide{
+display: black;
+}
+
 
 }
 
