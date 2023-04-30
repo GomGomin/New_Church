@@ -13,5 +13,6 @@
 - **프로그램 : Eclips, HeidiSQL, Git, VsCode**
 - **라이브러리 : jQuery, 카카오API, Chat GPT API**
 
-## 🎤 시연
+## 🎤 ERD
+![계정교회ERD](https://user-images.githubusercontent.com/107527861/235359163-682a43a9-18f5-4aa6-a738-3eec6c0afb26.png)
 
