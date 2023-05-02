@@ -25,7 +25,7 @@
 <section class="find">
     <div class="find_box">
         <div class="contact">
-            <form>
+            <form class="userForm">
                 <div class="justify-content-center formHeader">
                     <a id="findIdForm" href="/findId"><h3>아이디 찾기</h3></a>
                     <a id="findPwForm" href="/findPw"><h3>비밀번호 찾기</h3></a>

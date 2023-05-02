@@ -22,7 +22,7 @@
 <section class="section">
     <div class="section_box">
         <div class="contact">
-            <form:form modelAttribute="UpdateUser" id="submitForm" action="./updateUser?${_csrf.parameterName}=${_csrf.token}" method="post">
+            <form:form modelAttribute="UpdateUser" id="submitForm" class="userForm" action="./updateUser?${_csrf.parameterName}=${_csrf.token}" method="post">
                 <h3>회원 정보 수정</h3>
                 <div class="container">
                     <div class="row g-3 align-items-center">
@@ -70,8 +70,8 @@
                         </div>
                     </div>
                     <div class="BtnGroup">
-                        <button type="button" class="submit">정보 수정</button>
-                        <a href="/detailUser" type="button" class="button">취소</a>
+                        <button type="button" class="submit only2">정보 수정</button>
+                        <a href="/detailUser" type="button" class="button only2">취소</a>
                     </div>
                 </div>
             </form:form>

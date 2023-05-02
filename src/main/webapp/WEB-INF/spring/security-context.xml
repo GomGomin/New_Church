@@ -38,6 +38,7 @@
 		<!--관리자 페이지 security 처리-->
 		<security:intercept-url pattern="/admin/main" access="hasRole('ADMIN')" />
 
+		<!--게시판 페이지 security 처리-->
 		<security:intercept-url pattern="/schedule/register" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/praise/register" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/worship/register" access="hasRole('ADMIN')" />
@@ -50,7 +51,15 @@
 		<security:intercept-url pattern="/praise/adminRemove" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/worship/adminRemove" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/event/adminRemove" access="hasRole('ADMIN')" />
-    
+		
+    		<security:intercept-url pattern="/boards/setNewBoard" access="isAuthenticated()" />
+		<security:intercept-url pattern="/boards/edit" access="isAuthenticated()" />
+		<security:intercept-url pattern="/boards/removeboard" access="isAuthenticated()" />
+		<security:intercept-url pattern="/boards/replynew" access="isAuthenticated()" />
+		<security:intercept-url pattern="/boards/editReply" access="isAuthenticated()" />
+		<security:intercept-url pattern="/boards/removereply" access="isAuthenticated()" />
+    	
+    	
 		<security:intercept-url pattern="/**" access="permitAll" />
 
 		<security:form-login login-page="/login"

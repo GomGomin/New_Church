@@ -35,11 +35,11 @@
     </div>
     <input type="hidden" name="nno" value="${notice.nno }" />
     <div class="row">
-      <div class="col-10"></div>
-      <div class="col">
+      <div class="col-md-10"></div>
+      <div class="col-md">
         <button type="submit" class="form-control" >등록</button>
       </div>
-      <div class="col">
+      <div class="col-md">
         <input type="button" onclick="location.href='/notice/detail?nno=${notice.nno}&username=${user.username}'" class="form-control" value="취소" />
       </div>
     </div>
