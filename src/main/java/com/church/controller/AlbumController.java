@@ -74,6 +74,7 @@ public class AlbumController {
 	@PostMapping(value="/answer", produces="text/plain;charset=UTF-8")
 	public String answer(@RequestParam String prompt, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String answer = ChatGPTService.chatGPT(prompt);
+		System.out.println(answer);
 		return answer;
 	}
 	
