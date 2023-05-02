@@ -369,7 +369,7 @@ public class AlbumController {
 		
 		
 		String path = request.getSession().getServletContext().getRealPath("/resources/");
-		File file = new File(path + "\\images\\" + fileName);
+		File file = new File(path + "/images/" + fileName);
 		
 		ResponseEntity<byte[]> result = null;
 		
@@ -393,7 +393,7 @@ public class AlbumController {
 		String path = request.getSession().getServletContext().getRealPath("/resources/");
 		
 		try {
-			File file = new File(path + "\\images\\" + URLDecoder.decode(fileName, "UTF-8"));
+			File file = new File(path + "/images/" + URLDecoder.decode(fileName, "UTF-8"));
 			file.delete();	//파일 삭제
 			
 			if(type.equals("image")) {//이미지 파일이면 원본 파일 삭제
@@ -416,7 +416,7 @@ public class AlbumController {
 		
 		String path = request.getSession().getServletContext().getRealPath("/resources/");
 		
-		String upPath = path + "\\images";
+		String upPath = path + "/images";
 		
 		List<AttachFile> attachList = new ArrayList<>();
 		
@@ -558,13 +558,13 @@ public class AlbumController {
 		
 		attachList.forEach(abvo -> {
 			try {
-			Path file = Paths.get(path + "\\images\\" + abvo.getUpFolder() + "\\" + abvo.getUuid() + "_" + abvo.getFileName());
+			Path file = Paths.get(path + "/images/" + abvo.getUpFolder() + "/" + abvo.getUuid() + "_" + abvo.getFileName());
 			
 				Files.deleteIfExists(file); //파일이 존재하면 삭제
 //				Files.exists(path)
 			
 			if (Files.probeContentType(file).startsWith("image")) { //이미지 파일의 경우
-				Path thumbnail = Paths.get(path + "\\images\\" + abvo.getUpFolder() + "\\s_" + abvo.getUuid() + "_" + abvo.getFileName());
+				Path thumbnail = Paths.get(path + "/images/" + abvo.getUpFolder() + "/s_" + abvo.getUuid() + "_" + abvo.getFileName());
 				Files.delete(thumbnail); //썸네일 삭제
 			}
 			
@@ -587,12 +587,12 @@ public class AlbumController {
 			
 		}
 
-	    try (Stream<Path> files = Files.walk(Paths.get(path + "\\images\\"))) {
+	    try (Stream<Path> files = Files.walk(Paths.get(path + "/images/"))) {
 	        files.filter(file -> {
 	                // DB에 존재하는 파일 리스트에 포함되어 있지 않으면 true 반환
 	                return attachList.stream()
-	                                 .noneMatch(dbFile -> Paths.get(path + "\\images\\" + dbFile.getUpFolder() + "\\" + dbFile.getUuid() + "_" + dbFile.getFileName()).equals(file)
-	                                           || Paths.get(path + "\\images\\" + dbFile.getUpFolder() + "\\s_" + dbFile.getUuid() + "_" + dbFile.getFileName()).equals(file));
+	                                 .noneMatch(dbFile -> Paths.get(path + "/images/" + dbFile.getUpFolder() + "/" + dbFile.getUuid() + "_" + dbFile.getFileName()).equals(file)
+	                                           || Paths.get(path + "/images/" + dbFile.getUpFolder() + "/s_" + dbFile.getUuid() + "_" + dbFile.getFileName()).equals(file));
 	            })
 	            .forEach(file -> {
 	                try {

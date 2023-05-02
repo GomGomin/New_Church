@@ -12,9 +12,9 @@
 	<!-- mysql 연결 설정 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/church?serverTimezone=UTC" />
-		<property name="username" value="church" />
-		<property name="password" value="1234" />
+		<property name="url" value="jdbc:mysql://localhost:3306/gyejeong?serverTimezone=UTC" />
+		<property name="username" value="gyejeong" />
+		<property name="password" value="gyejeong0505" />
 	</bean>
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

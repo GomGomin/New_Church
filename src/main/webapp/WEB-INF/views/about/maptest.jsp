@@ -63,7 +63,7 @@ font-size: 20px;
 font-weight: bold;
 }
 
-table{
+.timetalbe{
 	margin: 0 auto;
     border-collapse: collapse;
     width: 80%;
@@ -76,7 +76,7 @@ th, td{
     border: 1px solid rgb(235, 235, 235);
 }
 
-th{
+.timetalbe th{
     background-color: rgb(216, 216, 216);
     height: 50px;
     font-family: S-CoreDream-3Light;
@@ -84,7 +84,7 @@ th{
     font-weight: 400;
 }
 
-td{
+.timetalbe td{
     background-color: rgb(242, 249, 253);
     font-family: S-CoreDream-3Light;
     font-size: 30px;
@@ -121,15 +121,15 @@ color: rgb(253, 53, 53);
 height: 30vh;
 }
 
-.table{
-vertical-align: middle;
+.timetalbe tbody{
+vertical-align: middle !important;
 }
 
-.table td{
+.timetalbe td{
 font-size: 1em;
 }
 
-.table h1{
+.timetalbe h1{
 font-size: 1em;
 }
 
@@ -152,7 +152,7 @@ font-size: 1em;
 		<br>
 		<h2>예배시간</h2>
 		<hr>
-		    <table class="table">
+		    <table class="timetalbe">
 	            <thead>
 	                <tr>
 	                    <th>예배</th>
